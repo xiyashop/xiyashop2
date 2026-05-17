@@ -1,0 +1,950 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>XiyaShop — Spotify Premium</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      /* ── Core accent: Spotify green ── */
+      --green: #1ED760;
+      --green-dark: #14a847;
+      --green-glow: rgba(30,215,96,0.32);
+      --green-soft: rgba(30,215,96,0.10);
+
+      /* ── Pink ── */
+      --pink: #f472b6;
+      --pink-dark: #db2777;
+      --pink-soft: rgba(244,114,182,0.13);
+      --pink-glow: rgba(244,114,182,0.35);
+
+      /* ── Lavender ── */
+      --lav: #a78bfa;
+      --lav-dark: #7c3aed;
+      --lav-soft: rgba(167,139,250,0.13);
+      --lav-glow: rgba(167,139,250,0.35);
+
+      /* ── Background: blush-lavender blend ── */
+      --bg: #fdf4fb;
+      --bg2: #f5ecfb;
+      --card-bg: rgba(255,255,255,0.75);
+
+      /* ── Text ── */
+      --text: #1a0d2e;
+      --text-sub: #6b4e7d;
+      --text-light: #a889bc;
+
+      /* ── Utility ── */
+      --gold: #f5c842;
+      --gold-glow: rgba(245,200,66,0.40);
+      --red: #e0334c;
+      --radius: 20px;
+      --radius-sm: 12px;
+
+      --shadow: 0 6px 28px rgba(167,139,250,0.12), 0 2px 8px rgba(244,114,182,0.07);
+      --shadow-hover: 0 14px 44px rgba(167,139,250,0.22), 0 4px 16px rgba(244,114,182,0.13);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Outfit', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ── BACKGROUND MESH ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 65% 45% at 5% 0%,   rgba(244,114,182,0.18) 0%, transparent 55%),
+        radial-gradient(ellipse 55% 40% at 95% 0%,  rgba(167,139,250,0.18) 0%, transparent 55%),
+        radial-gradient(ellipse 50% 40% at 50% 100%, rgba(30,215,96,0.10)  0%, transparent 60%),
+        radial-gradient(ellipse 40% 30% at 20% 70%,  rgba(167,139,250,0.10) 0%, transparent 55%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .container {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 14px;
+    }
+
+    /* ════════════════════════════
+       HEADER / HERO
+    ════════════════════════════ */
+    .site-header {
+      text-align: center;
+      padding: 48px 16px 16px;
+    }
+
+    .brand-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      background: linear-gradient(135deg, var(--pink-soft), var(--lav-soft));
+      border: 1px solid rgba(167,139,250,0.35);
+      border-radius: 999px;
+      padding: 6px 18px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--lav-dark);
+      letter-spacing: 0.04em;
+      margin-bottom: 20px;
+      animation: fadeDown 0.6s ease both;
+    }
+
+    .brand-pill .dot {
+      width: 7px; height: 7px;
+      background: var(--pink);
+      border-radius: 50%;
+      box-shadow: 0 0 8px var(--pink-glow);
+      animation: pulse 2s ease infinite;
+    }
+
+    @keyframes pulse {
+      0%,100% { opacity:1; transform:scale(1); }
+      50%      { opacity:0.55; transform:scale(1.35); }
+    }
+
+    .hero-title {
+      font-size: clamp(1.95rem, 7vw, 3.4rem);
+      font-weight: 900;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      color: var(--text);
+      animation: fadeDown 0.7s 0.1s ease both;
+    }
+
+    .hero-title .accent {
+      background: linear-gradient(135deg, var(--pink) 0%, var(--lav) 50%, var(--green) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-sub {
+      margin-top: 12px;
+      font-size: clamp(0.9rem, 2.5vw, 1.1rem);
+      color: var(--text-sub);
+      font-weight: 400;
+      animation: fadeDown 0.7s 0.2s ease both;
+    }
+
+    .hero-badges {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 9px;
+      margin-top: 22px;
+      animation: fadeDown 0.7s 0.3s ease both;
+    }
+
+    .hero-badge {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      background: var(--card-bg);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(167,139,250,0.22);
+      border-radius: 999px;
+      padding: 5px 13px;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--text-sub);
+      box-shadow: 0 2px 10px rgba(167,139,250,0.09);
+    }
+
+    /* ════════════════════════════
+       SECTION TITLE
+    ════════════════════════════ */
+    .section-title {
+      text-align: center;
+      margin-bottom: 26px;
+    }
+    .section-title h2 {
+      font-size: clamp(1.25rem, 4vw, 1.85rem);
+      font-weight: 800;
+      letter-spacing: -0.01em;
+    }
+    .section-title p {
+      font-size: 0.88rem;
+      color: var(--text-sub);
+      margin-top: 5px;
+    }
+
+    /* ════════════════════════════
+       PLAN GROUP LABEL  ← UPGRADED
+    ════════════════════════════ */
+    .plan-group-label {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      margin: 32px 0 16px;
+    }
+
+    /* The pill chip */
+    .plan-group-label .chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      border-radius: 999px;
+      padding: 7px 20px;
+      font-size: 0.82rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      white-space: nowrap;
+      position: relative;
+      z-index: 1;
+    }
+
+    .plan-group-label.platinum .chip {
+      background: linear-gradient(135deg, #f5c842 0%, #f09e10 100%);
+      color: #3d2400;
+      box-shadow: 0 4px 18px rgba(245,180,60,0.45);
+    }
+
+    .plan-group-label.standard .chip {
+      background: linear-gradient(135deg, var(--green) 0%, var(--green-dark) 100%);
+      color: #fff;
+      box-shadow: 0 4px 18px var(--green-glow);
+    }
+
+    /* Decorative lines either side */
+    .plan-group-label::before,
+    .plan-group-label::after {
+      content: '';
+      flex: 1;
+      height: 1.5px;
+      border-radius: 999px;
+    }
+
+    .plan-group-label.platinum::before,
+    .plan-group-label.platinum::after {
+      background: linear-gradient(90deg, transparent, rgba(245,180,60,0.4), transparent);
+    }
+
+    .plan-group-label.standard::before,
+    .plan-group-label.standard::after {
+      background: linear-gradient(90deg, transparent, rgba(30,215,96,0.35), transparent);
+    }
+
+    /* ════════════════════════════
+       PLAN GRID — 2 cols on mobile
+    ════════════════════════════ */
+    .plans-grid {
+      display: grid;
+      /* Always 2 columns from the smallest viewport */
+      grid-template-columns: repeat(2, 1fr);
+      gap: 11px;
+    }
+
+    @media(min-width: 640px) {
+      .plans-grid { gap: 14px; }
+    }
+
+    @media(min-width: 780px) {
+      .plans-grid.platinum { grid-template-columns: repeat(3, 1fr); }
+      .plans-grid.standard {
+        grid-template-columns: repeat(2, 1fr);
+        max-width: 440px;
+        margin: 0 auto;
+      }
+    }
+
+    /* ════════════════════════════
+       PLAN CARD
+    ════════════════════════════ */
+    .plan-card {
+      position: relative;
+      background: var(--card-bg);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border: 1.5px solid rgba(167,139,250,0.18);
+      border-radius: var(--radius);
+      /* Tighter padding for 2-col mobile */
+      padding: 14px 12px 13px;
+      cursor: pointer;
+      transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+      box-shadow: var(--shadow);
+      animation: fadeUp 0.5s ease both;
+    }
+
+    @media(min-width: 560px) {
+      .plan-card { padding: 18px 16px 16px; }
+    }
+
+    @media(min-width: 780px) {
+      .plan-card { padding: 20px 18px 18px; }
+    }
+
+    .plan-card:hover {
+      transform: translateY(-4px) scale(1.015);
+      box-shadow: var(--shadow-hover);
+      border-color: rgba(167,139,250,0.5);
+    }
+
+    .plan-card.selected {
+      border-color: var(--lav);
+      box-shadow: 0 0 0 2px var(--lav), var(--shadow-hover);
+      background: rgba(255,255,255,0.92);
+    }
+
+    .plan-card.selected::after {
+      content: '✓';
+      position: absolute;
+      top: 10px; right: 10px;
+      width: 22px; height: 22px;
+      background: linear-gradient(135deg, var(--pink), var(--lav));
+      color: #fff;
+      border-radius: 50%;
+      font-size: 11px;
+      font-weight: 900;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      line-height: 22px;
+      text-align: center;
+      box-shadow: 0 0 12px var(--lav-glow);
+    }
+
+    /* ── Badge ── */
+    .plan-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      border-radius: 999px;
+      padding: 3px 9px;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      margin-bottom: 9px;
+    }
+
+    @media(min-width:560px) {
+      .plan-badge { font-size: 11px; padding: 3px 10px; margin-bottom: 11px; }
+    }
+
+    .plan-badge.best-seller {
+      background: linear-gradient(135deg, #f5c842, #f09e10);
+      color: #3d2800;
+      box-shadow: 0 0 14px var(--gold-glow);
+    }
+
+    .plan-badge.best-offer {
+      background: linear-gradient(135deg, var(--pink), var(--lav));
+      color: #fff;
+      box-shadow: 0 0 14px var(--lav-glow);
+    }
+
+    /* ── Plan icon ── */
+    .plan-icon {
+      font-size: 1.3rem;
+      display: block;
+      margin-bottom: 7px;
+      line-height: 1;
+    }
+
+    @media(min-width:560px) { .plan-icon { font-size: 1.5rem; } }
+
+    /* ── Plan name ── */
+    .plan-name {
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 3px;
+      line-height: 1.3;
+      word-break: break-word;
+    }
+
+    @media(min-width:400px) { .plan-name { font-size: 0.82rem; } }
+    @media(min-width:560px) { .plan-name { font-size: 0.92rem; } }
+    @media(min-width:780px) { .plan-name { font-size: 1rem; } }
+
+    .plan-sub {
+      font-size: 0.7rem;
+      color: var(--text-light);
+      margin-bottom: 10px;
+      line-height: 1.35;
+    }
+
+    @media(min-width:560px) { .plan-sub { font-size: 0.78rem; } }
+
+    /* ── Pricing ── */
+    .plan-pricing {
+      display: flex;
+      align-items: flex-end;
+      gap: 7px;
+      flex-wrap: wrap;
+      margin-bottom: 5px;
+    }
+
+    .plan-original {
+      font-size: 0.78rem;
+      font-weight: 500;
+      color: var(--red);
+      text-decoration: line-through;
+      opacity: 0.85;
+    }
+
+    @media(min-width:560px) { .plan-original { font-size: 0.88rem; } }
+
+    .plan-price {
+      font-size: 1.25rem;
+      font-weight: 900;
+      letter-spacing: -0.02em;
+      line-height: 1;
+      background: linear-gradient(135deg, var(--green-dark), var(--green));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      filter: drop-shadow(0 0 6px rgba(30,215,96,0.28));
+    }
+
+    @media(min-width:400px) { .plan-price { font-size: 1.35rem; } }
+    @media(min-width:560px) { .plan-price { font-size: 1.5rem; } }
+    @media(min-width:780px) { .plan-price { font-size: 1.6rem; } }
+
+    .plan-savings {
+      font-size: 0.68rem;
+      font-weight: 600;
+      color: var(--pink-dark);
+      background: var(--pink-soft);
+      border-radius: 999px;
+      padding: 2px 8px;
+      margin-top: 4px;
+      display: inline-block;
+    }
+
+    @media(min-width:560px) { .plan-savings { font-size: 0.75rem; } }
+
+    /* ════════════════════════════
+       EMAIL SECTION
+    ════════════════════════════ */
+    .email-section {
+      margin: 0;
+      animation: fadeDown 0.5s ease both;
+    }
+
+    .email-wrapper {
+      background: var(--card-bg);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border: 1.5px solid rgba(167,139,250,0.22);
+      border-radius: var(--radius);
+      padding: 20px 18px;
+      box-shadow: var(--shadow);
+    }
+
+    .email-label {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text-sub);
+      margin-bottom: 10px;
+    }
+
+    .email-input {
+      width: 100%;
+      background: rgba(255,255,255,0.65);
+      border: 1.5px solid rgba(167,139,250,0.25);
+      border-radius: var(--radius-sm);
+      padding: 13px 16px;
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.95rem;
+      color: var(--text);
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .email-input::placeholder { color: var(--text-light); }
+
+    .email-input:focus {
+      border-color: var(--lav);
+      box-shadow: 0 0 0 3px var(--lav-soft), 0 0 18px var(--lav-glow);
+    }
+
+    .email-hint {
+      font-size: 0.75rem;
+      color: var(--text-light);
+      margin-top: 8px;
+    }
+
+    /* ════════════════════════════
+       FEATURES
+    ════════════════════════════ */
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 11px;
+    }
+
+    @media(min-width:600px) { .features-grid { grid-template-columns: repeat(3, 1fr); } }
+
+    .feature-card {
+      background: var(--card-bg);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid rgba(167,139,250,0.15);
+      border-radius: var(--radius-sm);
+      padding: 15px 12px;
+      text-align: center;
+      transition: transform 0.22s, box-shadow 0.22s;
+      box-shadow: 0 3px 14px rgba(167,139,250,0.07);
+    }
+
+    .feature-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 26px rgba(167,139,250,0.16);
+    }
+
+    .feature-icon { font-size: 1.5rem; display: block; margin-bottom: 7px; }
+    .feature-name { font-size: 0.78rem; font-weight: 600; color: var(--text); line-height: 1.3; }
+
+    /* ════════════════════════════
+       BUY SECTION
+    ════════════════════════════ */
+    .buy-section { text-align: center; padding: 22px 0 8px; }
+
+    .selected-summary {
+      display: none;
+      background: linear-gradient(135deg, var(--pink-soft), var(--lav-soft));
+      border: 1px solid rgba(167,139,250,0.28);
+      border-radius: var(--radius-sm);
+      padding: 12px 18px;
+      margin-bottom: 16px;
+      font-size: 0.88rem;
+      color: var(--text-sub);
+      text-align: left;
+    }
+
+    .selected-summary.visible { display: block; }
+    .selected-summary strong { color: var(--text); }
+
+    .btn-buy {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      width: 100%;
+      max-width: 420px;
+      background: linear-gradient(135deg, #1ED760 0%, #17c455 50%, #12a847 100%);
+      color: #fff;
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.05rem;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      border: none;
+      border-radius: 999px;
+      padding: 15px 36px;
+      cursor: pointer;
+      box-shadow: 0 4px 22px var(--green-glow), 0 2px 8px rgba(0,0,0,0.10);
+      transition: transform 0.2s, box-shadow 0.2s, filter 0.2s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn-buy::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(255,255,255,0.16) 0%, transparent 55%);
+      border-radius: 999px;
+    }
+
+    .btn-buy:hover {
+      transform: translateY(-2px) scale(1.015);
+      box-shadow: 0 8px 34px rgba(30,215,96,0.48), 0 4px 12px rgba(0,0,0,0.13);
+      filter: brightness(1.06);
+    }
+
+    .btn-buy:active { transform: scale(0.98); }
+
+    .btn-buy .arrow { font-size: 1.1rem; transition: transform 0.2s; }
+    .btn-buy:hover .arrow { transform: translateX(3px); }
+
+    .buy-note {
+      margin-top: 11px;
+      font-size: 0.75rem;
+      color: var(--text-light);
+    }
+
+    /* ════════════════════════════
+       STICKY MOBILE CTA
+    ════════════════════════════ */
+    .sticky-cta {
+      display: none;
+      position: fixed;
+      bottom: 0; left: 0; right: 0;
+      z-index: 100;
+      background: rgba(253,244,251,0.92);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-top: 1px solid rgba(167,139,250,0.22);
+      padding: 11px 14px 15px;
+    }
+
+    .sticky-cta .btn-buy { max-width: 100%; font-size: 1rem; padding: 13px 24px; }
+
+    @media(max-width:639px) {
+      .sticky-cta { display: block; }
+      body { padding-bottom: 86px; }
+      .buy-section .btn-buy { display: none; }
+    }
+
+    /* ════════════════════════════
+       FOOTER
+    ════════════════════════════ */
+    .page-footer {
+      text-align: center;
+      padding: 26px 16px 18px;
+      font-size: 0.76rem;
+      color: var(--text-light);
+      border-top: 1px solid rgba(167,139,250,0.14);
+      margin-top: 20px;
+    }
+
+    .page-footer strong { color: var(--lav-dark); }
+
+    /* ════════════════════════════
+       LAYOUT HELPERS
+    ════════════════════════════ */
+    .section { padding: 28px 0; }
+
+    .divider {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(167,139,250,0.22), rgba(244,114,182,0.18), transparent);
+      margin: 4px 0;
+    }
+
+    /* ════════════════════════════
+       ANIMATIONS
+    ════════════════════════════ */
+    @keyframes fadeDown {
+      from { opacity:0; transform:translateY(-14px); }
+      to   { opacity:1; transform:translateY(0); }
+    }
+    @keyframes fadeUp {
+      from { opacity:0; transform:translateY(16px); }
+      to   { opacity:1; transform:translateY(0); }
+    }
+
+    .plans-grid .plan-card:nth-child(1) { animation-delay: 0.05s }
+    .plans-grid .plan-card:nth-child(2) { animation-delay: 0.10s }
+    .plans-grid .plan-card:nth-child(3) { animation-delay: 0.15s }
+    .plans-grid .plan-card:nth-child(4) { animation-delay: 0.20s }
+    .plans-grid .plan-card:nth-child(5) { animation-delay: 0.25s }
+
+    /* ════════════════════════════
+       TOAST
+    ════════════════════════════ */
+    .toast {
+      position: fixed;
+      bottom: 100px; left: 50%;
+      transform: translateX(-50%) translateY(16px);
+      background: #1a0d2e;
+      color: #fff;
+      font-size: 0.84rem;
+      font-weight: 500;
+      padding: 10px 22px;
+      border-radius: 999px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s, transform 0.3s;
+      z-index: 200;
+      white-space: nowrap;
+    }
+
+    .toast.show { opacity:1; transform:translateX(-50%) translateY(0); }
+
+    @media(min-width:640px) { .toast { bottom: 38px; } }
+
+    input[type="radio"] { display: none; }
+  </style>
+</head>
+<body>
+
+<!-- ─── HERO ─── -->
+<header class="site-header">
+  <div class="container">
+    <div class="brand-pill">
+      <span class="dot"></span>
+      XiyaShop — Digital Store
+    </div>
+    <h1 class="hero-title">Spotify <span class="accent">Premium ✨</span></h1>
+    <p class="hero-sub">Premium Music Streaming at Better Prices</p>
+    <div class="hero-badges">
+      <span class="hero-badge">🎵 Ad-Free Music</span>
+      <span class="hero-badge">⚡ Instant Delivery</span>
+      <span class="hero-badge">🔒 100% Secure</span>
+      <span class="hero-badge">🌟 Trusted Seller</span>
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <!-- ─── PLANS ─── -->
+  <section class="section" id="plans">
+    <div class="container">
+      <div class="section-title">
+        <h2>Choose Your Plan</h2>
+        <p>Select the plan that fits you best</p>
+      </div>
+
+      <!-- PLATINUM GROUP LABEL -->
+      <div class="plan-group-label platinum">
+        <span class="chip">🔥 Platinum Plans</span>
+      </div>
+
+      <div class="plans-grid platinum" id="plans-grid">
+
+        <div class="plan-card" data-plan="1 Month Own Mail" data-price="155" data-original="299" data-email="true" onclick="selectPlan(this)">
+          <span class="plan-icon">🎧</span>
+          <span class="plan-badge best-seller">⭐ Best Seller</span>
+          <div class="plan-name">1 Month Own Mail</div>
+          <div class="plan-pricing">
+            <span class="plan-original">₹299</span>
+            <span class="plan-price">₹155</span>
+          </div>
+          <span class="plan-savings">Saved ₹144</span>
+        </div>
+
+        <div class="plan-card" data-plan="1 Month Provided Account" data-price="89" data-original="299" data-email="false" onclick="selectPlan(this)">
+          <span class="plan-icon">🎵</span>
+          <span class="plan-badge best-offer">💎 Best Offer</span>
+          <div class="plan-name">1 Month Provided Account</div>
+          <div class="plan-sub">Renewable Every Month</div>
+          <div class="plan-pricing">
+            <span class="plan-original">₹299</span>
+            <span class="plan-price">₹89</span>
+          </div>
+          <span class="plan-savings">Saved ₹210</span>
+        </div>
+
+        <div class="plan-card" data-plan="3 Month Own Mail" data-price="549" data-original="897" data-email="true" onclick="selectPlan(this)">
+          <span class="plan-icon">🎶</span>
+          <div class="plan-name">3 Month Own Mail</div>
+          <div class="plan-pricing">
+            <span class="plan-original">₹897</span>
+            <span class="plan-price">₹549</span>
+          </div>
+          <span class="plan-savings">Saved ₹348</span>
+        </div>
+
+        <div class="plan-card" data-plan="6 Month Own Mail" data-price="899" data-original="1794" data-email="true" onclick="selectPlan(this)">
+          <span class="plan-icon">🎼</span>
+          <div class="plan-name">6 Month Own Mail</div>
+          <div class="plan-pricing">
+            <span class="plan-original">₹1,794</span>
+            <span class="plan-price">₹899</span>
+          </div>
+          <span class="plan-savings">Saved ₹895</span>
+        </div>
+
+        <div class="plan-card" data-plan="1 Year Own Mail" data-price="1599" data-original="3588" data-email="true" onclick="selectPlan(this)">
+          <span class="plan-icon">🌟</span>
+          <div class="plan-name">1 Year Own Mail</div>
+          <div class="plan-pricing">
+            <span class="plan-original">₹3,588</span>
+            <span class="plan-price">₹1,599</span>
+          </div>
+          <span class="plan-savings">Saved ₹1,989</span>
+        </div>
+
+      </div>
+
+      <!-- STANDARD GROUP LABEL -->
+      <div class="plan-group-label standard">
+        <span class="chip">🎵 Standard Plan</span>
+      </div>
+
+      <div class="plans-grid standard">
+
+        <div class="plan-card" data-plan="2 Month Redeem Code" data-price="69" data-original="" data-email="false" onclick="selectPlan(this)">
+          <span class="plan-icon">🎁</span>
+          <div class="plan-name">2 Month Redeem Code</div>
+          <div class="plan-sub">Only for New Accounts</div>
+          <div class="plan-pricing">
+            <span class="plan-price">₹69</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <div class="container"><div class="divider"></div></div>
+
+  <!-- ─── EMAIL ─── -->
+  <section class="section email-section" id="email-section" style="display:none; padding-top:18px; padding-bottom:18px;">
+    <div class="container">
+      <div class="email-wrapper">
+        <label class="email-label" for="spotify-email">
+          <span>📧</span>
+          Enter Your Spotify Email
+        </label>
+        <input
+          type="email"
+          id="spotify-email"
+          class="email-input"
+          placeholder="yourname@example.com"
+          autocomplete="email"
+          inputmode="email"
+        />
+        <p class="email-hint">⚠️ Enter the email linked to your Spotify account for activation.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="container"><div class="divider"></div></div>
+
+  <!-- ─── FEATURES ─── -->
+  <section class="section" id="features">
+    <div class="container">
+      <div class="section-title">
+        <h2>Why XiyaShop?</h2>
+        <p>Everything you need, Delivered within minutes</p>
+      </div>
+      <div class="features-grid">
+        <div class="feature-card"><span class="feature-icon">⚡</span><div class="feature-name"> Delivery in minutes</div></div>
+        <div class="feature-card"><span class="feature-icon">📧</span><div class="feature-name">Activation on Customer Email</div></div>
+        <div class="feature-card"><span class="feature-icon">🎵</span><div class="feature-name">Premium Streaming</div></div>
+        <div class="feature-card"><span class="feature-icon">🔒</span><div class="feature-name">Secure Access</div></div>
+        <div class="feature-card"><span class="feature-icon">🔄</span><div class="feature-name">Renewable Plans</div></div>
+        <div class="feature-card"><span class="feature-icon">✅</span><div class="feature-name">Trusted Digital Delivery</div></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="container"><div class="divider"></div></div>
+
+  <!-- ─── BUY ─── -->
+  <section class="section buy-section" id="buy">
+    <div class="container">
+      <div class="selected-summary" id="selected-summary"></div>
+      <button class="btn-buy" onclick="handleBuy()">
+        Subscribe Now <span class="arrow">→</span>
+      </button>
+      <p class="buy-note">🔒 Secure checkout · Instant delivery · 100% trusted</p>
+    </div>
+  </section>
+
+</main>
+
+<footer class="page-footer">
+  <div class="container">
+    <p>© 2025 <strong>XiyaShop</strong> — All rights reserved. Premium Digital Store.</p>
+    <p style="margin-top:5px;">Not affiliated with Spotify AB.</p>
+  </div>
+</footer>
+
+<!-- ─── STICKY MOBILE CTA ─── -->
+<div class="sticky-cta" id="sticky-cta">
+  <button class="btn-buy" onclick="handleBuy()">
+    Subscribe Now <span class="arrow">→</span>
+  </button>
+</div>
+
+<!-- ─── TOAST ─── -->
+<div class="toast" id="toast"></div>
+
+<script>
+  let selectedCard = null;
+
+  function selectPlan(card) {
+    if (selectedCard) selectedCard.classList.remove('selected');
+    selectedCard = card;
+    card.classList.add('selected');
+
+    const needsEmail = card.dataset.email === 'true';
+    const emailSection = document.getElementById('email-section');
+
+    emailSection.style.display = needsEmail ? 'block' : 'none';
+    if (!needsEmail) document.getElementById('spotify-email').value = '';
+
+    updateSummary(card);
+
+    if (needsEmail && window.innerWidth < 640) {
+      setTimeout(() => {
+        emailSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }, 150);
+    }
+  }
+
+  function updateSummary(card) {
+    const summary = document.getElementById('selected-summary');
+    const plan  = card.dataset.plan;
+    const price = card.dataset.price;
+    summary.innerHTML = `<strong>Selected:</strong> ${plan} — <strong style="color:var(--green-dark)">₹${price}</strong>`;
+    summary.classList.add('visible');
+  }
+
+  function showToast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 2800);
+  }
+
+  function handleBuy() {
+    if (!selectedCard) {
+      showToast('⚠️ Please select a plan first');
+      document.getElementById('plans').scrollIntoView({ behavior: 'smooth', block: 'start' });
+      return;
+    }
+
+    const plan       = selectedCard.dataset.plan;
+    const price      = selectedCard.dataset.price;
+    const needsEmail = selectedCard.dataset.email === 'true';
+    const email      = document.getElementById('spotify-email').value.trim();
+
+    if (needsEmail && !email) {
+      showToast('📧 Please enter your Spotify email');
+      document.getElementById('spotify-email').focus();
+      return;
+    }
+
+    if (needsEmail && !isValidEmail(email)) {
+      showToast('❌ Please enter a valid email address');
+      document.getElementById('spotify-email').focus();
+      return;
+    }
+
+    let message = `Hello, I want Spotify Premium Subscription\n\nPlan: ${plan}\nPrice: ₹${price}`;
+    if (needsEmail && email) message += `\n\nEmail: ${email}`;
+
+    const encoded = encodeURIComponent(message);
+    window.location.href = `https://wa.me/919387947130?text=${encoded}`;
+  }
+
+  function isValidEmail(e) {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e);
+  }
+
+  window.addEventListener('DOMContentLoaded', () => {
+    const first = document.querySelector('.plan-card');
+    if (first) selectPlan(first);
+  });
+</script>
+</body>
+</html>

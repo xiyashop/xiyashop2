@@ -1,0 +1,826 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Honor of Kings Tokens — XiyaShop</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;1,500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --pink: #f472b6;
+    --pink-light: #fce7f3;
+    --pink-mid: #fbcfe8;
+    --rose: #fb7185;
+    --lavender: #c4b5fd;
+    --lavender-light: #ede9fe;
+    --gold: #d4a843;
+    --gold-light: #fef3c7;
+    --white: #ffffff;
+    --off-white: #fdf8ff;
+    --gray-soft: #f3f0f8;
+    --text-dark: #1e1030;
+    --text-mid: #5b4b7b;
+    --text-soft: #9580b8;
+    --border: rgba(196,181,253,0.3);
+    --glass: rgba(255,255,255,0.65);
+    --shadow-pink: 0 4px 24px rgba(244,114,182,0.18);
+    --shadow-card: 0 2px 20px rgba(139,92,246,0.10);
+    --radius: 18px;
+    --radius-sm: 12px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Outfit', sans-serif;
+    background: var(--off-white);
+    color: var(--text-dark);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* ── BACKGROUND ── */
+  .bg-layer {
+    position: fixed; inset: 0; z-index: 0; pointer-events: none;
+    background:
+      radial-gradient(ellipse 70% 50% at 10% 0%, rgba(244,114,182,0.12) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 50% at 90% 5%, rgba(196,181,253,0.14) 0%, transparent 55%),
+      radial-gradient(ellipse 50% 40% at 50% 100%, rgba(251,207,232,0.15) 0%, transparent 60%),
+      linear-gradient(160deg, #fdf8ff 0%, #fce7f3 40%, #ede9fe 80%, #fdf8ff 100%);
+  }
+  .bg-orb {
+    position: fixed; border-radius: 50%; filter: blur(80px); opacity: 0.35; pointer-events: none; z-index: 0;
+  }
+  .bg-orb-1 { width: 380px; height: 380px; background: radial-gradient(#f9a8d4, #e879f9); top: -100px; left: -100px; animation: drift1 18s ease-in-out infinite; }
+  .bg-orb-2 { width: 300px; height: 300px; background: radial-gradient(#c4b5fd, #818cf8); top: 200px; right: -80px; animation: drift2 22s ease-in-out infinite; }
+  .bg-orb-3 { width: 250px; height: 250px; background: radial-gradient(#fda4af, #f9a8d4); bottom: 100px; left: 20%; animation: drift3 20s ease-in-out infinite; }
+
+  @keyframes drift1 { 0%,100%{transform:translate(0,0)} 50%{transform:translate(30px,40px)} }
+  @keyframes drift2 { 0%,100%{transform:translate(0,0)} 50%{transform:translate(-25px,35px)} }
+  @keyframes drift3 { 0%,100%{transform:translate(0,0)} 50%{transform:translate(20px,-30px)} }
+
+  /* Sparkles */
+  .sparkle { position: fixed; pointer-events: none; z-index: 0; }
+  .sparkle-dot {
+    width: 4px; height: 4px; border-radius: 50%; background: var(--gold);
+    box-shadow: 0 0 6px var(--gold);
+    animation: twinkle var(--d, 3s) ease-in-out infinite var(--delay, 0s);
+    position: absolute;
+  }
+  @keyframes twinkle { 0%,100%{opacity:0;transform:scale(0.5)} 50%{opacity:1;transform:scale(1.2)} }
+
+  /* ── MAIN WRAPPER ── */
+  .page { position: relative; z-index: 1; max-width: 480px; margin: 0 auto; padding: 0 0 160px; }
+
+  /* ── HEADER ── */
+  .header {
+    text-align: center;
+    padding: 44px 24px 32px;
+    position: relative;
+  }
+  .brand-tag {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: rgba(255,255,255,0.8); backdrop-filter: blur(12px);
+    border: 1px solid rgba(244,114,182,0.25);
+    border-radius: 100px; padding: 5px 14px;
+    font-size: 11px; font-weight: 600; letter-spacing: 0.06em;
+    color: var(--pink); text-transform: uppercase;
+    margin-bottom: 18px; box-shadow: 0 2px 12px rgba(244,114,182,0.12);
+  }
+  .header-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(26px, 7vw, 32px);
+    font-weight: 600;
+    color: var(--text-dark);
+    line-height: 1.25;
+    letter-spacing: -0.01em;
+    margin-bottom: 8px;
+  }
+  .header-title .emoji { font-family: 'Segoe UI Emoji', sans-serif; }
+  .header-subtitle {
+    font-size: 13.5px; font-weight: 400; color: var(--text-soft);
+    letter-spacing: 0.01em;
+  }
+  .header-deco {
+    display: flex; align-items: center; justify-content: center; gap: 10px;
+    margin-top: 20px;
+  }
+  .deco-line { height: 1px; width: 60px; background: linear-gradient(90deg, transparent, rgba(244,114,182,0.4)); }
+  .deco-line.r { background: linear-gradient(270deg, transparent, rgba(244,114,182,0.4)); }
+  .deco-gem { font-size: 14px; }
+
+  /* ── GAME BANNER ── */
+  .game-banner {
+    margin: 0 16px 24px;
+    border-radius: var(--radius);
+    background: linear-gradient(135deg, #1a0a2e 0%, #2d1057 40%, #4a1080 70%, #1e0a3c 100%);
+    padding: 20px;
+    position: relative; overflow: hidden;
+    box-shadow: 0 8px 32px rgba(109,40,217,0.3);
+  }
+  .game-banner::before {
+    content: ''; position: absolute; inset: 0;
+    background: radial-gradient(ellipse 80% 60% at 70% 50%, rgba(244,114,182,0.2), transparent);
+  }
+  .game-banner-inner { position: relative; z-index: 1; display: flex; align-items: center; gap: 14px; }
+  .game-icon {
+    width: 52px; height: 52px; border-radius: 14px;
+    background: linear-gradient(135deg, #f472b6, #a855f7);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 26px; flex-shrink: 0;
+    box-shadow: 0 4px 16px rgba(244,114,182,0.4);
+  }
+  .game-info { flex: 1; }
+  .game-name { font-size: 16px; font-weight: 700; color: #fff; margin-bottom: 3px; }
+  .game-badge {
+    display: inline-flex; align-items: center; gap: 4px;
+    background: rgba(244,114,182,0.25); border: 1px solid rgba(244,114,182,0.4);
+    border-radius: 100px; padding: 2px 10px;
+    font-size: 10.5px; font-weight: 600; color: #fce7f3; letter-spacing: 0.04em;
+  }
+  .game-banner-shimmer {
+    position: absolute; top: 0; right: 0; bottom: 0; width: 40%;
+    background: linear-gradient(135deg, transparent, rgba(255,255,255,0.04), transparent);
+    pointer-events: none;
+  }
+
+  /* ── SECTIONS ── */
+  .section { padding: 0 16px; margin-bottom: 28px; }
+  .section-label {
+    font-size: 11px; font-weight: 700; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--text-soft);
+    margin-bottom: 14px; display: flex; align-items: center; gap: 8px;
+  }
+  .section-label::before {
+    content: ''; width: 3px; height: 14px; border-radius: 2px;
+    background: linear-gradient(to bottom, var(--pink), var(--lavender));
+  }
+
+  /* ── INPUTS ── */
+  .input-group { display: flex; flex-direction: column; gap: 12px; }
+  .input-wrap { position: relative; }
+  .input-wrap label {
+    display: block; font-size: 11.5px; font-weight: 600;
+    color: var(--text-soft); margin-bottom: 7px; letter-spacing: 0.03em;
+  }
+  .input-field {
+    width: 100%; height: 50px;
+    background: var(--glass); backdrop-filter: blur(16px);
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 0 16px 0 44px;
+    font-family: 'Outfit', sans-serif;
+    font-size: 14px; font-weight: 500;
+    color: var(--text-dark);
+    outline: none; transition: all 0.25s ease;
+    box-shadow: 0 2px 10px rgba(196,181,253,0.08);
+  }
+  .input-field::placeholder { color: #c4b0d8; font-weight: 400; }
+  .input-field:focus {
+    border-color: rgba(244,114,182,0.6);
+    box-shadow: 0 0 0 3px rgba(244,114,182,0.10), 0 2px 14px rgba(244,114,182,0.12);
+    background: rgba(255,255,255,0.9);
+  }
+  .input-icon {
+    position: absolute; left: 14px; bottom: 14px;
+    font-size: 18px; pointer-events: none;
+  }
+
+  /* ── TOKEN GRID ── */
+  .token-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+  .token-card {
+    background: rgba(255,255,255,0.72); backdrop-filter: blur(20px);
+    border: 1.5px solid rgba(244,114,182,0.15);
+    border-radius: var(--radius);
+    padding: 16px 13px;
+    cursor: pointer; position: relative; overflow: hidden;
+    transition: all 0.22s cubic-bezier(0.34, 1.56, 0.64, 1);
+    box-shadow: var(--shadow-card);
+    -webkit-tap-highlight-color: transparent;
+  }
+  .token-card::before {
+    content: ''; position: absolute; inset: 0; border-radius: var(--radius);
+    background: linear-gradient(135deg, rgba(244,114,182,0.06), rgba(196,181,253,0.06));
+    opacity: 0; transition: opacity 0.2s;
+  }
+  .token-card:hover { transform: translateY(-3px) scale(1.02); box-shadow: 0 8px 32px rgba(244,114,182,0.2); }
+  .token-card:hover::before { opacity: 1; }
+  .token-card:active { transform: scale(0.97); }
+
+  .token-card.selected {
+    border-color: var(--pink);
+    background: rgba(252,231,243,0.85);
+    box-shadow: 0 6px 28px rgba(244,114,182,0.25), 0 0 0 1px rgba(244,114,182,0.3);
+    transform: translateY(-2px);
+  }
+  .token-card.selected::before { opacity: 1; }
+
+  .token-card.special {
+    background: linear-gradient(135deg, rgba(255,248,220,0.85), rgba(252,231,243,0.75));
+    border-color: rgba(212,168,67,0.3);
+  }
+  .token-card.special.selected {
+    border-color: var(--gold);
+    box-shadow: 0 6px 28px rgba(212,168,67,0.2), 0 0 0 1px rgba(212,168,67,0.35);
+  }
+
+  .card-shine {
+    position: absolute; top: 0; right: -30px; width: 50px; height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+    transform: skewX(-20deg); transition: right 0.4s ease; pointer-events: none; opacity: 0;
+  }
+  .token-card:hover .card-shine { opacity: 1; right: 110%; }
+
+  .token-amount {
+    font-size: 15px; font-weight: 700; color: var(--text-dark);
+    margin-bottom: 2px; display: flex; align-items: center; gap: 5px;
+  }
+  .token-flower { font-size: 14px; }
+  .token-original {
+    font-size: 11.5px; color: #c4b0d8; text-decoration: line-through;
+    font-weight: 400; margin-bottom: 3px;
+  }
+  .token-price {
+    font-size: 17px; font-weight: 800;
+    background: linear-gradient(135deg, #f472b6, #a855f7);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .token-card.special .token-price {
+    background: linear-gradient(135deg, #d4a843, #f59e0b);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .card-add-btn {
+    margin-top: 11px; width: 100%; height: 34px;
+    border: none; border-radius: 100px; cursor: pointer;
+    font-family: 'Outfit', sans-serif; font-size: 12.5px; font-weight: 700;
+    letter-spacing: 0.04em; transition: all 0.2s ease;
+    position: relative; overflow: hidden; -webkit-tap-highlight-color: transparent;
+  }
+  .card-add-btn.default-btn {
+    background: linear-gradient(135deg, rgba(244,114,182,0.15), rgba(196,181,253,0.15));
+    color: var(--pink); border: 1.5px solid rgba(244,114,182,0.3);
+  }
+  .card-add-btn.default-btn:hover {
+    background: linear-gradient(135deg, rgba(244,114,182,0.25), rgba(196,181,253,0.2));
+  }
+  .token-card.special .card-add-btn.default-btn {
+    background: linear-gradient(135deg, rgba(212,168,67,0.12), rgba(245,158,11,0.1));
+    color: var(--gold); border-color: rgba(212,168,67,0.3);
+  }
+  .card-add-btn.added-btn {
+    background: linear-gradient(135deg, #f472b6, #a855f7);
+    color: #fff; border: none;
+    box-shadow: 0 3px 12px rgba(244,114,182,0.35);
+  }
+  .token-card.special .card-add-btn.added-btn {
+    background: linear-gradient(135deg, #d4a843, #f59e0b);
+    box-shadow: 0 3px 12px rgba(212,168,67,0.3);
+  }
+  .btn-qty {
+    display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+  }
+  .qty-minus, .qty-plus {
+    width: 20px; height: 20px; border-radius: 50%;
+    background: rgba(255,255,255,0.35); border: none; cursor: pointer;
+    font-size: 16px; line-height: 1; color: #fff; font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+    transition: background 0.15s;
+  }
+  .qty-minus:hover, .qty-plus:hover { background: rgba(255,255,255,0.5); }
+
+  /* Bounce on add */
+  @keyframes bounce-add { 0%{transform:scale(1)} 40%{transform:scale(1.18)} 70%{transform:scale(0.94)} 100%{transform:scale(1)} }
+  .bounce { animation: bounce-add 0.35s cubic-bezier(0.34,1.56,0.64,1); }
+
+  /* Selected checkmark */
+  .selected-badge {
+    position: absolute; top: 8px; right: 8px;
+    width: 20px; height: 20px; border-radius: 50%;
+    background: linear-gradient(135deg, #f472b6, #a855f7);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 10px; color: #fff;
+    opacity: 0; transform: scale(0);
+    transition: all 0.2s cubic-bezier(0.34,1.56,0.64,1);
+    box-shadow: 0 2px 8px rgba(244,114,182,0.4);
+  }
+  .token-card.selected .selected-badge { opacity: 1; transform: scale(1); }
+  .token-card.special .selected-badge { background: linear-gradient(135deg, #d4a843, #f59e0b); }
+
+  /* ── SECTION DIVIDER ── */
+  .divider {
+    margin: 0 16px 28px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(196,181,253,0.35), rgba(244,114,182,0.35), rgba(196,181,253,0.35), transparent);
+  }
+
+  /* ── STICKY CART ── */
+  .cart-sticky {
+    position: fixed; bottom: 16px; left: 50%; transform: translateX(-50%);
+    width: calc(100% - 32px); max-width: 448px;
+    z-index: 100;
+    transition: all 0.35s cubic-bezier(0.34,1.2,0.64,1);
+  }
+  .cart-sticky.hidden { transform: translateX(-50%) translateY(120%); opacity: 0; pointer-events: none; }
+
+  .cart-panel {
+    background: rgba(255,255,255,0.88); backdrop-filter: blur(24px);
+    border: 1.5px solid rgba(244,114,182,0.25);
+    border-radius: 22px;
+    box-shadow: 0 8px 40px rgba(139,92,246,0.15), 0 2px 8px rgba(244,114,182,0.12);
+    overflow: hidden;
+  }
+
+  .cart-toggle {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 14px 18px; cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .cart-toggle-left { display: flex; align-items: center; gap: 10px; }
+  .cart-icon-wrap {
+    width: 36px; height: 36px; border-radius: 10px;
+    background: linear-gradient(135deg, #f472b6, #a855f7);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px; flex-shrink: 0;
+    box-shadow: 0 3px 10px rgba(244,114,182,0.35);
+  }
+  .cart-count-label { font-size: 12.5px; font-weight: 600; color: var(--text-mid); }
+  .cart-count-label span { color: var(--pink); font-weight: 800; }
+  .cart-total-preview { font-size: 17px; font-weight: 800; color: var(--text-dark); }
+
+  .cart-chevron {
+    font-size: 12px; color: var(--text-soft);
+    transition: transform 0.25s ease;
+  }
+  .cart-panel.expanded .cart-chevron { transform: rotate(180deg); }
+
+  .cart-details {
+    max-height: 0; overflow: hidden;
+    transition: max-height 0.35s cubic-bezier(0.4,0,0.2,1);
+  }
+  .cart-panel.expanded .cart-details { max-height: 320px; }
+
+  .cart-items-list {
+    padding: 0 18px 14px; overflow-y: auto; max-height: 180px;
+  }
+  .cart-item {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 8px 0; border-bottom: 1px solid rgba(196,181,253,0.15);
+    animation: slide-in 0.25s ease;
+  }
+  @keyframes slide-in { from{opacity:0;transform:translateX(-8px)} to{opacity:1;transform:translateX(0)} }
+  .cart-item:last-child { border-bottom: none; }
+  .cart-item-name { font-size: 13px; font-weight: 500; color: var(--text-mid); flex: 1; }
+  .cart-item-qty {
+    display: flex; align-items: center; gap: 8px;
+    margin: 0 12px;
+  }
+  .cart-qty-btn {
+    width: 22px; height: 22px; border-radius: 50%; border: 1.5px solid rgba(196,181,253,0.5);
+    background: rgba(255,255,255,0.6); cursor: pointer; font-size: 13px;
+    color: var(--text-soft); display: flex; align-items: center; justify-content: center;
+    transition: all 0.15s; font-weight: 700; line-height: 1;
+  }
+  .cart-qty-btn:hover { background: rgba(244,114,182,0.15); border-color: var(--pink); color: var(--pink); }
+  .cart-item-count { font-size: 13px; font-weight: 700; color: var(--text-dark); min-width: 16px; text-align: center; }
+  .cart-item-price { font-size: 13px; font-weight: 700; color: var(--pink); white-space: nowrap; }
+
+  .cart-footer {
+    padding: 12px 18px 16px;
+    border-top: 1px solid rgba(196,181,253,0.2);
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 12px;
+  }
+  .cart-total-wrap { display: flex; flex-direction: column; }
+  .cart-total-label { font-size: 10.5px; font-weight: 600; color: var(--text-soft); letter-spacing: 0.06em; text-transform: uppercase; }
+  .cart-total-amount {
+    font-size: 22px; font-weight: 800;
+    background: linear-gradient(135deg, #f472b6, #a855f7);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  }
+
+  /* ── BUY BUTTON ── */
+  .buy-btn {
+    flex: 1; height: 50px; border: none; border-radius: 14px;
+    background: linear-gradient(135deg, #f472b6 0%, #e879f9 50%, #a855f7 100%);
+    color: #fff; font-family: 'Outfit', sans-serif;
+    font-size: 15px; font-weight: 800; letter-spacing: 0.04em;
+    cursor: pointer; position: relative; overflow: hidden;
+    box-shadow: 0 4px 20px rgba(244,114,182,0.4);
+    transition: all 0.2s ease;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .buy-btn::after {
+    content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    transition: left 0.4s ease;
+  }
+  .buy-btn:hover { transform: translateY(-1px); box-shadow: 0 6px 28px rgba(244,114,182,0.5); }
+  .buy-btn:hover::after { left: 100%; }
+  .buy-btn:active { transform: scale(0.98); }
+
+  /* ── EMPTY CART MSG ── */
+  .cart-collapsed-summary {
+    padding: 0 18px 14px;
+    display: none;
+  }
+  .empty-cart-hint {
+    text-align: center; font-size: 12px; color: var(--text-soft); padding: 6px 0;
+  }
+
+  /* ── TOAST ── */
+  .toast {
+    position: fixed; top: 20px; left: 50%; transform: translateX(-50%) translateY(-80px);
+    background: rgba(30,16,48,0.9); backdrop-filter: blur(16px);
+    color: #fce7f3; font-size: 13px; font-weight: 600;
+    padding: 10px 20px; border-radius: 100px;
+    transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1);
+    z-index: 999; white-space: nowrap;
+    border: 1px solid rgba(244,114,182,0.3);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+  }
+  .toast.show { transform: translateX(-50%) translateY(0); }
+
+  /* ── FOOTER SPACER ── */
+  .bottom-space { height: 30px; }
+
+  /* ── RESPONSIVE ── */
+  @media (min-width: 480px) {
+    .page { padding: 0 0 160px; }
+  }
+
+  /* Scrollbar */
+  .cart-items-list::-webkit-scrollbar { width: 3px; }
+  .cart-items-list::-webkit-scrollbar-track { background: transparent; }
+  .cart-items-list::-webkit-scrollbar-thumb { background: rgba(244,114,182,0.3); border-radius: 3px; }
+
+  /* ── SPECIAL SECTION LABEL ── */
+  .special-label {
+    font-size: 11px; font-weight: 700; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--gold);
+    margin-bottom: 14px; display: flex; align-items: center; gap: 8px;
+  }
+  .special-label::before {
+    content: ''; width: 3px; height: 14px; border-radius: 2px;
+    background: linear-gradient(to bottom, #d4a843, #f59e0b);
+  }
+
+  /* Pulse on cart icon when item added */
+  @keyframes pulse-cart { 0%,100%{transform:scale(1)} 50%{transform:scale(1.15)} }
+  .pulse { animation: pulse-cart 0.4s ease; }
+</style>
+</head>
+<body>
+
+<!-- Background -->
+<div class="bg-layer"></div>
+<div class="bg-orb bg-orb-1"></div>
+<div class="bg-orb bg-orb-2"></div>
+<div class="bg-orb bg-orb-3"></div>
+
+<!-- Sparkle dots -->
+<div class="sparkle" id="sparkles"></div>
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+<!-- PAGE -->
+<div class="page">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="brand-tag">✦ XiyaShop · Official Store</div>
+    <h1 class="header-title">Honor of Kings Tokens <span class="emoji">✨</span></h1>
+    <p class="header-subtitle">Better Prices. Seamless Experience.</p>
+    <div class="header-deco">
+      <div class="deco-line"></div>
+      <span class="deco-gem">🌸</span>
+      <div class="deco-line r"></div>
+    </div>
+  </div>
+
+  <!-- GAME BANNER -->
+  <div class="game-banner">
+    <div class="game-banner-inner">
+      <div class="game-icon">⚔️</div>
+      <div class="game-info">
+        <div class="game-name">Honor of Kings</div>
+        <div class="game-badge">⚡ Instant Delivery &nbsp;·&nbsp; Safe &amp; Trusted</div>
+      </div>
+    </div>
+    <div class="game-banner-shimmer"></div>
+  </div>
+
+  <!-- PLAYER DETAILS -->
+  <div class="section">
+    <div class="section-label">Player Details</div>
+    <div class="input-group">
+      <div class="input-wrap">
+        <label for="player-id">Player ID</label>
+        <div style="position:relative;">
+          <span class="input-icon">🎮</span>
+          <input class="input-field" id="player-id" type="text" placeholder="Enter your Player ID" autocomplete="off">
+        </div>
+      </div>
+      <div class="input-wrap">
+        <label for="server-id">Server</label>
+        <div style="position:relative;">
+          <span class="input-icon">🌐</span>
+          <input class="input-field" id="server-id" type="text" placeholder="Enter your Server" autocomplete="off">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- TOKEN PACKS -->
+  <div class="section">
+    <div class="section-label">Token Packs</div>
+    <div class="token-grid" id="token-grid"></div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- SPECIAL CARDS -->
+  <div class="section">
+    <div class="special-label">✦ Special Cards</div>
+    <div class="token-grid" id="special-grid"></div>
+  </div>
+
+  <div class="bottom-space"></div>
+</div>
+
+<!-- STICKY CART -->
+<div class="cart-sticky hidden" id="cart-sticky">
+  <div class="cart-panel" id="cart-panel">
+    <div class="cart-toggle" id="cart-toggle">
+      <div class="cart-toggle-left">
+        <div class="cart-icon-wrap" id="cart-icon-wrap">🛒</div>
+        <div class="cart-count-label"><span id="cart-count">0</span> item(s) selected</div>
+      </div>
+      <div style="display:flex;align-items:center;gap:10px;">
+        <div class="cart-total-preview" id="cart-total-preview">₹0</div>
+        <div class="cart-chevron" id="cart-chevron">▲</div>
+      </div>
+    </div>
+    <div class="cart-details" id="cart-details">
+      <div class="cart-items-list" id="cart-items-list"></div>
+      <div class="cart-footer">
+        <div class="cart-total-wrap">
+          <div class="cart-total-label">Total</div>
+          <div class="cart-total-amount" id="cart-total-amount">₹0</div>
+        </div>
+        <button class="buy-btn" id="buy-btn">Buy Now ✦</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // ── DATA ──
+  const tokenPacks = [
+    { id: 1, amount: '16 Tokens',   flower: '🌺', original: 23,   price: 19 },
+    { id: 2, amount: '32 Tokens',   flower: '🌺', original: 59,   price: 40 },
+    { id: 3, amount: '48 Tokens',   flower: '🌺', original: 69,   price: 60 },
+    { id: 4, amount: '80 Tokens',   flower: '🌺', original: 99,   price: 89 },
+    { id: 5, amount: '112 Tokens',  flower: '🌺', original: 145,  price: 129 },
+    { id: 6, amount: '240 Tokens',  flower: '🌺', original: 299,  price: 269 },
+    { id: 7, amount: '400 Tokens',  flower: '🌺', original: 499,  price: 475 },
+    { id: 8, amount: '560 Tokens',  flower: '🌺', original: 699,  price: 659 },
+    { id: 9, amount: '640 Tokens',  flower: '🌺', original: 799,  price: 749 },
+    { id: 10, amount: '800 Tokens',  flower: '🌺', original: 979,  price: 940 },
+    { id: 11, amount: '1200 Tokens', flower: '🌺', original: 1469, price: 1399 },
+    { id: 12, amount: '2400 Tokens', flower: '🌺', original: 2949, price: 2799 },
+    { id: 13, amount: '4000 Tokens', flower: '🌺', original: 4865, price: 4699 },
+  ];
+  const specialPacks = [
+    { id: 101, amount: 'Weekly Card',      flower: '🌟', original: 159, price: 120, special: true },
+    { id: 102, amount: 'Weekly Card Plus', flower: '👑', original: 399, price: 330, special: true },
+  ];
+
+  // ── STATE ──
+  let cart = {}; // id → qty
+
+  // ── SPARKLES ──
+  const sparkleContainer = document.getElementById('sparkles');
+  for (let i = 0; i < 18; i++) {
+    const d = document.createElement('div');
+    d.className = 'sparkle-dot';
+    d.style.left = Math.random() * 100 + 'vw';
+    d.style.top = Math.random() * 100 + 'vh';
+    d.style.setProperty('--d', (2.5 + Math.random() * 3) + 's');
+    d.style.setProperty('--delay', (Math.random() * 4) + 's');
+    sparkleContainer.appendChild(d);
+  }
+
+  // ── RENDER CARDS ──
+  function renderCards(packs, containerId) {
+    const grid = document.getElementById(containerId);
+    grid.innerHTML = '';
+    packs.forEach(pack => {
+      const qty = cart[pack.id] || 0;
+      const isSelected = qty > 0;
+      const card = document.createElement('div');
+      card.className = 'token-card' + (isSelected ? ' selected' : '') + (pack.special ? ' special' : '');
+      card.dataset.id = pack.id;
+      card.innerHTML = `
+        <div class="card-shine"></div>
+        <div class="selected-badge">✓</div>
+        <div class="token-amount">${pack.amount} <span class="token-flower">${pack.flower}</span></div>
+        <div class="token-original">₹${pack.original}</div>
+        <div class="token-price">₹${pack.price}</div>
+        <button class="card-add-btn ${isSelected ? 'added-btn' : 'default-btn'}" data-id="${pack.id}">
+          ${isSelected
+            ? `<span class="btn-qty">
+                <span class="qty-minus" data-action="minus" data-id="${pack.id}">−</span>
+                <span>${qty}</span>
+                <span class="qty-plus" data-action="plus" data-id="${pack.id}">+</span>
+               </span>`
+            : '+ Add'}
+        </button>
+      `;
+      grid.appendChild(card);
+    });
+  }
+
+  function renderAll() {
+    renderCards(tokenPacks, 'token-grid');
+    renderCards(specialPacks, 'special-grid');
+  }
+
+  // ── FIND PACK ──
+  function findPack(id) {
+    return [...tokenPacks, ...specialPacks].find(p => p.id === parseInt(id));
+  }
+
+  // ── UPDATE CART ──
+  function updateCart(id, delta) {
+    id = parseInt(id);
+    const current = cart[id] || 0;
+    const next = current + delta;
+    if (next <= 0) {
+      delete cart[id];
+    } else {
+      cart[id] = next;
+    }
+    renderAll();
+    renderCartUI();
+  }
+
+  // ── CART UI ──
+  function renderCartUI() {
+    const ids = Object.keys(cart);
+    const totalQty = ids.reduce((a, id) => a + cart[id], 0);
+    const totalPrice = ids.reduce((a, id) => {
+      const pack = findPack(id);
+      return a + (pack ? pack.price * cart[id] : 0);
+    }, 0);
+
+    document.getElementById('cart-count').textContent = totalQty;
+    document.getElementById('cart-total-preview').textContent = '₹' + totalPrice.toLocaleString('en-IN');
+    document.getElementById('cart-total-amount').textContent = '₹' + totalPrice.toLocaleString('en-IN');
+
+    // Items list
+    const list = document.getElementById('cart-items-list');
+    list.innerHTML = '';
+    ids.forEach(id => {
+      const pack = findPack(id);
+      if (!pack) return;
+      const qty = cart[id];
+      const subtotal = pack.price * qty;
+      const item = document.createElement('div');
+      item.className = 'cart-item';
+      item.innerHTML = `
+        <div class="cart-item-name">${pack.amount}</div>
+        <div class="cart-item-qty">
+          <button class="cart-qty-btn" data-action="minus" data-id="${id}">−</button>
+          <span class="cart-item-count">${qty}</span>
+          <button class="cart-qty-btn" data-action="plus" data-id="${id}">+</button>
+        </div>
+        <div class="cart-item-price">₹${subtotal.toLocaleString('en-IN')}</div>
+      `;
+      list.appendChild(item);
+    });
+
+    // Show/hide cart
+    const sticky = document.getElementById('cart-sticky');
+    if (totalQty > 0) {
+      sticky.classList.remove('hidden');
+    } else {
+      sticky.classList.add('hidden');
+      document.getElementById('cart-panel').classList.remove('expanded');
+      document.getElementById('cart-details').style.maxHeight = null;
+    }
+  }
+
+  // ── EVENT DELEGATION ──
+  document.addEventListener('click', function(e) {
+    // Card add button
+    const btn = e.target.closest('.card-add-btn');
+    if (btn && btn.classList.contains('default-btn')) {
+      const id = btn.dataset.id;
+      updateCart(id, 1);
+      // Bounce card
+      const card = btn.closest('.token-card');
+      card.classList.add('bounce');
+      card.addEventListener('animationend', () => card.classList.remove('bounce'), { once: true });
+      // Pulse cart icon
+      const cartIcon = document.getElementById('cart-icon-wrap');
+      cartIcon.classList.add('pulse');
+      cartIcon.addEventListener('animationend', () => cartIcon.classList.remove('pulse'), { once: true });
+      showToast(findPack(id)?.amount + ' added! 🌸');
+      return;
+    }
+
+    // Qty minus/plus inside card button
+    const qMinus = e.target.closest('.qty-minus');
+    if (qMinus) { e.stopPropagation(); updateCart(qMinus.dataset.id, -1); return; }
+    const qPlus = e.target.closest('.qty-plus');
+    if (qPlus) { e.stopPropagation(); updateCart(qPlus.dataset.id, 1); return; }
+
+    // Cart qty buttons
+    const cBtn = e.target.closest('.cart-qty-btn');
+    if (cBtn) {
+      const action = cBtn.dataset.action;
+      updateCart(cBtn.dataset.id, action === 'plus' ? 1 : -1);
+      return;
+    }
+
+    // Cart toggle
+    const toggle = e.target.closest('#cart-toggle');
+    if (toggle) {
+      const panel = document.getElementById('cart-panel');
+      panel.classList.toggle('expanded');
+      return;
+    }
+
+    // Buy button
+    if (e.target.closest('#buy-btn')) {
+      handleBuy();
+      return;
+    }
+  });
+
+  // ── SHOW TOAST ──
+  let toastTimer;
+  function showToast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => t.classList.remove('show'), 2200);
+  }
+
+  // ── BUY HANDLER ──
+  function handleBuy() {
+    const playerId = document.getElementById('player-id').value.trim();
+    const serverId = document.getElementById('server-id').value.trim();
+
+    if (!playerId || !serverId) {
+      showToast('⚠️ Please enter Player ID & Server');
+      return;
+    }
+    if (Object.keys(cart).length === 0) {
+      showToast('⚠️ Please select at least one pack');
+      return;
+    }
+
+    const ids = Object.keys(cart);
+    const totalPrice = ids.reduce((a, id) => {
+      const pack = findPack(id);
+      return a + (pack ? pack.price * cart[id] : 0);
+    }, 0);
+
+    let orderLines = ids.map(id => {
+      const pack = findPack(id);
+      return `• ${pack.amount} x${cart[id]} = ₹${(pack.price * cart[id]).toLocaleString('en-IN')}`;
+    }).join('\n');
+
+    const message =
+`Hello, I want Honor of Kings Top-Up 🎮
+
+Order:
+${orderLines}
+
+Total: ₹${totalPrice.toLocaleString('en-IN')}
+
+Player ID: ${playerId}
+Server: ${serverId}`;
+
+    const encoded = encodeURIComponent(message);
+    const waURL = `https://wa.me/919387947130?text=${encoded}`;
+    window.open(waURL, '_blank');
+  }
+
+  // ── INIT ──
+  renderAll();
+</script>
+</body>
+</html>

@@ -1,0 +1,1185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>XiyaShop — Mobile Legends Diamonds 💎</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --pink: #f472b6;
+  --pink-light: #fce7f3;
+  --pink-soft: #fbcfe8;
+  --lavender: #a78bfa;
+  --lavender-light: #ede9fe;
+  --lavender-soft: #ddd6fe;
+  --purple: #7c3aed;
+  --white: #ffffff;
+  --bg: linear-gradient(135deg, #fff5fb 0%, #f5f0ff 50%, #fdf4ff 100%);
+  --glass: rgba(255,255,255,0.72);
+  --glass-border: rgba(167,139,250,0.25);
+  --shadow-soft: 0 4px 24px rgba(167,139,250,0.13);
+  --shadow-card: 0 2px 16px rgba(244,114,182,0.10);
+  --radius: 18px;
+  --radius-sm: 12px;
+  --radius-pill: 999px;
+  --font-main: 'Outfit', sans-serif;
+  --font-alt: 'Poppins', sans-serif;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font-main);
+  background: linear-gradient(160deg, #fff5fb 0%, #f3eeff 40%, #fdf4ff 100%);
+  min-height: 100vh;
+  color: #3d2066;
+  overflow-x: hidden;
+}
+
+/* ─── SCROLLBAR ─── */
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: #fce7f3; }
+::-webkit-scrollbar-thumb { background: linear-gradient(#f472b6,#a78bfa); border-radius: 9px; }
+
+/* ─── ANIMATED BG ORBS ─── */
+.bg-orbs {
+  position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden;
+}
+.orb {
+  position: absolute; border-radius: 50%; filter: blur(80px); opacity: 0.18;
+  animation: floatOrb 12s ease-in-out infinite;
+}
+.orb1 { width: 420px; height: 420px; background: #f472b6; top: -10%; left: -10%; animation-delay: 0s; }
+.orb2 { width: 320px; height: 320px; background: #a78bfa; top: 30%; right: -8%; animation-delay: -4s; }
+.orb3 { width: 260px; height: 260px; background: #c084fc; bottom: 10%; left: 20%; animation-delay: -8s; }
+@keyframes floatOrb {
+  0%,100% { transform: translate(0,0) scale(1); }
+  33% { transform: translate(30px,-20px) scale(1.06); }
+  66% { transform: translate(-20px,15px) scale(0.97); }
+}
+
+/* ─── NAV ─── */
+.sticky-nav {
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(255,255,255,0.82);
+  backdrop-filter: blur(18px);
+  border-bottom: 1.5px solid rgba(167,139,250,0.18);
+  padding: 10px 12px;
+  box-shadow: 0 2px 20px rgba(167,139,250,0.10);
+}
+.nav-brand {
+  text-align: center;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: var(--lavender);
+  text-transform: uppercase;
+  margin-bottom: 8px;
+  font-family: var(--font-alt);
+}
+.nav-tabs {
+  display: flex; gap: 7px; overflow-x: auto; padding-bottom: 2px;
+  scrollbar-width: none;
+  justify-content: flex-start;
+  flex-wrap: nowrap;
+  padding-left: 2px;
+}
+.nav-tabs::-webkit-scrollbar { display: none; }
+.nav-tab {
+  flex-shrink: 0;
+  padding: 7px 15px;
+  border-radius: var(--radius-pill);
+  border: 1.5px solid rgba(167,139,250,0.28);
+  background: var(--glass);
+  color: #7c3aed;
+  font-size: 11.5px;
+  font-weight: 600;
+  font-family: var(--font-main);
+  cursor: pointer;
+  transition: all 0.25s ease;
+  white-space: nowrap;
+  letter-spacing: 0.3px;
+}
+.nav-tab:hover {
+  background: linear-gradient(135deg, #fce7f3, #ede9fe);
+  border-color: var(--pink);
+  color: var(--pink);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 14px rgba(244,114,182,0.18);
+}
+.nav-tab.active {
+  background: linear-gradient(135deg, #f472b6, #a78bfa);
+  border-color: transparent;
+  color: white;
+  box-shadow: 0 4px 14px rgba(167,139,250,0.35);
+}
+
+/* ─── HERO ─── */
+.hero {
+  position: relative; z-index: 1;
+  padding: 40px 20px 32px;
+  text-align: center;
+}
+.hero-icon {
+  font-size: 52px;
+  display: block;
+  margin-bottom: 10px;
+  animation: bounce 3s ease-in-out infinite;
+}
+@keyframes bounce { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
+
+.hero h1 {
+  font-size: 26px;
+  font-weight: 800;
+  background: linear-gradient(135deg, #f472b6 0%, #a78bfa 60%, #7c3aed 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  line-height: 1.25;
+  margin-bottom: 8px;
+  font-family: var(--font-alt);
+}
+.hero p {
+  font-size: 13.5px;
+  color: #8b5cf6;
+  font-weight: 400;
+  opacity: 0.85;
+  margin-bottom: 20px;
+}
+.trust-badges {
+  display: flex; flex-wrap: wrap; gap: 8px;
+  justify-content: center;
+}
+.badge {
+  padding: 5px 13px;
+  border-radius: var(--radius-pill);
+  background: rgba(255,255,255,0.85);
+  border: 1.5px solid rgba(167,139,250,0.30);
+  font-size: 11px;
+  font-weight: 600;
+  color: #7c3aed;
+  display: flex; align-items: center; gap: 5px;
+  box-shadow: 0 2px 10px rgba(167,139,250,0.12);
+  transition: all 0.22s;
+}
+.badge:hover {
+  background: linear-gradient(135deg,#fce7f3,#ede9fe);
+  transform: translateY(-1px);
+}
+.badge-dot { width: 6px; height: 6px; border-radius: 50%; background: linear-gradient(135deg,#f472b6,#a78bfa); }
+
+/* ─── SECTION WRAPPER ─── */
+.section {
+  position: relative; z-index: 1;
+  padding: 28px 16px 24px;
+  max-width: 480px;
+  margin: 0 auto;
+}
+.section-header { margin-bottom: 18px; text-align: center; }
+.section-title {
+  font-size: 20px; font-weight: 800;
+  background: linear-gradient(135deg,#f472b6,#a78bfa);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 4px;
+  font-family: var(--font-alt);
+}
+.section-subtitle { font-size: 12.5px; color: #8b5cf6; font-weight: 400; margin-bottom: 10px; }
+.section-tags { display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; }
+.stag {
+  padding: 4px 11px;
+  border-radius: var(--radius-pill);
+  font-size: 10.5px; font-weight: 600;
+  display: flex; align-items: center; gap: 4px;
+}
+.stag-pink { background: #fce7f3; color: #db2777; border: 1px solid #fbcfe8; }
+.stag-purple { background: #ede9fe; color: #7c3aed; border: 1px solid #ddd6fe; }
+.stag-orange { background: #fff7ed; color: #c2410c; border: 1px solid #fed7aa; }
+
+/* ─── NOTICE BOX ─── */
+.notice-box {
+  background: rgba(255,255,255,0.75);
+  border: 1.5px solid rgba(167,139,250,0.22);
+  border-radius: var(--radius-sm);
+  padding: 11px 14px;
+  font-size: 11.5px;
+  color: #6d28d9;
+  line-height: 1.5;
+  margin-bottom: 16px;
+  backdrop-filter: blur(10px);
+}
+
+/* ─── ID INPUT ─── */
+.id-entry {
+  background: rgba(255,255,255,0.78);
+  border: 1.5px solid var(--glass-border);
+  border-radius: var(--radius);
+  padding: 14px;
+  margin-bottom: 12px;
+  backdrop-filter: blur(10px);
+  box-shadow: var(--shadow-soft);
+}
+.id-row { display: grid; grid-template-columns: 1fr; gap: 10px; margin-bottom: 10px; }
+.id-input-wrap { display: flex; flex-direction: column; gap: 4px; }
+.id-input-wrap label { font-size: 10.5px; font-weight: 600; color: #8b5cf6; letter-spacing: 0.5px; text-transform: uppercase; }
+.id-input {
+  padding: 9px 12px;
+  border-radius: var(--radius-sm);
+  border: 1.5px solid rgba(167,139,250,0.25);
+  background: rgba(255,255,255,0.9);
+  font-family: var(--font-main);
+  font-size: 13px;
+  color: #3d2066;
+  outline: none;
+  transition: border 0.2s, box-shadow 0.2s;
+}
+.id-input:focus { border-color: var(--pink); box-shadow: 0 0 0 3px rgba(244,114,182,0.12); }
+.add-id-btn {
+  display: flex; align-items: center; gap: 6px;
+  padding: 8px 14px;
+  border-radius: var(--radius-pill);
+  border: 1.5px dashed rgba(167,139,250,0.4);
+  background: transparent;
+  color: #a78bfa;
+  font-size: 12px; font-weight: 600;
+  cursor: pointer;
+  transition: all 0.22s;
+  font-family: var(--font-main);
+  width: 100%;
+  justify-content: center;
+}
+.add-id-btn:hover { background: #ede9fe; border-color: var(--lavender); }
+.remove-id-btn {
+  background: none; border: none; cursor: pointer;
+  color: #f472b6; font-size: 18px; line-height: 1;
+  padding: 0 4px;
+  flex-shrink: 0;
+}
+
+/* ─── GRID ─── */
+.packs-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 10px; }
+.packs-grid-3 { display: grid; grid-template-columns: repeat(2,1fr); gap: 10px; }
+
+/* ─── PACK CARD ─── */
+.pack-card {
+  background: rgba(255,255,255,0.80);
+  border: 1.5px solid rgba(167,139,250,0.20);
+  border-radius: var(--radius);
+  padding: 13px 12px 11px;
+  cursor: pointer;
+  transition: all 0.22s ease;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 2px 12px rgba(167,139,250,0.08);
+  backdrop-filter: blur(8px);
+  user-select: none;
+}
+.pack-card::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; height: 3px;
+  background: linear-gradient(90deg,#f472b6,#a78bfa);
+  opacity: 0; transition: opacity 0.22s;
+}
+.pack-card:hover {
+  transform: translateY(-3px);
+  border-color: rgba(244,114,182,0.40);
+  box-shadow: 0 8px 24px rgba(244,114,182,0.16);
+}
+.pack-card:hover::before { opacity: 1; }
+.pack-card.selected {
+  border-color: var(--pink);
+  background: linear-gradient(135deg, rgba(252,231,243,0.9), rgba(237,233,254,0.9));
+  box-shadow: 0 4px 20px rgba(244,114,182,0.22);
+}
+.pack-card.selected::before { opacity: 1; }
+
+.pack-label {
+  position: absolute; top: 8px; right: 8px;
+  padding: 2px 8px;
+  border-radius: var(--radius-pill);
+  font-size: 8.5px; font-weight: 700;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+}
+.label-bestseller { background: linear-gradient(135deg,#f472b6,#ec4899); color: white; }
+.label-popular { background: linear-gradient(135deg,#a78bfa,#7c3aed); color: white; }
+.label-bestvalue { background: linear-gradient(135deg,#34d399,#059669); color: white; }
+.label-event { background: linear-gradient(135deg,#fb923c,#ef4444); color: white; }
+
+.pack-icon { font-size: 22px; margin-bottom: 4px; display: block; }
+.pack-name { font-size: 14px; font-weight: 700; color: #3d2066; line-height: 1.2; }
+.pack-sub { font-size: 10px; color: #a78bfa; font-weight: 400; margin-top: 1px; margin-bottom: 6px; }
+.pack-price { display: flex; align-items: baseline; gap: 5px; flex-wrap: wrap; }
+.price-offer { font-size: 16px; font-weight: 800; color: #db2777; }
+.price-original { font-size: 11px; font-weight: 500; color: #9ca3af; text-decoration: line-through; }
+.price-save { font-size: 9.5px; font-weight: 600; color: #059669; background: #d1fae5; padding: 1px 6px; border-radius: 9px; }
+
+/* ─── QUANTITY ─── */
+.qty-row {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-top: 8px;
+}
+.qty-ctrl {
+  display: flex; align-items: center; gap: 6px;
+}
+.qty-btn {
+  width: 24px; height: 24px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(167,139,250,0.35);
+  background: rgba(255,255,255,0.9);
+  color: #7c3aed;
+  font-size: 14px; line-height: 1;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: all 0.18s;
+  font-weight: 700;
+}
+.qty-btn:hover { background: #ede9fe; border-color: var(--lavender); }
+.qty-num { font-size: 13px; font-weight: 700; color: #3d2066; min-width: 18px; text-align: center; }
+.buy-btn {
+  padding: 6px 13px;
+  border-radius: var(--radius-pill);
+  border: none;
+  background: linear-gradient(135deg,#f472b6,#a78bfa);
+  color: white;
+  font-size: 11px; font-weight: 700;
+  cursor: pointer;
+  font-family: var(--font-main);
+  transition: all 0.22s;
+  box-shadow: 0 3px 10px rgba(244,114,182,0.28);
+}
+.buy-btn:hover { transform: scale(1.04); box-shadow: 0 5px 16px rgba(244,114,182,0.38); }
+
+/* ─── SECTION DIVIDER ─── */
+.group-title {
+  font-size: 13px; font-weight: 700;
+  color: #7c3aed;
+  display: flex; align-items: center; gap: 8px;
+  margin: 18px 0 10px;
+}
+.group-title::before, .group-title::after {
+  content: '';
+  flex: 1; height: 1px;
+  background: linear-gradient(90deg,transparent,rgba(167,139,250,0.3),transparent);
+}
+
+/* ─── CALCULATOR BAR ─── */
+.calc-bar {
+  position: fixed; bottom: 0; left: 0; right: 0; z-index: 90;
+  background: rgba(255,255,255,0.92);
+  backdrop-filter: blur(20px);
+  border-top: 1.5px solid rgba(167,139,250,0.25);
+  padding: 10px 16px;
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 10px;
+  box-shadow: 0 -4px 24px rgba(167,139,250,0.14);
+  transform: translateY(100%);
+  transition: transform 0.3s ease;
+}
+.calc-bar.visible { transform: translateY(0); }
+.calc-info { flex: 1; }
+.calc-items { font-size: 11px; color: #8b5cf6; font-weight: 500; }
+.calc-total { font-size: 18px; font-weight: 800; color: #db2777; }
+.checkout-btn {
+  padding: 11px 22px;
+  border-radius: var(--radius-pill);
+  border: none;
+  background: linear-gradient(135deg,#f472b6,#a78bfa);
+  color: white;
+  font-size: 13px; font-weight: 700;
+  cursor: pointer;
+  font-family: var(--font-main);
+  white-space: nowrap;
+  transition: all 0.22s;
+  box-shadow: 0 4px 16px rgba(244,114,182,0.35);
+}
+.checkout-btn:hover { transform: scale(1.04); box-shadow: 0 6px 20px rgba(244,114,182,0.45); }
+
+/* ─── BULK PROMO CARD ─── */
+.bulk-promo {
+  background: linear-gradient(135deg,rgba(252,231,243,0.9),rgba(237,233,254,0.9));
+  border: 1.5px solid rgba(167,139,250,0.30);
+  border-radius: var(--radius);
+  padding: 16px;
+  text-align: center;
+  margin: 18px 0;
+  backdrop-filter: blur(10px);
+}
+.bulk-promo p { font-size: 13px; font-weight: 600; color: #6d28d9; margin-bottom: 10px; }
+.bulk-promo-btn {
+  padding: 9px 22px;
+  border-radius: var(--radius-pill);
+  border: none;
+  background: linear-gradient(135deg,#a78bfa,#7c3aed);
+  color: white;
+  font-size: 12px; font-weight: 700;
+  cursor: pointer;
+  font-family: var(--font-main);
+  transition: all 0.22s;
+  box-shadow: 0 3px 12px rgba(124,58,237,0.3);
+}
+.bulk-promo-btn:hover { transform: scale(1.04); }
+
+/* ─── IMAGE PLACEHOLDER ─── */
+.img-placeholder {
+  border: 2px dashed rgba(167,139,250,0.45);
+  border-radius: var(--radius);
+  background: rgba(237,233,254,0.4);
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 6px;
+  height: 120px;
+  color: #a78bfa;
+  font-size: 11.5px; font-weight: 600;
+  margin-bottom: 10px;
+}
+.img-placeholder span:first-child { font-size: 28px; }
+
+/* ─── WHATSAPP POPUP ─── */
+.wa-popup {
+  position: fixed; bottom: 80px; right: 14px; z-index: 200;
+  width: 270px;
+  background: rgba(255,255,255,0.93);
+  backdrop-filter: blur(18px);
+  border: 1.5px solid rgba(167,139,250,0.28);
+  border-radius: 20px;
+  padding: 16px;
+  box-shadow: 0 8px 32px rgba(167,139,250,0.22);
+  animation: fadeSlideUp 0.4s ease both;
+  display: none;
+}
+.wa-popup.show { display: block; }
+@keyframes fadeSlideUp { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
+.wa-popup-header { display: flex; align-items: center; gap: 9px; margin-bottom: 9px; }
+.wa-icon { width: 36px; height: 36px; border-radius: 50%; background: linear-gradient(135deg,#22c55e,#16a34a); display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
+.wa-popup-header strong { font-size: 13px; font-weight: 700; color: #3d2066; }
+.wa-popup p { font-size: 11.5px; color: #6d28d9; line-height: 1.5; margin-bottom: 12px; }
+.wa-btns { display: flex; gap: 7px; }
+.wa-join-btn {
+  flex: 1;
+  padding: 8px;
+  border-radius: var(--radius-pill);
+  border: none;
+  background: linear-gradient(135deg,#22c55e,#16a34a);
+  color: white;
+  font-size: 12px; font-weight: 700;
+  cursor: pointer;
+  font-family: var(--font-main);
+  text-decoration: none;
+  display: flex; align-items: center; justify-content: center;
+  transition: all 0.2s;
+}
+.wa-join-btn:hover { transform: scale(1.04); }
+.wa-close-btn {
+  padding: 8px 12px;
+  border-radius: var(--radius-pill);
+  border: 1.5px solid rgba(167,139,250,0.3);
+  background: transparent;
+  color: #a78bfa;
+  font-size: 12px; font-weight: 600;
+  cursor: pointer;
+  font-family: var(--font-main);
+  transition: all 0.2s;
+}
+.wa-close-btn:hover { background: #ede9fe; }
+
+/* ─── SECTION ANCHOR ─── */
+.s-anchor { scroll-margin-top: 80px; }
+
+/* ─── FOOTER ─── */
+.footer {
+  position: relative; z-index: 1;
+  text-align: center;
+  padding: 24px 16px 100px;
+  font-size: 11.5px;
+  color: #a78bfa;
+  font-weight: 400;
+}
+.footer strong { color: #db2777; }
+
+/* ─── DIVIDER ─── */
+.section-divider {
+  height: 1px;
+  background: linear-gradient(90deg,transparent,rgba(167,139,250,0.22),transparent);
+  margin: 0 16px;
+}
+
+/* ─── STARLIGHT IMAGE GRID ─── */
+.sl-img-grid { display: grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom: 14px; }
+.sl-img-grid img {
+  width: 100%;
+  height: 120px;
+  object-fit: contain;
+  border-radius: 12px;
+  border: 2px dashed rgba(167,139,250,0.45);
+  background: rgba(237,233,254,0.4);
+}
+
+/* ─── RESPONSIVE — TABLET (480px+) ─── */
+@media(min-width:480px){
+  .packs-grid, .packs-grid-3 { grid-template-columns: repeat(3,1fr); }
+  .hero h1 { font-size: 30px; }
+  .section { max-width: 560px; }
+}
+
+/* ─── RESPONSIVE — TABLET LARGE (768px+) ─── */
+@media(min-width:768px){
+  .sticky-nav { padding: 12px 32px; }
+  .nav-brand { font-size: 15px; margin-bottom: 10px; }
+  .nav-tabs { justify-content: center; gap: 10px; }
+  .nav-tab { padding: 8px 20px; font-size: 13px; }
+
+  .hero { padding: 52px 32px 40px; }
+  .hero h1 { font-size: 36px; }
+  .hero p { font-size: 15px; }
+  .badge { font-size: 12.5px; padding: 6px 16px; }
+
+  .section { max-width: 700px; padding: 36px 24px 28px; }
+  .section-title { font-size: 24px; }
+  .section-subtitle { font-size: 14px; }
+
+  .packs-grid, .packs-grid-3 { grid-template-columns: repeat(3,1fr); gap: 14px; }
+  .pack-card { padding: 16px 14px 13px; }
+  .pack-name { font-size: 15px; }
+  .price-offer { font-size: 18px; }
+
+  .id-input { font-size: 14px; padding: 11px 14px; }
+  .calc-bar { padding: 12px 32px; }
+  .calc-total { font-size: 22px; }
+  .checkout-btn { padding: 13px 28px; font-size: 14px; }
+
+  .wa-popup { width: 300px; bottom: 90px; right: 24px; }
+  .sl-img-grid { grid-template-columns: 1fr 1fr; gap: 14px; }
+  .img-placeholder { height: 140px; font-size: 13px; }
+}
+
+/* ─── RESPONSIVE — DESKTOP (1024px+) ─── */
+@media(min-width:1024px){
+  body { background: linear-gradient(160deg, #fff5fb 0%, #f3eeff 40%, #fdf4ff 100%); }
+
+  .sticky-nav { padding: 14px 60px; display: flex; align-items: center; justify-content: space-between; }
+  .nav-brand { margin-bottom: 0; font-size: 16px; flex-shrink: 0; }
+  .nav-tabs { flex: 1; justify-content: center; gap: 12px; }
+  .nav-tab { padding: 9px 22px; font-size: 13.5px; }
+
+  .hero { padding: 64px 40px 48px; }
+  .hero h1 { font-size: 42px; }
+  .hero p { font-size: 16px; }
+
+  .section { max-width: 860px; padding: 44px 32px 36px; }
+  .section-title { font-size: 26px; }
+  .section-subtitle { font-size: 15px; }
+  .group-title { font-size: 15px; }
+
+  .packs-grid { grid-template-columns: repeat(4,1fr); gap: 16px; }
+  .packs-grid-3 { grid-template-columns: repeat(4,1fr); gap: 16px; }
+  .pack-card { padding: 18px 16px 14px; border-radius: 20px; }
+  .pack-icon { font-size: 26px; }
+  .pack-name { font-size: 15.5px; }
+  .pack-sub { font-size: 11px; }
+  .price-offer { font-size: 19px; }
+  .price-original { font-size: 12px; }
+
+  .id-entry { padding: 18px; border-radius: 20px; }
+  .id-input { font-size: 15px; padding: 12px 16px; border-radius: 14px; }
+
+  .calc-bar { padding: 14px 60px; }
+  .calc-total { font-size: 24px; }
+  .calc-items { font-size: 13px; }
+  .checkout-btn { padding: 14px 36px; font-size: 15px; }
+
+  .bulk-promo { padding: 22px; border-radius: 22px; }
+  .bulk-promo p { font-size: 15px; }
+
+  .notice-box { font-size: 13px; padding: 14px 18px; }
+
+  .sl-img-grid { gap: 18px; }
+  .img-placeholder { height: 160px; font-size: 14px; }
+
+  .footer { font-size: 13px; padding-bottom: 120px; }
+
+  /* Wider popup on desktop */
+  .wa-popup { width: 320px; bottom: 100px; right: 32px; padding: 20px; }
+}
+
+/* ─── RESPONSIVE — WIDE DESKTOP (1280px+) ─── */
+@media(min-width:1280px){
+  .section { max-width: 980px; }
+  .packs-grid { grid-template-columns: repeat(5,1fr); }
+  .packs-grid-3 { grid-template-columns: repeat(4,1fr); }
+  .hero h1 { font-size: 48px; }
+}
+</style>
+</head>
+<body>
+
+<!-- BG ORBS -->
+<div class="bg-orbs">
+  <div class="orb orb1"></div>
+  <div class="orb orb2"></div>
+  <div class="orb orb3"></div>
+</div>
+
+<!-- ─── STICKY NAV ─── -->
+<nav class="sticky-nav">
+  <div class="nav-brand">✦ XiyaShop ✦</div>
+  <div class="nav-tabs" id="navTabs">
+    <button class="nav-tab active" data-target="sec-idserver">⚡ ID Server</button>
+    <button class="nav-tab" data-target="sec-supercombo">🌟 Super Combo</button>
+    <button class="nav-tab" data-target="sec-firsttopup">🎮 First Top-Up</button>
+    <button class="nav-tab" data-target="sec-vialogin">💎 Via Login</button>
+    <button class="nav-tab" data-target="sec-starlight">⭐ Starlight</button>
+  </div>
+</nav>
+
+<!-- ─── HERO ─── -->
+<section class="hero">
+  <span class="hero-icon">💎</span>
+  <h1>Mobile Legends Diamonds</h1>
+  <p>Fast, secure &amp; aesthetic top-up experience.</p>
+  <div class="trust-badges">
+    <div class="badge"><span class="badge-dot"></span>Trusted by 1000+ Gamers</div>
+    <div class="badge"><span class="badge-dot"></span>Trusted Since 2022</div>
+    <div class="badge"><span class="badge-dot"></span>Smooth &amp; Secure Service</div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════
+     1. ID SERVER
+════════════════════════════════ -->
+<div class="section-divider"></div>
+<section class="section s-anchor" id="sec-idserver">
+  <div class="section-header">
+    <div class="section-title">⚡ Recharge via ID Server</div>
+    <div class="section-subtitle">Fast &amp; Reliable Diamond Recharge</div>
+    <div class="section-tags">
+      <span class="stag stag-pink">⚡ Delivered Within Minutes</span>
+      <span class="stag stag-purple">✔ Multi-ID Support</span>
+    </div>
+  </div>
+
+  <!-- ID INPUTS -->
+  <div id="idEntriesContainer"></div>
+  <button class="add-id-btn" onclick="addIdEntry('idEntriesContainer')">＋ Add More ID</button>
+
+  <!-- WEEKLY PASS -->
+  <div class="group-title">🌸 Weekly Pass</div>
+  <div class="packs-grid" id="grid-weekly-id"></div>
+
+  <!-- SMALL PACKS -->
+  <div class="group-title">💎 Small Packs</div>
+  <div class="packs-grid" id="grid-small-id"></div>
+
+  <!-- MEDIUM PACKS -->
+  <div class="group-title">💎 Medium Packs</div>
+  <div class="packs-grid" id="grid-medium-id"></div>
+
+  <!-- TWILIGHT -->
+  <div class="group-title">✨ Twilight Special</div>
+  <div class="packs-grid" id="grid-twilight-id"></div>
+
+  <!-- LARGE PACKS -->
+  <div class="group-title">✨ Large Packs</div>
+  <div class="packs-grid" id="grid-large-id"></div>
+
+  <!-- BULK PROMO -->
+  <div class="bulk-promo">
+    <p>💎 Need Bigger Discounts?<br>Explore Bulk Login Deals ✨</p>
+    <button class="bulk-promo-btn" onclick="scrollTo('sec-vialogin')">View Bulk Deals</button>
+  </div>
+</section>
+
+<!-- ════════════════════════════════
+     2. SUPER COMBO
+════════════════════════════════ -->
+<div class="section-divider"></div>
+<section class="section s-anchor" id="sec-supercombo">
+  <div class="section-header">
+    <div class="section-title">🌟 Event Combo Specials</div>
+    <div class="section-subtitle">Optimized combinations for completing event recharge tasks efficiently.</div>
+    <div class="section-tags">
+      <span class="stag stag-pink">✨ Best for Event Completion</span>
+      <span class="stag stag-orange">⚡ Delivered Within Minutes</span>
+    </div>
+  </div>
+  <div class="notice-box">⏳ During major in-game events, processing times may occasionally be delayed due to high order volume. Thank you for your patience and trust.</div>
+
+  <div class="group-title">⚡ Recharge Any Amount</div>
+  <div class="packs-grid" id="grid-sc-any"></div>
+
+  <div class="group-title">⚡ Recharge 100💎 Task</div>
+  <div class="packs-grid" id="grid-sc-100"></div>
+
+  <div class="group-title">⚡ Recharge 250💎 Task</div>
+  <div class="packs-grid" id="grid-sc-250"></div>
+
+  <div class="group-title">⚡ Recharge 500💎 Task</div>
+  <div class="packs-grid" id="grid-sc-500"></div>
+
+  <div class="group-title">⚡ Recharge 1000💎 Task</div>
+  <div class="packs-grid" id="grid-sc-1000"></div>
+</section>
+
+<!-- ════════════════════════════════
+     3. FIRST TOP-UP
+════════════════════════════════ -->
+<div class="section-divider"></div>
+<section class="section s-anchor" id="sec-firsttopup">
+  <div class="section-header">
+    <div class="section-title">🌟 First Top-Up Offers</div>
+    <div class="section-tags">
+      <span class="stag stag-pink">🌟 Up to 100% Bonus</span>
+      <span class="stag stag-orange">⚡ Delivered Within Minutes</span>
+    </div>
+  </div>
+  <div id="ftIdEntriesContainer"></div>
+  <button class="add-id-btn" onclick="addIdEntry('ftIdEntriesContainer')">＋ Add More ID</button>
+  <div class="group-title">💎 First Top-Up Packs</div>
+  <div class="packs-grid" id="grid-firsttopup"></div>
+</section>
+
+<!-- ════════════════════════════════
+     4. VIA LOGIN
+════════════════════════════════ -->
+<div class="section-divider"></div>
+<section class="section s-anchor" id="sec-vialogin">
+  <div class="section-header">
+    <div class="section-title">💎 Bulk Diamonds via Login</div>
+    <div class="section-subtitle">Best rates for high-volume diamond purchases.</div>
+    <div class="section-tags">
+      <span class="stag stag-purple">💎 BEST VALUE</span>
+      <span class="stag stag-orange">⏳ Delivered Within Hours</span>
+    </div>
+  </div>
+
+  <div class="group-title">💎 Regular Packs</div>
+  <div class="packs-grid" id="grid-vl-regular"></div>
+
+  <div class="group-title">🌸 Bulk Deals</div>
+  <div class="packs-grid" id="grid-vl-bulk"></div>
+</section>
+
+<!-- ════════════════════════════════
+     5. STARLIGHT
+════════════════════════════════ -->
+<div class="section-divider"></div>
+<section class="section s-anchor" id="sec-starlight">
+  <div class="section-header">
+    <div class="section-title">⭐ Starlight Membership</div>
+    <div class="section-tags">
+      <span class="stag stag-orange">⏳ 7–8 Days In-Game Friendship Required</span>
+    </div>
+  </div>
+
+  <div id="slIdEntriesContainer"></div>
+  <button class="add-id-btn" onclick="addIdEntry('slIdEntriesContainer')">＋ Add More ID</button>
+
+  <div class="sl-img-grid">
+    <img src="../assets/images/normal.png" alt="Normal Starlight" loading="lazy">
+    <img src="../assets/images/premium.png" alt="Premium Starlight" loading="lazy">
+  </div>
+
+  <div class="group-title">⭐ Starlight Packs</div>
+  <div class="packs-grid" id="grid-starlight"></div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <strong>XiyaShop</strong> — Premium Mobile Legends Recharge<br>
+  🌸 Fast · Secure · Aesthetic · Trusted Since 2022
+</footer>
+
+<!-- ─── FLOATING CHECKOUT BAR ─── -->
+<div class="calc-bar" id="calcBar">
+  <div class="calc-info">
+    <div class="calc-items" id="calcItems">0 items selected</div>
+    <div class="calc-total" id="calcTotal">₹0</div>
+  </div>
+  <button class="checkout-btn" onclick="checkout()">Checkout 💬</button>
+</div>
+
+<!-- ─── WHATSAPP POPUP ─── -->
+<div class="wa-popup" id="waPopup">
+  <div class="wa-popup-header">
+    <div class="wa-icon">💬</div>
+    <strong>Join our WhatsApp Channel 💖</strong>
+  </div>
+  <p>Get daily updates, exciting giveaways &amp; exclusive deals!</p>
+  <div class="wa-btns">
+    <a href="https://whatsapp.com/channel/0029Vb7Ihl5AojYq2Ld7C73m" target="_blank" class="wa-join-btn">Join Now</a>
+    <button class="wa-close-btn" onclick="closeWaPopup()">✖ Close</button>
+  </div>
+</div>
+
+<script>
+// ══════════════════════════════════════
+// DATA
+// ══════════════════════════════════════
+const PACKS = {
+  weeklyId: [
+    { name: "Weekly Pass 🌸", sub: "", offer: 157, orig: 188, label: "bestseller", icon: "🎫" }
+  ],
+  smallId: [
+    { name: "5 💎", sub: "", offer: 12, orig: 17, icon: "💎" },
+    { name: "11 💎", sub: "", offer: 19, orig: 25, icon: "💎" },
+    { name: "14 💎", sub: "", offer: 29, orig: 35, icon: "💎" },
+    { name: "22 💎", sub: "", offer: 39, orig: 45, icon: "💎" },
+    { name: "42 💎", sub: "", offer: 82, orig: 92, icon: "💎" },
+    { name: "56 💎", sub: "", offer: 89, orig: 99, icon: "💎" }
+  ],
+  mediumId: [
+    { name: "86 💎", sub: "78💎 + 8💎", offer: 129, orig: 145, icon: "💎" },
+    { name: "110 💎", sub: "100💎 + 10💎", offer: 165, orig: 180, icon: "💎" },
+    { name: "172 💎", sub: "156💎 + 16💎", offer: 256, orig: 299, icon: "💎" },
+    { name: "257 💎", sub: "234💎 + 23💎", offer: 366, orig: 399, icon: "💎" },
+    { name: "284 💎", sub: "250💎 + 34💎", offer: 420, orig: 499, icon: "💎" },
+    { name: "343 💎", sub: "312💎 + 31💎", offer: 495, orig: 599, icon: "💎" },
+    { name: "429 💎", sub: "390💎 + 39💎", offer: 599, orig: 699, label: "popular", icon: "💎" },
+    { name: "514 💎", sub: "468💎 + 46💎", offer: 720, orig: 799, icon: "💎" },
+    { name: "600 💎", sub: "546💎 + 54💎", offer: 849, orig: 920, icon: "💎" },
+    { name: "686 💎", sub: "624💎 + 62💎", offer: 959, orig: 1099, icon: "💎" },
+    { name: "706 💎", sub: "625💎 + 81💎", offer: 985, orig: 1299, icon: "💎" },
+    { name: "792 💎", sub: "703💎 + 89💎", offer: 1095, orig: 1349, icon: "💎" },
+    { name: "963 💎", sub: "859💎 + 104💎", offer: 1334, orig: 1429, icon: "💎" }
+  ],
+  twilightId: [
+    { name: "Twilight Pass 🌸", sub: "", offer: 799, orig: 899, icon: "🌅" }
+  ],
+  largeId: [
+    { name: "1049 💎", sub: "937💎 + 112💎", offer: 1469, orig: 1599, icon: "💎" },
+    { name: "1135 💎", sub: "1015💎 + 120💎", offer: 1588, orig: 1899, icon: "💎" },
+    { name: "1412 💎", sub: "1250💎 + 162💎", offer: 1989, orig: 2398, icon: "💎" },
+    { name: "2195 💎", sub: "1860💎 + 335💎", offer: 2999, orig: 3299, label: "bestvalue", icon: "💎" },
+    { name: "3688 💎", sub: "3099💎 + 589💎", offer: 4999, orig: 5599, icon: "💎" },
+    { name: "5532 💎", sub: "4649💎 + 883💎", offer: 7599, orig: 7999, icon: "💎" },
+    { name: "9288 💎", sub: "7740💎 + 1548💎", offer: 12499, orig: 12999, icon: "💎" }
+  ],
+  scAny: [
+    { name: "5 💎", sub: "", offer: 12, orig: 17, icon: "💎" },
+    { name: "11 💎", sub: "", offer: 19, orig: 25, icon: "💎" },
+    { name: "14 💎", sub: "", offer: 29, orig: 35, icon: "💎" },
+    { name: "22 💎", sub: "", offer: 39, orig: 45, icon: "💎" }
+  ],
+  sc100: [
+    { name: "Weekly Pass 🌸", sub: "", offer: 157, orig: 189, label: "bestseller", icon: "🎫" },
+    { name: "110 💎", sub: "100💎 + 10💎", offer: 165, orig: 180, icon: "💎" }
+  ],
+  sc250: [
+    { name: "Weekly Pass + 172💎", sub: "220💎 + 172💎", offer: 410, orig: 499, icon: "🎫" },
+    { name: "2 Weekly Pass + 56💎", sub: "440💎 + 56💎", offer: 395, orig: 449, icon: "🎫" },
+    { name: "3 Weekly Pass", sub: "660💎", offer: 471, orig: 567, icon: "🎫" }
+  ],
+  sc500: [
+    { name: "5 Weekly Pass", sub: "1100💎", offer: 779, orig: 945, icon: "🎫" },
+    { name: "3 WP + 257💎", sub: "660💎 + 257💎", offer: 829, orig: 899, icon: "🎫" },
+    { name: "600 💎", sub: "546💎 + 54💎", offer: 849, orig: 920, label: "popular", icon: "💎" }
+  ],
+  sc1000: [
+    { name: "10 Weekly Pass", sub: "2200💎", offer: 1559, orig: 1890, icon: "🎫" },
+    { name: "1135 💎", sub: "1015💎 + 120💎", offer: 1578, orig: 1899, icon: "💎" }
+  ],
+  firstTopup: [
+    { name: "100 💎", sub: "50💎 + 50💎", offer: 88, orig: 99, label: "event", icon: "💎" },
+    { name: "300 💎", sub: "150💎 + 150💎", offer: 256, orig: 289, label: "event", icon: "💎" },
+    { name: "500 💎", sub: "250💎 + 250💎", offer: 410, orig: 479, label: "event", icon: "💎" },
+    { name: "1000 💎", sub: "500💎 + 500💎", offer: 833, orig: 899, label: "event", icon: "💎" }
+  ],
+  vlRegular: [
+    { name: "2875 💎", sub: "", offer: 3150, orig: 3899, icon: "💎" },
+    { name: "3450 💎", sub: "", offer: 3650, orig: 4499, icon: "💎" },
+    { name: "4620 💎", sub: "", offer: 4699, orig: 5499, icon: "💎" },
+    { name: "5185 💎", sub: "", offer: 4999, orig: 5999, label: "popular", icon: "💎" },
+    { name: "5800 💎", sub: "", offer: 5899, orig: 6999, icon: "💎" },
+    { name: "6450 💎", sub: "", offer: 6499, orig: 7499, icon: "💎" },
+    { name: "7495 💎", sub: "", offer: 7199, orig: 8099, label: "bestvalue", icon: "💎" }
+  ],
+  vlBulk: [
+    { name: "10000 💎", sub: "", offer: 9599, orig: 10999, icon: "💎" },
+    { name: "12705 💎", sub: "", offer: 11699, orig: 12999, icon: "💎" },
+    { name: "15000 💎", sub: "", offer: 14599, orig: 15999, label: "popular", icon: "💎" },
+    { name: "20000 💎", sub: "", offer: 18999, orig: 19999, icon: "💎" },
+    { name: "30000 💎", sub: "", offer: 28550, orig: 29999, label: "bestvalue", icon: "💎" },
+    { name: "50000 💎", sub: "", offer: 46999, orig: 59999, icon: "💎" },
+    { name: "100000 💎", sub: "", offer: 88999, orig: 99999, icon: "💎" }
+  ],
+  starlight: [
+    { name: "Normal Starlight Card", sub: "", offer: 249, orig: 399, icon: "🌙" },
+    { name: "Premium Starlight Card", sub: "", offer: 539, orig: 599, label: "popular", icon: "⭐" }
+  ]
+};
+
+// ══════════════════════════════════════
+// CART STATE
+// ══════════════════════════════════════
+let cart = {}; // key → { pack, qty, category, idInfo }
+let idEntries = { idEntriesContainer: [{ id: "", server: "" }], ftIdEntriesContainer: [{ id: "", server: "" }], slIdEntriesContainer: [{ id: "", server: "" }] };
+
+// ══════════════════════════════════════
+// RENDER IDS
+// ══════════════════════════════════════
+function addIdEntry(containerId) {
+  idEntries[containerId].push({ id: "", server: "" });
+  renderIdContainer(containerId);
+}
+function removeIdEntry(containerId, idx) {
+  if (idEntries[containerId].length <= 1) return;
+  idEntries[containerId].splice(idx, 1);
+  renderIdContainer(containerId);
+}
+function renderIdContainer(containerId) {
+  const container = document.getElementById(containerId);
+  container.innerHTML = idEntries[containerId].map((entry, i) => `
+    <div class="id-entry">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+        <span style="font-size:11px;font-weight:700;color:#a78bfa;">Player ${i + 1}</span>
+        ${idEntries[containerId].length > 1 ? `<button class="remove-id-btn" onclick="removeIdEntry('${containerId}',${i})">✕</button>` : ''}
+      </div>
+      <div class="id-row">
+        <div class="id-input-wrap">
+          <label>Player ID</label>
+          <input type="text" class="id-input" placeholder="e.g. 123456789" value="${entry.id}" oninput="updateId('${containerId}',${i},'id',this.value)">
+        </div>
+        <div class="id-input-wrap">
+          <label>Server ID</label>
+          <input type="text" class="id-input" placeholder="e.g. 2345" value="${entry.server}" oninput="updateId('${containerId}',${i},'server',this.value)">
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+function updateId(containerId, idx, field, val) {
+  idEntries[containerId][idx][field] = val;
+}
+
+// ══════════════════════════════════════
+// RENDER PACKS
+// ══════════════════════════════════════
+function labelClass(label) {
+  const map = { bestseller: 'label-bestseller', popular: 'label-popular', bestvalue: 'label-bestvalue', event: 'label-event' };
+  return map[label] || '';
+}
+function labelText(label) {
+  const map = { bestseller: '🔥 BEST SELLER', popular: '⭐ POPULAR', bestvalue: '✅ BEST VALUE', event: '🎮 EVENT SPECIAL' };
+  return map[label] || '';
+}
+
+function renderPacks(gridId, packs, category) {
+  const grid = document.getElementById(gridId);
+  if (!grid) return;
+  grid.innerHTML = packs.map((p, i) => {
+    const key = `${gridId}-${i}`;
+    const save = p.orig - p.offer;
+    return `
+      <div class="pack-card" id="card-${key}" onclick="toggleSelect('${key}','${gridId}',${i},'${category}')">
+        ${p.label ? `<span class="pack-label ${labelClass(p.label)}">${labelText(p.label)}</span>` : ''}
+        <span class="pack-icon">${p.icon}</span>
+        <div class="pack-name">${p.name}</div>
+        ${p.sub ? `<div class="pack-sub">${p.sub}</div>` : ''}
+        <div class="pack-price">
+          <span class="price-offer">₹${p.offer.toLocaleString('en-IN')}</span>
+          <span class="price-original">₹${p.orig.toLocaleString('en-IN')}</span>
+        </div>
+        <div style="margin-top:3px;"><span class="price-save">Save ₹${save}</span></div>
+        <div class="qty-row">
+          <div class="qty-ctrl">
+            <button class="qty-btn" onclick="changeQty(event,'${key}',${i},'${gridId}','${category}',-1)">−</button>
+            <span class="qty-num" id="qty-${key}">0</span>
+            <button class="qty-btn" onclick="changeQty(event,'${key}',${i},'${gridId}','${category}',1)">+</button>
+          </div>
+          <button class="buy-btn" onclick="buyNow(event,'${key}',${i},'${gridId}','${category}')">Buy Now</button>
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
+function toggleSelect(key, gridId, idx, category) {
+  const packs = getPacksForGrid(gridId);
+  const card = document.getElementById(`card-${key}`);
+  if (cart[key]) {
+    delete cart[key];
+    card.classList.remove('selected');
+    document.getElementById(`qty-${key}`).textContent = '0';
+  } else {
+    cart[key] = { pack: packs[idx], qty: 1, category, gridId };
+    card.classList.add('selected');
+    document.getElementById(`qty-${key}`).textContent = '1';
+  }
+  updateCalcBar();
+}
+
+function changeQty(e, key, idx, gridId, category) {
+  e.stopPropagation();
+  const packs = getPacksForGrid(gridId);
+  const card = document.getElementById(`card-${key}`);
+  const qtyEl = document.getElementById(`qty-${key}`);
+  let cur = cart[key] ? cart[key].qty : 0;
+  if (arguments[5] === 1) {
+    cur++;
+    cart[key] = { pack: packs[idx], qty: cur, category, gridId };
+    card.classList.add('selected');
+  } else {
+    cur = Math.max(0, cur - 1);
+    if (cur === 0) { delete cart[key]; card.classList.remove('selected'); }
+    else cart[key].qty = cur;
+  }
+  qtyEl.textContent = cur;
+  updateCalcBar();
+}
+
+function buyNow(e, key, idx, gridId, category) {
+  e.stopPropagation();
+  const packs = getPacksForGrid(gridId);
+  if (!cart[key]) {
+    cart[key] = { pack: packs[idx], qty: 1, category, gridId };
+    document.getElementById(`card-${key}`).classList.add('selected');
+    document.getElementById(`qty-${key}`).textContent = '1';
+    updateCalcBar();
+  }
+  checkout();
+}
+
+function getPacksForGrid(gridId) {
+  const map = {
+    'grid-weekly-id': PACKS.weeklyId, 'grid-small-id': PACKS.smallId,
+    'grid-medium-id': PACKS.mediumId, 'grid-twilight-id': PACKS.twilightId,
+    'grid-large-id': PACKS.largeId,
+    'grid-sc-any': PACKS.scAny, 'grid-sc-100': PACKS.sc100,
+    'grid-sc-250': PACKS.sc250, 'grid-sc-500': PACKS.sc500, 'grid-sc-1000': PACKS.sc1000,
+    'grid-firsttopup': PACKS.firstTopup,
+    'grid-vl-regular': PACKS.vlRegular, 'grid-vl-bulk': PACKS.vlBulk,
+    'grid-starlight': PACKS.starlight
+  };
+  return map[gridId] || [];
+}
+
+// ══════════════════════════════════════
+// CALC BAR
+// ══════════════════════════════════════
+function updateCalcBar() {
+  const keys = Object.keys(cart);
+  let total = 0, items = 0;
+  keys.forEach(k => { total += cart[k].pack.offer * cart[k].qty; items += cart[k].qty; });
+  document.getElementById('calcItems').textContent = `${items} item${items !== 1 ? 's' : ''} selected`;
+  document.getElementById('calcTotal').textContent = `₹${total.toLocaleString('en-IN')}`;
+  const bar = document.getElementById('calcBar');
+  items > 0 ? bar.classList.add('visible') : bar.classList.remove('visible');
+}
+
+// ══════════════════════════════════════
+// CHECKOUT
+// ══════════════════════════════════════
+function getIdInfo(containerId) {
+  return (idEntries[containerId] || []).map((e, i) => `Player ${i+1} — ID: ${e.id||'N/A'} | Server: ${e.server||'N/A'}`).join('\n');
+}
+
+function checkout() {
+  const keys = Object.keys(cart);
+  if (keys.length === 0) return;
+  let packLines = '', total = 0;
+  keys.forEach(k => {
+    const item = cart[k];
+    packLines += `• ${item.pack.name}${item.pack.sub ? ' ('+item.pack.sub+')' : ''} x${item.qty} = ₹${(item.pack.offer * item.qty).toLocaleString('en-IN')}\n`;
+    total += item.pack.offer * item.qty;
+  });
+
+  // Determine category & IDs
+  const cats = [...new Set(Object.values(cart).map(c => c.category))];
+  const catLabel = cats.join(', ');
+
+  let idInfo = '';
+  const hasId = cats.some(c => ['ID Server','First Top-Up','Starlight'].includes(c));
+  if (cats.includes('ID Server')) idInfo += '\n' + getIdInfo('idEntriesContainer');
+  if (cats.includes('First Top-Up')) idInfo += '\n' + getIdInfo('ftIdEntriesContainer');
+  if (cats.includes('Starlight')) idInfo += '\n' + getIdInfo('slIdEntriesContainer');
+
+  const msg = `🎮 *XiyaShop Order*
+
+Game: Mobile Legends
+
+Category: ${catLabel}
+
+Packs:
+${packLines.trim()}${idInfo ? '\n\nPlayer Details:\n' + idInfo.trim() : ''}
+
+💰 Total: ₹${total.toLocaleString('en-IN')}
+
+_Powered by XiyaShop ✨_`;
+
+  const url = `https://wa.me/919387947130?text=${encodeURIComponent(msg)}`;
+  window.open(url, '_blank');
+}
+
+// ══════════════════════════════════════
+// NAV TABS
+// ══════════════════════════════════════
+document.querySelectorAll('.nav-tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+    tab.classList.add('active');
+    const target = document.getElementById(tab.dataset.target);
+    if (target) target.scrollIntoView({ behavior: 'smooth' });
+  });
+});
+
+// Active tab on scroll
+const sections = ['sec-idserver','sec-supercombo','sec-firsttopup','sec-vialogin','sec-starlight'];
+window.addEventListener('scroll', () => {
+  let cur = '';
+  sections.forEach(id => {
+    const el = document.getElementById(id);
+    if (el && window.scrollY >= el.offsetTop - 120) cur = id;
+  });
+  document.querySelectorAll('.nav-tab').forEach(t => {
+    t.classList.toggle('active', t.dataset.target === cur);
+  });
+}, { passive: true });
+
+function scrollTo(id) { document.getElementById(id).scrollIntoView({ behavior: 'smooth' }); }
+
+// ══════════════════════════════════════
+// WA POPUP
+// ══════════════════════════════════════
+function closeWaPopup() {
+  document.getElementById('waPopup').style.display = 'none';
+  sessionStorage.setItem('waClosed','1');
+}
+if (!sessionStorage.getItem('waClosed')) {
+  setTimeout(() => {
+    const p = document.getElementById('waPopup');
+    p.classList.add('show');
+    p.style.display = 'block';
+  }, 2500);
+}
+
+// ══════════════════════════════════════
+// INIT
+// ══════════════════════════════════════
+renderIdContainer('idEntriesContainer');
+renderIdContainer('ftIdEntriesContainer');
+renderIdContainer('slIdEntriesContainer');
+
+renderPacks('grid-weekly-id', PACKS.weeklyId, 'ID Server');
+renderPacks('grid-small-id', PACKS.smallId, 'ID Server');
+renderPacks('grid-medium-id', PACKS.mediumId, 'ID Server');
+renderPacks('grid-twilight-id', PACKS.twilightId, 'ID Server');
+renderPacks('grid-large-id', PACKS.largeId, 'ID Server');
+
+renderPacks('grid-sc-any', PACKS.scAny, 'Super Combo');
+renderPacks('grid-sc-100', PACKS.sc100, 'Super Combo');
+renderPacks('grid-sc-250', PACKS.sc250, 'Super Combo');
+renderPacks('grid-sc-500', PACKS.sc500, 'Super Combo');
+renderPacks('grid-sc-1000', PACKS.sc1000, 'Super Combo');
+
+renderPacks('grid-firsttopup', PACKS.firstTopup, 'First Top-Up');
+
+renderPacks('grid-vl-regular', PACKS.vlRegular, 'Via Login');
+renderPacks('grid-vl-bulk', PACKS.vlBulk, 'Via Login');
+
+renderPacks('grid-starlight', PACKS.starlight, 'Starlight');
+</script>
+</body>
+</html>

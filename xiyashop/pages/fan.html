@@ -1,0 +1,972 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>FanCode Subscription – XiyaShop</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --orange: #FF6B2B;
+    --orange-light: #FF8C55;
+    --orange-pale: #FFF0E8;
+    --pink: #FF6B9D;
+    --pink-light: #FFB3CC;
+    --pink-pale: #FFF0F5;
+    --lavender: #B39DDB;
+    --lavender-light: #D1C4E9;
+    --lavender-pale: #F3F0FF;
+    --white: #FFFFFF;
+    --offwhite: #FDF8F5;
+    --text-dark: #1A1025;
+    --text-mid: #4A3F5C;
+    --text-soft: #8A7A9B;
+    --glass-bg: rgba(255,255,255,0.72);
+    --glass-border: rgba(255,255,255,0.9);
+    --shadow-soft: 0 8px 32px rgba(180,120,100,0.10);
+    --shadow-card: 0 4px 24px rgba(180,100,120,0.10);
+    --radius-lg: 20px;
+    --radius-md: 14px;
+    --radius-sm: 10px;
+    --gradient-hero: linear-gradient(135deg, #FFF5EE 0%, #FFF0FA 40%, #F3EEFF 100%);
+    --gradient-btn: linear-gradient(135deg, #FF6B2B 0%, #FF6B9D 60%, #C97CF0 100%);
+    --gradient-accent: linear-gradient(135deg, #FF8C55, #FF6B9D);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Outfit', sans-serif;
+    background: var(--offwhite);
+    color: var(--text-dark);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* ── HERO HEADER ── */
+  .hero {
+    position: relative;
+    background: var(--gradient-hero);
+    padding: 52px 20px 44px;
+    text-align: center;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 60% 40% at 20% 30%, rgba(255,107,43,0.10) 0%, transparent 70%),
+      radial-gradient(ellipse 50% 50% at 80% 70%, rgba(179,157,219,0.18) 0%, transparent 70%),
+      radial-gradient(ellipse 40% 40% at 60% 10%, rgba(255,107,157,0.12) 0%, transparent 60%);
+    pointer-events: none;
+  }
+
+  /* decorative cricket dots */
+  .hero-deco {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+  }
+  .hero-deco span {
+    position: absolute;
+    border-radius: 50%;
+    opacity: 0.18;
+    animation: floatDot 6s ease-in-out infinite;
+  }
+  .hero-deco span:nth-child(1) { width:60px;height:60px;background:var(--orange-light);top:8%;left:5%;animation-delay:0s; }
+  .hero-deco span:nth-child(2) { width:30px;height:30px;background:var(--pink);top:20%;right:8%;animation-delay:1.5s; }
+  .hero-deco span:nth-child(3) { width:18px;height:18px;background:var(--lavender);top:60%;left:3%;animation-delay:3s; }
+  .hero-deco span:nth-child(4) { width:44px;height:44px;background:var(--pink-light);bottom:10%;right:5%;animation-delay:0.8s; }
+  .hero-deco span:nth-child(5) { width:22px;height:22px;background:var(--orange);bottom:25%;left:15%;animation-delay:2.2s; }
+
+  @keyframes floatDot {
+    0%,100% { transform: translateY(0) scale(1); }
+    50% { transform: translateY(-14px) scale(1.08); }
+  }
+
+  .store-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: 50px;
+    padding: 5px 14px;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--orange);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    margin-bottom: 18px;
+    backdrop-filter: blur(8px);
+    box-shadow: 0 2px 12px rgba(255,107,43,0.12);
+  }
+  .store-badge .dot { width:6px;height:6px;border-radius:50%;background:var(--orange);display:inline-block;animation:pulse 1.6s ease-in-out infinite; }
+  @keyframes pulse { 0%,100%{transform:scale(1);opacity:1} 50%{transform:scale(1.4);opacity:0.6} }
+
+  .hero-title {
+    font-family: 'Poppins', sans-serif;
+    font-size: clamp(26px, 7vw, 36px);
+    font-weight: 800;
+    line-height: 1.15;
+    color: var(--text-dark);
+    position: relative;
+    margin-bottom: 10px;
+  }
+  .hero-title .emoji { font-size: 1em; }
+  .hero-title .highlight {
+    background: var(--gradient-btn);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .hero-subtitle {
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--text-soft);
+    letter-spacing: 0.03em;
+    position: relative;
+  }
+
+  .hero-pills {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-top: 18px;
+    position: relative;
+  }
+  .hero-pill {
+    background: rgba(255,255,255,0.80);
+    border: 1px solid rgba(255,255,255,0.95);
+    border-radius: 50px;
+    padding: 5px 14px;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-mid);
+    backdrop-filter: blur(6px);
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+
+  /* ── MAIN CONTAINER ── */
+  .container { max-width: 480px; margin: 0 auto; padding: 0 16px 120px; }
+
+  /* ── SECTION LABEL ── */
+  .section-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--orange);
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .section-label::after { content:''; flex:1; height:1px; background:linear-gradient(90deg, rgba(255,107,43,0.2), transparent); }
+
+  /* ── SECTION CARD ── */
+  .section-card {
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-lg);
+    padding: 22px 18px;
+    margin-top: 20px;
+    box-shadow: var(--shadow-card);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+
+  .section-title {
+    font-family: 'Poppins', sans-serif;
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin-bottom: 4px;
+  }
+  .section-desc {
+    font-size: 12.5px;
+    color: var(--text-soft);
+    margin-bottom: 18px;
+  }
+
+  /* ── INPUT ── */
+  .input-wrap {
+    position: relative;
+  }
+  .input-icon {
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 18px;
+    pointer-events: none;
+    opacity: 0.55;
+  }
+  .phone-input {
+    width: 100%;
+    padding: 15px 16px 15px 44px;
+    border: 1.5px solid rgba(179,157,219,0.35);
+    border-radius: var(--radius-md);
+    font-family: 'Outfit', sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--text-dark);
+    background: rgba(255,255,255,0.85);
+    outline: none;
+    transition: border-color 0.25s, box-shadow 0.25s, background 0.25s;
+    letter-spacing: 0.04em;
+  }
+  .phone-input::placeholder { color: var(--text-soft); font-weight: 400; font-size: 14px; }
+  .phone-input:focus {
+    border-color: var(--orange);
+    background: #fff;
+    box-shadow: 0 0 0 3px rgba(255,107,43,0.10), 0 4px 20px rgba(255,107,43,0.08);
+  }
+  .input-hint {
+    font-size: 11.5px;
+    color: var(--text-soft);
+    margin-top: 8px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+
+  /* ── PLAN CARDS ── */
+  .plans-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .plan-card {
+    position: relative;
+    background: rgba(255,255,255,0.85);
+    border: 2px solid rgba(179,157,219,0.25);
+    border-radius: var(--radius-lg);
+    padding: 18px 16px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    cursor: pointer;
+    transition: border-color 0.22s, box-shadow 0.22s, transform 0.18s, background 0.22s;
+    overflow: hidden;
+  }
+  .plan-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(255,107,43,0.04), rgba(255,107,157,0.04));
+    opacity: 0;
+    transition: opacity 0.22s;
+    border-radius: inherit;
+  }
+  .plan-card:active { transform: scale(0.98); }
+  .plan-card.selected {
+    border-color: var(--orange);
+    box-shadow: 0 0 0 3px rgba(255,107,43,0.10), 0 6px 28px rgba(255,107,43,0.14);
+    background: rgba(255,248,244,0.96);
+  }
+  .plan-card.selected::before { opacity: 1; }
+
+  .plan-badge {
+    flex-shrink: 0;
+    width: 52px;
+    height: 52px;
+    border-radius: 14px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    line-height: 1;
+    position: relative;
+  }
+  .plan-badge.month {
+    background: linear-gradient(135deg, #FFE5D0, #FFDCE8);
+    color: var(--orange);
+  }
+  .plan-badge.year {
+    background: linear-gradient(135deg, #EDE7FF, #FFE0F0);
+    color: #7C4DFF;
+  }
+  .plan-badge .num { font-size: 20px; font-family: 'Poppins', sans-serif; }
+  .plan-badge .unit { font-size: 9px; font-weight: 600; opacity: 0.75; letter-spacing: 0.06em; text-transform: uppercase; margin-top: 1px; }
+
+  .plan-best {
+    position: absolute;
+    top: -1px;
+    right: -1px;
+    background: var(--gradient-btn);
+    color: white;
+    font-size: 8.5px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    padding: 3px 8px;
+    border-radius: 0 var(--radius-sm) 0 var(--radius-sm);
+    text-transform: uppercase;
+  }
+
+  .plan-info { flex: 1; min-width: 0; }
+  .plan-name {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin-bottom: 3px;
+  }
+  .plan-prices {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  .plan-original {
+    font-size: 12.5px;
+    color: var(--text-soft);
+    text-decoration: line-through;
+    font-weight: 500;
+  }
+  .plan-price {
+    font-size: 20px;
+    font-weight: 800;
+    font-family: 'Poppins', sans-serif;
+    background: var(--gradient-accent);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .plan-save {
+    font-size: 10px;
+    font-weight: 700;
+    background: linear-gradient(135deg, #4CAF50, #66BB6A);
+    color: white;
+    padding: 2px 7px;
+    border-radius: 50px;
+  }
+
+  .plan-add-btn {
+    flex-shrink: 0;
+    min-width: 72px;
+    padding: 9px 14px;
+    border: none;
+    border-radius: 10px;
+    font-family: 'Outfit', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: transform 0.18s, box-shadow 0.18s, background 0.18s;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    background: var(--gradient-btn);
+    color: white;
+    box-shadow: 0 3px 14px rgba(255,107,43,0.25);
+  }
+  .plan-add-btn:active { transform: scale(0.94); }
+  .plan-add-btn .qty-badge {
+    background: rgba(255,255,255,0.28);
+    border-radius: 50px;
+    padding: 1px 7px;
+    font-size: 12px;
+    font-weight: 800;
+    min-width: 22px;
+    text-align: center;
+    display: none;
+  }
+  .plan-add-btn.has-qty .qty-badge { display: inline-block; }
+  .plan-add-btn.has-qty .add-text { display: none; }
+
+  @keyframes addPop {
+    0% { transform: scale(1); }
+    40% { transform: scale(1.18); }
+    70% { transform: scale(0.95); }
+    100% { transform: scale(1); }
+  }
+  .pop { animation: addPop 0.32s ease; }
+
+  /* ── FEATURES ── */
+  .features-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+  .feature-card {
+    background: rgba(255,255,255,0.80);
+    border: 1px solid rgba(255,255,255,0.95);
+    border-radius: var(--radius-md);
+    padding: 16px 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    box-shadow: 0 2px 12px rgba(180,120,100,0.07);
+    transition: transform 0.18s, box-shadow 0.18s;
+  }
+  .feature-card:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(180,120,100,0.12); }
+  .feature-icon {
+    width: 38px;
+    height: 38px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+  }
+  .feature-icon.orange { background: linear-gradient(135deg, #FFE5D0, #FFDCE8); }
+  .feature-icon.lavender { background: linear-gradient(135deg, #EDE7FF, #E8EAF6); }
+  .feature-icon.pink { background: linear-gradient(135deg, #FFDCE8, #FFE5D0); }
+  .feature-icon.green { background: linear-gradient(135deg, #E8F5E9, #F1F8E9); }
+  .feature-name {
+    font-size: 12.5px;
+    font-weight: 700;
+    color: var(--text-dark);
+    line-height: 1.3;
+  }
+  .feature-desc {
+    font-size: 11px;
+    color: var(--text-soft);
+    line-height: 1.4;
+  }
+
+  /* ── NOTE ── */
+  .note-box {
+    background: linear-gradient(135deg, rgba(255,107,43,0.07), rgba(255,107,157,0.07));
+    border: 1px solid rgba(255,107,43,0.18);
+    border-radius: var(--radius-md);
+    padding: 14px 16px;
+    margin-top: 20px;
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+  }
+  .note-icon { font-size: 16px; flex-shrink: 0; margin-top: 1px; }
+  .note-text { font-size: 12px; color: var(--text-mid); line-height: 1.55; font-weight: 500; }
+
+  /* ── STICKY CART ── */
+  .cart-bar {
+    position: fixed;
+    bottom: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 12px 16px 20px;
+    background: linear-gradient(180deg, transparent 0%, rgba(253,248,245,0.96) 18%);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    transform: translateY(100%);
+    transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+    pointer-events: none;
+  }
+  .cart-bar.visible {
+    transform: translateY(0);
+    pointer-events: all;
+  }
+
+  .cart-inner {
+    max-width: 480px;
+    margin: 0 auto;
+    background: rgba(255,255,255,0.96);
+    border: 1.5px solid rgba(255,255,255,0.98);
+    border-radius: var(--radius-lg);
+    box-shadow: 0 -4px 32px rgba(180,100,80,0.14), 0 8px 32px rgba(255,107,43,0.08);
+    overflow: hidden;
+  }
+
+  .cart-header {
+    padding: 12px 16px 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+  }
+  .cart-title {
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-soft);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .cart-clear {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--pink);
+    cursor: pointer;
+    padding: 3px 8px;
+    border-radius: 6px;
+    background: rgba(255,107,157,0.08);
+    border: none;
+    font-family: 'Outfit', sans-serif;
+    transition: background 0.15s;
+  }
+  .cart-clear:hover { background: rgba(255,107,157,0.15); }
+
+  .cart-items { padding: 8px 16px 10px; display: flex; flex-direction: column; gap: 5px; }
+  .cart-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    animation: slideIn 0.28s ease;
+  }
+  @keyframes slideIn {
+    from { opacity:0; transform: translateX(-10px); }
+    to { opacity:1; transform: translateX(0); }
+  }
+  .cart-item-name { font-size: 13px; font-weight: 600; color: var(--text-dark); flex:1; }
+  .cart-item-qty-ctrl {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .qty-btn {
+    width: 24px;
+    height: 24px;
+    border-radius: 7px;
+    border: 1.5px solid rgba(179,157,219,0.4);
+    background: rgba(255,255,255,0.8);
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--text-mid);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Outfit', sans-serif;
+    transition: background 0.15s, border-color 0.15s;
+    line-height: 1;
+    padding: 0;
+  }
+  .qty-btn:hover { background: var(--orange-pale); border-color: var(--orange); color: var(--orange); }
+  .qty-num { font-size: 14px; font-weight: 700; color: var(--text-dark); min-width: 18px; text-align: center; }
+  .cart-item-price { font-size: 14px; font-weight: 800; font-family: 'Poppins', sans-serif; background: var(--gradient-accent); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; min-width: 52px; text-align: right; }
+
+  .cart-footer {
+    padding: 10px 16px 14px;
+    background: linear-gradient(135deg, rgba(255,107,43,0.04), rgba(255,107,157,0.04));
+    border-top: 1px solid rgba(0,0,0,0.05);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .cart-total-wrap { flex: 1; }
+  .cart-total-label { font-size: 10.5px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-soft); }
+  .cart-total-price {
+    font-size: 22px;
+    font-weight: 900;
+    font-family: 'Poppins', sans-serif;
+    background: var(--gradient-btn);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    line-height: 1.15;
+  }
+
+  .buy-btn {
+    flex-shrink: 0;
+    padding: 13px 26px;
+    border: none;
+    border-radius: 14px;
+    background: var(--gradient-btn);
+    color: white;
+    font-family: 'Poppins', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 4px 20px rgba(255,107,43,0.30);
+    transition: transform 0.18s, box-shadow 0.18s;
+    letter-spacing: 0.02em;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+  }
+  .buy-btn:hover { transform: translateY(-2px) scale(1.02); box-shadow: 0 8px 28px rgba(255,107,43,0.38); }
+  .buy-btn:active { transform: scale(0.97); }
+
+  /* empty cart state */
+  .empty-cart {
+    text-align: center;
+    padding: 22px 16px 14px;
+    color: var(--text-soft);
+    font-size: 13px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+  }
+  .empty-cart-icon { font-size: 28px; opacity: 0.5; }
+
+  /* ── BOTTOM PLACEHOLDER (so content isn't hidden behind cart) ── */
+  .page-end-spacer { height: 20px; }
+
+  /* ── TOAST ── */
+  .toast {
+    position: fixed;
+    bottom: 110px;
+    left: 50%;
+    transform: translateX(-50%) translateY(20px);
+    background: rgba(30,20,40,0.92);
+    color: white;
+    padding: 10px 20px;
+    border-radius: 50px;
+    font-size: 13px;
+    font-weight: 600;
+    backdrop-filter: blur(8px);
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.22s, transform 0.22s;
+    white-space: nowrap;
+    z-index: 200;
+  }
+  .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+  /* ── VALIDATION ── */
+  .phone-input.error { border-color: var(--pink) !important; box-shadow: 0 0 0 3px rgba(255,107,157,0.12) !important; }
+  .error-msg { font-size: 11.5px; color: var(--pink); margin-top: 6px; display: none; font-weight: 500; }
+  .error-msg.show { display: block; }
+
+  /* scrollbar */
+  ::-webkit-scrollbar { width: 5px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: rgba(179,157,219,0.4); border-radius: 10px; }
+
+  @media (max-width: 360px) {
+    .features-grid { grid-template-columns: 1fr; }
+    .buy-btn { padding: 13px 18px; font-size: 14px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="hero-deco">
+    <span></span><span></span><span></span><span></span><span></span>
+  </div>
+  <div class="store-badge"><span class="dot"></span> XiyaShop</div>
+  <h1 class="hero-title"><span class="highlight">FanCode</span> Subscription <span class="emoji">🏏</span></h1>
+  <p class="hero-subtitle">Watch More, Pay Less</p>
+  <div class="hero-pills">
+    <div class="hero-pill">⚡ Instant Delivery</div>
+    <div class="hero-pill">🔒 Secure & Private</div>
+    <div class="hero-pill">✅ Official App</div>
+  </div>
+</header>
+
+<!-- MAIN -->
+<div class="container">
+
+  <!-- CUSTOMER DETAILS -->
+  <div class="section-card" style="margin-top:22px;">
+    <div class="section-label">Step 1 · Details</div>
+    <div class="section-title">Your Phone Number</div>
+    <div class="section-desc">Enter the number for FanCode activation</div>
+    <div class="input-wrap">
+      <span class="input-icon">📱</span>
+      <input
+        type="tel"
+        id="phoneInput"
+        class="phone-input"
+        placeholder="e.g. 9876543210"
+        maxlength="10"
+        inputmode="numeric"
+        autocomplete="tel"
+      />
+    </div>
+    <div id="phoneError" class="error-msg">Please enter a valid 10-digit phone number.</div>
+    <div class="input-hint">🔐 Activation will be done on this number</div>
+  </div>
+
+  <!-- PLANS -->
+  <div class="section-card">
+    <div class="section-label">Step 2 · Plans</div>
+    <div class="section-title">Choose Your Plan</div>
+    <div class="section-desc">Add one or more packs to your cart</div>
+    <div class="plans-grid" id="plansGrid">
+
+      <!-- 1 Month -->
+      <div class="plan-card" id="planCard-month" data-plan="1 Month" data-price="159">
+        <div class="plan-badge month">
+          <span class="num">1</span>
+          <span class="unit">Month</span>
+        </div>
+        <div class="plan-info">
+          <div class="plan-name">Monthly Pack</div>
+          <div class="plan-prices">
+            <span class="plan-original">₹199</span>
+            <span class="plan-price">₹159</span>
+            <span class="plan-save">Save 20%</span>
+          </div>
+        </div>
+        <button class="plan-add-btn" id="addBtn-month" onclick="addPlan('month','1 Month',159)">
+          <span class="add-text">+ Add</span>
+          <span class="qty-badge" id="qty-month">0</span>
+        </button>
+      </div>
+
+      <!-- 1 Year -->
+      <div class="plan-card" id="planCard-year" data-plan="1 Year" data-price="899">
+        <div class="plan-badge year">
+          <div class="plan-best">Best Value</div>
+          <span class="num">1</span>
+          <span class="unit">Year</span>
+        </div>
+        <div class="plan-info">
+          <div class="plan-name">Annual Pack</div>
+          <div class="plan-prices">
+            <span class="plan-original">₹1499</span>
+            <span class="plan-price">₹899</span>
+            <span class="plan-save">Save 40%</span>
+          </div>
+        </div>
+        <button class="plan-add-btn" id="addBtn-year" onclick="addPlan('year','1 Year',899)">
+          <span class="add-text">+ Add</span>
+          <span class="qty-badge" id="qty-year">0</span>
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- FEATURES -->
+  <div class="section-card">
+    <div class="section-label">Why XiyaShop</div>
+    <div class="section-title">What You Get</div>
+    <div class="section-desc">Everything you need, nothing you don't</div>
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon orange">📲</div>
+        <div class="feature-name">Customer Number Activation</div>
+        <div class="feature-desc">Plan activated directly on your number</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon lavender">🔒</div>
+        <div class="feature-name">Private Plan (PVT)</div>
+        <div class="feature-desc">Secure & exclusive to you</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon pink">📱</div>
+        <div class="feature-name">Official App Support</div>
+        <div class="feature-desc">Works on FanCode's official app</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon green">⚡</div>
+        <div class="feature-name">Delivered in Minutes</div>
+        <div class="feature-desc">Fast activation after order</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- NOTE -->
+  <div class="note-box">
+    <span class="note-icon">⚠️</span>
+    <p class="note-text">Please ensure the provided phone number is correct. Activation will be processed on the submitted number.</p>
+  </div>
+
+  <div class="page-end-spacer"></div>
+</div>
+
+<!-- STICKY CART BAR -->
+<div class="cart-bar" id="cartBar">
+  <div class="cart-inner">
+    <div class="cart-header">
+      <div class="cart-title">🛒 Your Cart</div>
+      <button class="cart-clear" onclick="clearCart()">Clear All</button>
+    </div>
+    <div id="cartItems" class="cart-items"></div>
+    <div class="cart-footer">
+      <div class="cart-total-wrap">
+        <div class="cart-total-label">Total Amount</div>
+        <div class="cart-total-price" id="cartTotal">₹0</div>
+      </div>
+      <button class="buy-btn" onclick="buyNow()">Buy Now 🚀</button>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<script>
+  // ── STATE ──
+  const cart = {}; // { key: { name, price, qty } }
+
+  const PLANS = {
+    month: { name: '1 Month', price: 159 },
+    year:  { name: '1 Year',  price: 899 },
+  };
+
+  // ── ADD / INCREMENT PLAN ──
+  function addPlan(key, name, price) {
+    if (!cart[key]) {
+      cart[key] = { name, price, qty: 0 };
+    }
+    cart[key].qty++;
+
+    // button animation
+    const btn = document.getElementById('addBtn-' + key);
+    btn.classList.add('pop');
+    setTimeout(() => btn.classList.remove('pop'), 350);
+
+    // update button
+    const qtyEl = document.getElementById('qty-' + key);
+    qtyEl.textContent = cart[key].qty;
+    btn.classList.add('has-qty');
+
+    // highlight card
+    document.getElementById('planCard-' + key).classList.add('selected');
+
+    renderCart();
+    showToast(name + ' added to cart 🎉');
+  }
+
+  // ── CHANGE QUANTITY ──
+  function changeQty(key, delta) {
+    if (!cart[key]) return;
+    cart[key].qty += delta;
+
+    if (cart[key].qty <= 0) {
+      delete cart[key];
+      const btn = document.getElementById('addBtn-' + key);
+      if (btn) {
+        btn.classList.remove('has-qty');
+        document.getElementById('qty-' + key).textContent = '0';
+      }
+      document.getElementById('planCard-' + key).classList.remove('selected');
+    } else {
+      const qtyEl = document.getElementById('qty-' + key);
+      if (qtyEl) qtyEl.textContent = cart[key].qty;
+    }
+
+    renderCart();
+  }
+
+  // ── RENDER CART ──
+  function renderCart() {
+    const cartEl = document.getElementById('cartItems');
+    const totalEl = document.getElementById('cartTotal');
+    const barEl = document.getElementById('cartBar');
+
+    const keys = Object.keys(cart);
+    if (keys.length === 0) {
+      barEl.classList.remove('visible');
+      return;
+    }
+
+    barEl.classList.add('visible');
+    cartEl.innerHTML = '';
+
+    let total = 0;
+    keys.forEach(key => {
+      const item = cart[key];
+      const lineTotal = item.price * item.qty;
+      total += lineTotal;
+
+      const row = document.createElement('div');
+      row.className = 'cart-item';
+      row.innerHTML = `
+        <div class="cart-item-name">${item.name}</div>
+        <div class="cart-item-qty-ctrl">
+          <button class="qty-btn" onclick="changeQty('${key}',-1)">−</button>
+          <span class="qty-num">${item.qty}</span>
+          <button class="qty-btn" onclick="changeQty('${key}',1)">+</button>
+        </div>
+        <div class="cart-item-price">₹${lineTotal}</div>
+      `;
+      cartEl.appendChild(row);
+    });
+
+    totalEl.textContent = '₹' + total;
+  }
+
+  // ── CLEAR CART ──
+  function clearCart() {
+    Object.keys(cart).forEach(key => {
+      delete cart[key];
+      const btn = document.getElementById('addBtn-' + key);
+      if (btn) {
+        btn.classList.remove('has-qty');
+        document.getElementById('qty-' + key).textContent = '0';
+      }
+      const card = document.getElementById('planCard-' + key);
+      if (card) card.classList.remove('selected');
+    });
+    renderCart();
+  }
+
+  // ── TOAST ──
+  function showToast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 2200);
+  }
+
+  // ── BUY NOW ──
+  function buyNow() {
+    const phone = document.getElementById('phoneInput').value.trim();
+    const phoneInput = document.getElementById('phoneInput');
+    const errorMsg = document.getElementById('phoneError');
+
+    // validate phone
+    if (!/^\d{10}$/.test(phone)) {
+      phoneInput.classList.add('error');
+      errorMsg.classList.add('show');
+      phoneInput.focus();
+      showToast('⚠️ Please enter a valid phone number');
+      return;
+    }
+    phoneInput.classList.remove('error');
+    errorMsg.classList.remove('show');
+
+    // validate cart
+    const keys = Object.keys(cart);
+    if (keys.length === 0) {
+      showToast('🛒 Please add a plan first');
+      return;
+    }
+
+    // build order lines
+    let orderLines = '';
+    let total = 0;
+    keys.forEach(key => {
+      const item = cart[key];
+      const lineTotal = item.price * item.qty;
+      total += lineTotal;
+      orderLines += `• ${item.name} x${item.qty} = ₹${lineTotal}\n`;
+    });
+
+    const msg = `Hello, I want FanCode Subscription
+
+Order:
+${orderLines}
+Total: ₹${total}
+
+Phone Number: ${phone}`;
+
+    const encoded = encodeURIComponent(msg);
+    const waNumber = '919387947130';
+    window.open(`https://wa.me/${waNumber}?text=${encoded}`, '_blank');
+  }
+
+  // ── PHONE INPUT CLEANUP ──
+  document.getElementById('phoneInput').addEventListener('input', function() {
+    this.value = this.value.replace(/\D/g, '').slice(0, 10);
+    if (this.value.length > 0) {
+      this.classList.remove('error');
+      document.getElementById('phoneError').classList.remove('show');
+    }
+  });
+</script>
+</body>
+</html>

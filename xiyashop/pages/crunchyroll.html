@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Crunchyroll Plans – XiyaShop ✨</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --orange: #FF7A3D;
+      --pink: #FF6B9E;
+      --soft-pink: #FFB3CD;
+      --peach: #FFAB6B;
+      --lavender: #C4B5FD;
+      --white: #FFFFFF;
+      --cream: #FFF8F3;
+      --text-dark: #2D1B3D;
+      --text-mid: #5C4370;
+      --text-soft: #9B84B0;
+      --glass: rgba(255,255,255,0.55);
+      --glass-border: rgba(255,255,255,0.75);
+      --shadow: rgba(255,100,120,0.18);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Nunito', sans-serif;
+      background: linear-gradient(145deg, #FFF0E8 0%, #FFF0F7 40%, #F0EEFF 100%);
+      min-height: 100vh;
+      overflow-x: hidden;
+      color: var(--text-dark);
+    }
+
+    /* ── Floating Sparkles BG ── */
+    .sparkle-bg {
+      position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden;
+    }
+    .sp {
+      position: absolute;
+      border-radius: 50%;
+      opacity: 0;
+      animation: floatUp var(--dur) ease-in-out infinite;
+      animation-delay: var(--delay);
+    }
+    @keyframes floatUp {
+      0%   { transform: translateY(0) scale(0.6) rotate(0deg); opacity: 0; }
+      20%  { opacity: 0.7; }
+      80%  { opacity: 0.4; }
+      100% { transform: translateY(-110vh) scale(1.1) rotate(360deg); opacity: 0; }
+    }
+
+    /* ── Page Wrapper ── */
+    .page { position: relative; z-index: 1; }
+
+    /* ── Header ── */
+    header {
+      text-align: center;
+      padding: 52px 20px 44px;
+      position: relative;
+    }
+    .brand-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--glass);
+      border: 1.5px solid var(--glass-border);
+      backdrop-filter: blur(12px);
+      border-radius: 50px;
+      padding: 6px 18px;
+      font-family: 'Poppins', sans-serif;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--orange);
+      letter-spacing: 0.05em;
+      margin-bottom: 20px;
+      box-shadow: 0 4px 20px rgba(255,122,61,0.12);
+    }
+    .brand-badge .dot {
+      width: 7px; height: 7px;
+      background: linear-gradient(135deg, var(--orange), var(--pink));
+      border-radius: 50%;
+      box-shadow: 0 0 6px var(--pink);
+      animation: pulse 1.8s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%,100% { transform: scale(1); opacity: 1; }
+      50%      { transform: scale(1.35); opacity: 0.7; }
+    }
+    h1 {
+      font-family: 'Poppins', sans-serif;
+      font-size: clamp(26px, 6vw, 40px);
+      font-weight: 800;
+      line-height: 1.2;
+      background: linear-gradient(135deg, #FF6B3D 0%, #FF4E90 60%, #C084FC 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 10px;
+    }
+    .subtitle {
+      font-size: clamp(13px, 3.5vw, 16px);
+      color: var(--text-soft);
+      font-weight: 600;
+      letter-spacing: 0.01em;
+    }
+    .crunchyroll-logo {
+      margin: 18px auto 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      font-family: 'Poppins', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-mid);
+      opacity: 0.75;
+    }
+    .cr-icon {
+      width: 28px; height: 28px;
+      background: linear-gradient(135deg, #F47521, #FF9500);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      color: white; font-size: 14px; font-weight: 900;
+      box-shadow: 0 2px 10px rgba(244,117,33,0.35);
+    }
+
+    /* ── Section Label ── */
+    .section-label {
+      text-align: center;
+      padding: 0 20px 6px;
+    }
+    .section-label h2 {
+      font-family: 'Poppins', sans-serif;
+      font-size: clamp(15px, 4vw, 19px);
+      font-weight: 700;
+      color: var(--text-mid);
+    }
+    .section-label p {
+      font-size: 12.5px;
+      color: var(--text-soft);
+      margin-top: 4px;
+    }
+
+    /* ── Plans Grid ── */
+    .plans-wrapper {
+      padding: 24px 16px 36px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      max-width: 480px;
+      margin: 0 auto;
+    }
+
+    /* ── Plan Card ── */
+    .plan-card {
+      background: var(--glass);
+      border: 2px solid var(--glass-border);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border-radius: 22px;
+      padding: 22px 20px;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.28s cubic-bezier(.34,1.56,.64,1), box-shadow 0.28s ease, border-color 0.22s ease;
+      box-shadow: 0 6px 28px rgba(255,107,158,0.10);
+    }
+    .plan-card::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(135deg, rgba(255,122,61,0.06) 0%, rgba(255,107,158,0.08) 100%);
+      opacity: 0;
+      transition: opacity 0.25s;
+      border-radius: 20px;
+    }
+    .plan-card:hover {
+      transform: translateY(-4px) scale(1.012);
+      box-shadow: 0 16px 48px rgba(255,107,158,0.22);
+    }
+    .plan-card:hover::before { opacity: 1; }
+
+    .plan-card.selected {
+      border-color: var(--pink);
+      box-shadow: 0 0 0 3px rgba(255,107,158,0.22), 0 16px 48px rgba(255,107,158,0.25);
+      transform: translateY(-2px) scale(1.015);
+    }
+    .plan-card.selected::before { opacity: 1; }
+
+    /* Popular badge */
+    .popular-badge {
+      position: absolute;
+      top: 14px; right: 14px;
+      background: linear-gradient(135deg, var(--orange), var(--pink));
+      color: white;
+      font-family: 'Poppins', sans-serif;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      padding: 4px 11px;
+      border-radius: 50px;
+      box-shadow: 0 3px 12px rgba(255,107,158,0.35);
+    }
+
+    .selected-check {
+      position: absolute;
+      top: 14px; left: 14px;
+      width: 22px; height: 22px;
+      background: linear-gradient(135deg, var(--orange), var(--pink));
+      border-radius: 50%;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 11px;
+      box-shadow: 0 2px 10px rgba(255,107,158,0.4);
+      animation: popIn 0.3s cubic-bezier(.34,1.56,.64,1);
+    }
+    .plan-card.selected .selected-check { display: flex; }
+    @keyframes popIn {
+      from { transform: scale(0); }
+      to   { transform: scale(1); }
+    }
+
+    .card-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      margin-bottom: 14px;
+      padding-left: 4px;
+    }
+    .plan-info { flex: 1; }
+    .plan-duration {
+      font-family: 'Poppins', sans-serif;
+      font-size: 18px;
+      font-weight: 800;
+      color: var(--text-dark);
+      line-height: 1.15;
+    }
+    .plan-device {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-soft);
+      margin-top: 2px;
+    }
+    .plan-emoji {
+      font-size: 26px;
+      margin-left: 8px;
+      filter: drop-shadow(0 2px 6px rgba(255,107,158,0.3));
+    }
+
+    /* Features */
+    .features {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 18px;
+    }
+    .feat-tag {
+      background: rgba(255,255,255,0.7);
+      border: 1.2px solid rgba(196,181,253,0.5);
+      border-radius: 50px;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--text-mid);
+      padding: 4px 11px;
+      display: flex; align-items: center; gap: 4px;
+    }
+    .feat-tag .fi { font-size: 11px; }
+
+    /* Price Row */
+    .price-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+    .price-left {}
+    .price-original {
+      font-size: 13px;
+      font-weight: 700;
+      color: #E53E3E;
+      text-decoration: line-through;
+      opacity: 0.7;
+      letter-spacing: 0.01em;
+    }
+    .price-discounted {
+      font-family: 'Poppins', sans-serif;
+      font-size: 28px;
+      font-weight: 800;
+      background: linear-gradient(135deg, var(--orange) 0%, var(--pink) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      line-height: 1.1;
+    }
+    .savings-pill {
+      background: linear-gradient(135deg, rgba(255,107,158,0.15), rgba(255,122,61,0.1));
+      border: 1px solid rgba(255,107,158,0.25);
+      border-radius: 50px;
+      font-size: 11px;
+      font-weight: 800;
+      color: var(--pink);
+      padding: 3px 10px;
+      white-space: nowrap;
+    }
+
+    /* Buy Button on card */
+    .btn-buy {
+      width: 100%;
+      margin-top: 16px;
+      padding: 14px 20px;
+      border: none;
+      border-radius: 14px;
+      background: linear-gradient(135deg, var(--orange) 0%, var(--pink) 100%);
+      color: white;
+      font-family: 'Poppins', sans-serif;
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.2s cubic-bezier(.34,1.56,.64,1), box-shadow 0.2s ease;
+      box-shadow: 0 6px 22px rgba(255,107,158,0.35);
+    }
+    .btn-buy::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(135deg, rgba(255,255,255,0.2), transparent);
+      border-radius: 14px;
+    }
+    .btn-buy:hover {
+      transform: scale(1.03) translateY(-1px);
+      box-shadow: 0 10px 32px rgba(255,107,158,0.48);
+    }
+    .btn-buy:active { transform: scale(0.97); }
+    .btn-buy .btn-inner {
+      display: flex; align-items: center; justify-content: center; gap: 7px;
+      position: relative; z-index: 1;
+    }
+
+    /* ── Trust Strip ── */
+    .trust-strip {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+      padding: 0 20px 40px;
+      max-width: 480px;
+      margin: 0 auto;
+    }
+    .trust-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-soft);
+    }
+    .trust-icon {
+      width: 28px; height: 28px;
+      background: var(--glass);
+      border: 1.5px solid var(--glass-border);
+      backdrop-filter: blur(10px);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 13px;
+    }
+
+    /* ── Footer ── */
+    footer {
+      text-align: center;
+      padding: 20px 20px 40px;
+      font-size: 12px;
+      color: var(--text-soft);
+      font-weight: 600;
+    }
+    footer span {
+      background: linear-gradient(135deg, var(--orange), var(--pink));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* ── Toast ── */
+    .toast {
+      position: fixed;
+      bottom: 28px; left: 50%; transform: translateX(-50%) translateY(80px);
+      background: linear-gradient(135deg, var(--orange), var(--pink));
+      color: white;
+      font-family: 'Poppins', sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      padding: 13px 24px;
+      border-radius: 50px;
+      box-shadow: 0 8px 32px rgba(255,107,158,0.4);
+      z-index: 999;
+      white-space: nowrap;
+      transition: transform 0.35s cubic-bezier(.34,1.56,.64,1), opacity 0.3s;
+      opacity: 0;
+    }
+    .toast.show {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
+    }
+
+    /* ── Responsive ── */
+    @media (min-width: 520px) {
+      .plans-wrapper { padding: 28px 24px 40px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Sparkle BG -->
+<div class="sparkle-bg" id="sparkles"></div>
+
+<div class="page">
+
+  <!-- Header -->
+  <header>
+    <div class="brand-badge">
+      <div class="dot"></div>
+      XiyaShop Digital Store
+    </div>
+    <h1>Crunchyroll Plans 🍿✨</h1>
+    <p class="subtitle">Stream Your Favorite Anime for Less</p>
+    <div class="crunchyroll-logo">
+      <div class="cr-icon">C</div>
+      Official Crunchyroll Subscription
+    </div>
+  </header>
+
+  <!-- Section Label -->
+  <div class="section-label">
+    <h2>🌸 Choose Your Plan</h2>
+    <p>Tap a card to select • Delivered Within Minutes</p>
+  </div>
+
+  <!-- Plans -->
+  <div class="plans-wrapper" id="plans">
+
+    <!-- Plan 1 -->
+    <div class="plan-card" data-plan="1 Month / One Device" data-price="55" onclick="selectPlan(this)">
+      <div class="selected-check">✓</div>
+      <div class="card-top">
+        <div class="plan-info">
+          <div class="plan-duration">1 Month</div>
+          <div class="plan-device">📱 One Device</div>
+        </div>
+        <div class="plan-emoji">🌸</div>
+      </div>
+      <div class="features">
+        <div class="feat-tag"><span class="fi">🔑</span> Login Credentials Provided</div>
+        <div class="feat-tag"><span class="fi">🔒</span> Private Account</div>
+        <div class="feat-tag"><span class="fi">👤</span> Shared Profile</div>
+        <div class="feat-tag"><span class="fi">⚡</span> Delivered Within Minutes </div>
+      </div>
+      <div class="price-row">
+        <div class="price-left">
+          <div class="price-original">₹99</div>
+          <div class="price-discounted">₹55</div>
+        </div>
+        <div class="savings-pill">Save ₹44 🎉</div>
+      </div>
+      <button class="btn-buy" onclick="buyNow(event, this)">
+        <div class="btn-inner">Buy Now ✨</div>
+      </button>
+    </div>
+
+    <!-- Plan 2 -->
+    <div class="plan-card" data-plan="6 Months / One Device" data-price="189" onclick="selectPlan(this)">
+      <div class="selected-check">✓</div>
+      <div class="popular-badge">⭐ Most Popular</div>
+      <div class="card-top">
+        <div class="plan-info">
+          <div class="plan-duration">6 Months</div>
+          <div class="plan-device">📱 One Device</div>
+        </div>
+        <div class="plan-emoji">⭐</div>
+      </div>
+      <div class="features">
+        <div class="feat-tag"><span class="fi">🔑</span> 
+        Login Credentials Provided</div>
+        <div class="feat-tag"><span class="fi">🔒</span> Private Account</div>
+        <div class="feat-tag"><span class="fi">👤</span> Shared Profile</div>
+        <div class="feat-tag"><span class="fi">⚡</span> Delivered Within Minutes</div>
+      </div>
+      <div class="price-row">
+        <div class="price-left">
+          <div class="price-original">₹300</div>
+          <div class="price-discounted">₹189</div>
+        </div>
+        <div class="savings-pill">Save ₹111 🎉</div>
+      </div>
+      <button class="btn-buy" onclick="buyNow(event, this)">
+        <div class="btn-inner">Buy Now ✨</div>
+      </button>
+    </div>
+
+    <!-- Plan 3 -->
+    <div class="plan-card" data-plan="1 Year / One Device" data-price="339" onclick="selectPlan(this)">
+      <div class="selected-check">✓</div>
+      <div class="card-top">
+        <div class="plan-info">
+          <div class="plan-duration">1 Year</div>
+          <div class="plan-device">📱 One Device</div>
+        </div>
+        <div class="plan-emoji">✨</div>
+      </div>
+      <div class="features">
+        <div class="feat-tag"><span class="fi">🔑</span> Login Credentials Provided</div>
+        <div class="feat-tag"><span class="fi">🔒</span> Private Account</div>
+        <div class="feat-tag"><span class="fi">👤</span> Shared Profile</div>
+        <div class="feat-tag"><span class="fi">⚡</span> Delivered Within Minutes</div>
+      </div>
+      <div class="price-row">
+        <div class="price-left">
+          <div class="price-original">₹500</div>
+          <div class="price-discounted">₹339</div>
+        </div>
+        <div class="savings-pill">Save ₹161 🎉</div>
+      </div>
+      <button class="btn-buy" onclick="buyNow(event, this)">
+        <div class="btn-inner">Buy Now ✨</div>
+      </button>
+    </div>
+
+  </div>
+
+  <!-- Trust Strip -->
+  <div class="trust-strip">
+    <div class="trust-item">
+      <div class="trust-icon">⚡</div> Instant Delivery
+    </div>
+    <div class="trust-item">
+      <div class="trust-icon">🔒</div> 100% Safe
+    </div>
+    <div class="trust-item">
+      <div class="trust-icon">💖</div> 1K+ Happy Users
+    </div>
+  </div>
+
+  <footer>
+    Made with 💖 by <span>XiyaShop</span> · Premium Digital Store
+  </footer>
+
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast">✨ Redirecting to chat...</div>
+
+<script>
+  /* ── Sparkle generator ── */
+  const colors = ['#FF9FBB','#FFAB6B','#C4B5FD','#FFD1DC','#FFB347','#E8B4FF'];
+  const bg = document.getElementById('sparkles');
+  for (let i = 0; i < 22; i++) {
+    const s = document.createElement('div');
+    s.className = 'sp';
+    const size = Math.random() * 8 + 4;
+    s.style.cssText = `
+      width:${size}px; height:${size}px;
+      left:${Math.random()*100}%;
+      top:${80 + Math.random()*30}%;
+      background:${colors[Math.floor(Math.random()*colors.length)]};
+      --dur:${6+Math.random()*8}s;
+      --delay:${Math.random()*8}s;
+      filter:blur(1px);
+    `;
+    bg.appendChild(s);
+  }
+
+  /* ── Select plan ── */
+  let selectedCard = null;
+
+  function selectPlan(card) {
+    document.querySelectorAll('.plan-card').forEach(c => c.classList.remove('selected'));
+    card.classList.add('selected');
+    selectedCard = card;
+  }
+
+  /* ── Buy Now ── */
+  function buyNow(e, btn) {
+    e.stopPropagation();
+    const card = btn.closest('.plan-card');
+    selectPlan(card);
+
+    const plan  = card.dataset.plan;
+    const price = card.dataset.price;
+
+    const msg = `Hello, I want Crunchyroll Subscription\n\nPlan: ${plan}\nPrice: ₹${price}`;
+    const encoded = encodeURIComponent(msg);
+    const waUrl = `https://wa.me/919387947130?text=${encoded}`;
+
+    // Ripple animation
+    btn.style.transform = 'scale(0.95)';
+    setTimeout(() => { btn.style.transform = ''; }, 150);
+
+    // Toast
+    const toast = document.getElementById('toast');
+    toast.classList.add('show');
+    setTimeout(() => {
+      toast.classList.remove('show');
+      window.open(waUrl, '_blank');
+    }, 900);
+  }
+
+  /* ── Auto-select popular plan ── */
+  document.addEventListener('DOMContentLoaded', () => {
+    const popularCard = document.querySelectorAll('.plan-card')[1];
+    if (popularCard) selectPlan(popularCard);
+  });
+</script>
+</body>
+</html>

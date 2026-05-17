@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>JioHotstar Plans – XiyaShop</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+
+:root{
+  --sky:#4fa3e8;--indigo:#5b7fe8;--rose:#e86fa3;
+  --gold:#f5c842;
+  --glass:rgba(255,255,255,0.62);--border:rgba(255,255,255,0.78);
+  --text:#1a1f36;--muted:#5e6a8a;--danger:#e03c3c;
+  --grad-h:linear-gradient(135deg,#4fa3e8 0%,#a76fe8 50%,#e86fa3 100%);
+  --grad-bg:linear-gradient(135deg,#dff0ff 0%,#f2e8ff 55%,#ffe6f5 100%);
+  --shadow:0 8px 40px rgba(91,127,232,0.13);
+  --glow-b:0 0 22px rgba(79,163,232,0.38);
+  --glow-g:0 0 22px rgba(245,200,66,0.42);
+}
+
+html{scroll-behavior:smooth}
+body{
+  font-family:'Outfit',sans-serif;
+  background:var(--grad-bg);
+  min-height:100vh;color:var(--text);overflow-x:hidden;
+}
+body::before,body::after{
+  content:'';position:fixed;border-radius:50%;
+  filter:blur(100px);z-index:0;pointer-events:none;
+}
+body::before{
+  width:540px;height:540px;
+  background:radial-gradient(circle,rgba(79,163,232,0.2) 0%,transparent 70%);
+  top:-140px;left:-140px;
+}
+body::after{
+  width:440px;height:440px;
+  background:radial-gradient(circle,rgba(232,111,163,0.18) 0%,transparent 70%);
+  bottom:-100px;right:-100px;
+}
+
+.page{
+  position:relative;z-index:1;
+  max-width:480px;margin:0 auto;
+  padding:0 15px 80px;
+}
+
+/* TOP BAR */
+.topbar{display:flex;align-items:center;justify-content:space-between;padding:18px 0 8px}
+.brand{
+  font-family:'Poppins',sans-serif;font-weight:700;font-size:18px;
+  background:var(--grad-h);-webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;background-clip:text;
+}
+.topbadge{
+  background:var(--grad-h);color:#fff;
+  font-size:10px;font-weight:600;padding:3px 10px;
+  border-radius:20px;letter-spacing:.5px;
+}
+
+/* HERO */
+.hero{text-align:center;padding:28px 0 22px;animation:fadeDown .6s ease both}
+.ott-icon{
+  width:62px;height:62px;margin:0 auto 12px;
+  background:var(--grad-h);border-radius:18px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:26px;box-shadow:0 6px 24px rgba(91,127,232,.35);
+  animation:pulse 3s ease-in-out infinite;
+}
+.hero h1{
+  font-size:clamp(21px,5.5vw,27px);font-weight:800;letter-spacing:-.5px;
+  background:var(--grad-h);-webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;background-clip:text;margin-bottom:6px;
+}
+.hero p{font-size:13.5px;color:var(--muted);line-height:1.5}
+
+/* GLASS BASE */
+.glass{
+  background:var(--glass);backdrop-filter:blur(18px);
+  -webkit-backdrop-filter:blur(18px);
+  border:1.5px solid var(--border);border-radius:20px;
+  box-shadow:var(--shadow);
+}
+
+/* PHONE */
+.phone-wrap{padding:20px 18px;margin-bottom:22px;animation:fadeUp .6s .1s ease both}
+.phone-wrap label{
+  display:block;font-size:11.5px;font-weight:600;
+  color:var(--muted);text-transform:uppercase;letter-spacing:.8px;margin-bottom:9px;
+}
+.phone-field{
+  display:flex;align-items:center;gap:9px;
+  background:rgba(255,255,255,.88);
+  border:1.5px solid rgba(79,163,232,.22);
+  border-radius:13px;padding:0 14px;transition:all .25s;
+}
+.phone-field:focus-within{border-color:var(--sky);box-shadow:var(--glow-b);background:#fff}
+.phone-flag{font-size:17px}
+.phone-code{
+  font-weight:600;font-size:13.5px;color:var(--text);
+  border-right:1.5px solid rgba(91,127,232,.18);padding-right:9px;
+}
+.phone-field input{
+  flex:1;border:none;outline:none;background:transparent;
+  font-family:'Outfit',sans-serif;font-size:15px;
+  font-weight:500;color:var(--text);padding:14px 0;
+}
+.phone-field input::placeholder{color:#aab4cc;font-weight:400}
+
+/* TABS */
+.plan-tabs{
+  display:flex;gap:8px;margin-bottom:20px;
+  background:rgba(255,255,255,.55);
+  backdrop-filter:blur(12px);
+  border:1.5px solid var(--border);
+  border-radius:16px;padding:5px;
+  animation:fadeUp .5s .15s ease both;
+}
+.tab-btn{
+  flex:1;padding:10px 8px;border:none;cursor:pointer;
+  background:transparent;border-radius:12px;
+  font-family:'Outfit',sans-serif;font-size:13px;
+  font-weight:600;color:var(--muted);
+  transition:all .22s;white-space:nowrap;
+}
+.tab-btn.active{
+  background:var(--grad-h);color:#fff;
+  box-shadow:0 4px 18px rgba(91,127,232,.32);
+}
+
+/* PANELS */
+.tab-panel{display:none}
+.tab-panel.active{display:block}
+
+/* SEC LABEL */
+.sec-label{
+  display:flex;align-items:center;gap:7px;
+  margin-bottom:13px;margin-top:2px;flex-wrap:wrap;
+}
+.sec-label .ico{font-size:15px}
+.sec-label h2{font-size:14.5px;font-weight:700;color:var(--text)}
+.pill{
+  font-size:9.5px;font-weight:700;padding:2px 8px;
+  border-radius:20px;color:#fff;letter-spacing:.4px;
+}
+.pill-red{background:linear-gradient(135deg,#ff6b6b,#ff9a9a)}
+.pill-gold{background:linear-gradient(135deg,#f5c842,#f5a623)}
+.pill-blue{background:linear-gradient(135deg,#4fa3e8,#5b7fe8)}
+
+/* INFO STRIP */
+.info-strip{
+  display:flex;align-items:center;gap:7px;
+  padding:11px 14px;margin-bottom:16px;
+  background:rgba(255,255,255,.6);
+  backdrop-filter:blur(10px);
+  border:1px solid var(--border);border-radius:12px;
+  font-size:11px;color:var(--muted);
+  animation:fadeUp .4s .2s ease both;
+}
+.info-strip span:first-child{font-size:14px}
+.info-strip strong{color:var(--text)}
+
+/* PLAN GRID */
+.plans-grid{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:11px;margin-bottom:22px;
+}
+
+/* PLAN CARD */
+.plan-card{
+  background:var(--glass);backdrop-filter:blur(18px);
+  -webkit-backdrop-filter:blur(18px);
+  border:1.5px solid var(--border);border-radius:17px;
+  padding:16px 13px 14px;cursor:pointer;position:relative;
+  overflow:hidden;
+  transition:transform .22s ease,box-shadow .22s ease,border-color .22s ease;
+  animation:fadeUp .5s ease both;
+}
+.plan-card::before{
+  content:'';position:absolute;inset:0;border-radius:17px;opacity:0;
+  background:linear-gradient(135deg,rgba(79,163,232,.1),rgba(232,111,163,.1));
+  transition:opacity .22s;
+}
+.plan-card:hover{transform:translateY(-4px) scale(1.015);box-shadow:0 12px 38px rgba(91,127,232,.22)}
+.plan-card:hover::before{opacity:1}
+.plan-card:active{transform:scale(.98)}
+
+.plan-card.selected{
+  border-color:var(--sky);
+  box-shadow:var(--glow-b),var(--shadow);
+  background:rgba(255,255,255,.84);
+}
+.plan-card.selected::before{opacity:1}
+.plan-card.selected .chk{opacity:1;transform:scale(1)}
+
+.plan-card.prem-card{
+  background:linear-gradient(145deg,rgba(245,200,66,.07),rgba(255,255,255,.68));
+}
+.plan-card.prem-card.selected{
+  border-color:var(--gold);
+  box-shadow:var(--glow-g),var(--shadow);
+}
+
+.chk{
+  position:absolute;top:9px;right:9px;
+  width:21px;height:21px;
+  background:var(--grad-h);border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:10px;color:#fff;
+  opacity:0;transform:scale(.6);
+  transition:opacity .2s,transform .2s;
+}
+
+.ribbon{
+  position:absolute;top:-1px;left:9px;
+  background:var(--grad-h);color:#fff;
+  font-size:8.5px;font-weight:700;
+  padding:3px 8px;border-radius:0 0 8px 8px;
+  letter-spacing:.5px;z-index:2;
+}
+.ribbon.gold-rib{background:linear-gradient(135deg,#f5c842,#f5a623);color:#5a3a00}
+
+.plan-emo{font-size:20px;margin-bottom:7px;display:block}
+.plan-name{font-size:12.5px;font-weight:700;color:var(--text);margin-bottom:2px;line-height:1.3}
+.plan-sub{font-size:10px;color:var(--muted);margin-bottom:8px}
+
+.qual-tag{
+  display:inline-flex;align-items:center;gap:3px;
+  font-size:9px;font-weight:700;padding:2px 6px;
+  border-radius:5px;margin-bottom:7px;
+}
+.qual-hd{background:rgba(79,163,232,.12);color:#3a7ec4}
+.qual-4k{background:rgba(245,200,66,.18);color:#b88a00}
+
+.price-row{display:flex;flex-direction:column;gap:2px}
+.orig-price{
+  font-size:12px;color:var(--danger);font-weight:500;
+  text-decoration:line-through;text-decoration-color:var(--danger);
+  text-decoration-thickness:1.5px;
+}
+.offer-price{
+  font-size:21px;font-weight:800;letter-spacing:-.5px;line-height:1;
+  background:var(--grad-h);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.save-badge{
+  display:inline-flex;align-items:center;gap:3px;
+  background:linear-gradient(135deg,#edfff5,#d2ffe9);
+  border:1px solid rgba(34,197,94,.28);
+  border-radius:6px;padding:3px 6px;
+  font-size:9.5px;font-weight:700;color:#16a34a;
+  margin-top:7px;width:fit-content;
+}
+
+/* FEATURES */
+.features{padding:18px;margin-bottom:22px;animation:fadeUp .6s .3s ease both}
+.features h3{
+  font-size:11.5px;font-weight:700;color:var(--muted);
+  text-transform:uppercase;letter-spacing:.8px;margin-bottom:13px;
+}
+.feat-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.feat-item{
+  display:flex;align-items:flex-start;gap:7px;
+  padding:10px 9px;background:rgba(255,255,255,.72);
+  border-radius:11px;border:1px solid rgba(255,255,255,.9);
+}
+.f-ico{font-size:17px;flex-shrink:0;margin-top:1px}
+.f-text{font-size:11px;font-weight:600;color:var(--text);line-height:1.35}
+.f-sub{font-size:9.5px;color:var(--muted);margin-top:2px}
+
+/* BUY BAR */
+.buy-bar{position:sticky;bottom:14px;z-index:100;margin-top:6px;animation:fadeUp .6s .4s ease both}
+.sel-summary{
+  background:rgba(255,255,255,.78);backdrop-filter:blur(14px);
+  border:1.5px solid rgba(79,163,232,.22);
+  border-radius:15px 15px 0 0;padding:10px 16px 0;
+  display:none;align-items:center;justify-content:space-between;
+}
+.sel-summary.show{display:flex}
+.sum-label{font-size:10px;color:var(--muted)}
+.sum-plan{font-size:11.5px;font-weight:700;color:var(--text);line-height:1.3}
+.sum-price{
+  font-size:17px;font-weight:800;flex-shrink:0;margin-left:8px;
+  background:var(--grad-h);-webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;background-clip:text;
+}
+.buy-btn{
+  width:100%;padding:16px;background:var(--grad-h);border:none;
+  border-radius:15px;color:#fff;font-family:'Outfit',sans-serif;
+  font-size:16px;font-weight:700;cursor:pointer;letter-spacing:.3px;
+  position:relative;overflow:hidden;
+  transition:transform .2s,box-shadow .2s;
+  box-shadow:0 6px 28px rgba(91,127,232,.42);
+}
+.buy-btn::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(135deg,rgba(255,255,255,.15),transparent);
+  border-radius:15px;
+}
+.buy-btn:hover{transform:translateY(-2px);box-shadow:0 10px 34px rgba(91,127,232,.52)}
+.buy-btn:active{transform:scale(.98)}
+.btn-inner{display:flex;align-items:center;justify-content:center;gap:7px}
+.arrow{font-size:19px;transition:transform .2s}
+.buy-btn:hover .arrow{transform:translateX(4px)}
+
+.trust-strip{
+  display:flex;align-items:center;justify-content:center;
+  gap:16px;padding:10px 0 0;flex-wrap:wrap;
+}
+.trust-item{display:flex;align-items:center;gap:4px;font-size:11px;color:var(--muted);font-weight:500}
+
+/* TOAST */
+.toast{
+  position:fixed;top:20px;left:50%;
+  transform:translateX(-50%) translateY(-80px);
+  background:#1a1f36;color:#fff;padding:11px 20px;
+  border-radius:40px;font-size:12.5px;font-weight:500;
+  z-index:9999;transition:transform .35s cubic-bezier(.34,1.56,.64,1);
+  white-space:nowrap;box-shadow:0 8px 30px rgba(26,31,54,.3);
+}
+.toast.show{transform:translateX(-50%) translateY(0)}
+
+@keyframes fadeDown{from{opacity:0;transform:translateY(-20px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+@keyframes pulse{
+  0%,100%{box-shadow:0 6px 24px rgba(91,127,232,.35)}
+  50%{box-shadow:0 6px 32px rgba(232,111,163,.45)}
+}
+
+.plan-card:nth-child(1){animation-delay:.1s}
+.plan-card:nth-child(2){animation-delay:.17s}
+.plan-card:nth-child(3){animation-delay:.24s}
+.plan-card:nth-child(4){animation-delay:.31s}
+
+::-webkit-scrollbar{width:4px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:rgba(91,127,232,.28);border-radius:4px}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- TOP BAR -->
+  <nav class="topbar">
+    <span class="brand">✦ XiyaShop</span>
+    <span class="topbadge">OFFICIAL STORE</span>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="ott-icon">🎬</div>
+    <h1>JioHotstar Plans ✨</h1>
+    <p>Premium Streaming at Better Prices</p>
+  </section>
+
+  <!-- PHONE -->
+  <div class="glass phone-wrap">
+    <label>Enter Your Mobile Number</label>
+    <div class="phone-field">
+      <span class="phone-flag">🇮🇳</span>
+      <span class="phone-code">+91</span>
+      <input id="phone" type="tel" maxlength="10" placeholder="98765 43210"
+        oninput="this.value=this.value.replace(/\D/g,'')"/>
+    </div>
+  </div>
+
+  <!-- TABS -->
+  <div class="plan-tabs">
+    <button class="tab-btn active" onclick="switchTab('shared',this)">🤝 Shared Plans</button>
+    <button class="tab-btn" onclick="switchTab('personal',this)">👤 Personal Plans</button>
+  </div>
+
+  <!-- ══════════════════════════════
+       SHARED PLANS
+  ══════════════════════════════ -->
+  <div class="tab-panel active" id="tab-shared">
+
+    <div class="info-strip">
+      <span>🤝</span>
+      <span><strong>Shared Plans</strong> — Activated directly on your number. Best prices guaranteed.</span>
+    </div>
+
+    <!-- SUPER SHARED -->
+    <div class="sec-label">
+      <span class="ico">🔥</span>
+      <h2>Super Plans</h2>
+      <span class="pill pill-red">SHARED</span>
+      <span class="pill pill-blue">1080p HD</span>
+    </div>
+
+    <div class="plans-grid">
+      <div class="plan-card"
+           data-plan="Super Shared · 1 Month · 1 Device"
+           data-price="79" data-orig="149"
+           onclick="selectPlan(this)">
+        <div class="chk">✓</div>
+        <span class="plan-emo">⚡</span>
+        <div class="plan-name">1 Month</div>
+        <div class="qual-tag qual-hd">📺 1080p HD</div>
+        <div class="plan-sub">1 Device · Shared</div>
+        <div class="price-row">
+          <span class="orig-price">₹149</span>
+          <span class="offer-price">₹79</span>
+        </div>
+        <div class="save-badge">🎉 Save ₹70</div>
+      </div>
+
+      <div class="plan-card"
+           data-plan="Super Shared · 3 Months · 1 Device · 1080p HD"
+           data-price="229" data-orig="349"
+           onclick="selectPlan(this)">
+        <div class="chk">✓</div>
+        <span class="plan-emo">📅</span>
+        <div class="plan-name">3 Months</div>
+        <div class="qual-tag qual-hd">📺 1080p HD</div>
+        <div class="plan-sub">1 Device · Shared</div>
+        <div class="price-row">
+          <span class="orig-price">₹349</span>
+          <span class="offer-price">₹229</span>
+        </div>
+        <div class="save-badge">🎉 Save ₹120</div>
+      </div>
+
+      <div class="plan-card"
+           data-plan="Super Shared · 6 Months · 1 Device · 1080p HD"
+           data-price="384" data-orig="699"
+           onclick="selectPlan(this)">
+        <div class="chk">✓</div>
+        <span class="plan-emo">📆</span>
+        <div class="plan-name">6 Months</div>
+        <div class="qual-tag qual-hd">📺 1080p HD</div>
+        <div class="plan-sub">1 Device · Shared</div>
+        <div class="price-row">
+          <span class="orig-price">₹699</span>
+          <span class="offer-price">₹384</span>
+        </div>
+        <div class="save-badge">🎉 Save ₹315</div>
+      </div>
+
+      <div class="plan-card"
+           data-plan="Super Shared · 1 Year · 1 Device · 1080p HD"
+           data-price="499" data-orig="1099"
+           onclick="selectPlan(this)"
+           style="grid-column:1/-1">
+        <div class="ribbon">⭐ BEST VALUE</div>
+        <div class="chk">✓</div>
+        <span class="plan-emo">🗓️</span>
+        <div class="plan-name">1 Year</div>
+        <div class="qual-tag qual-hd">📺 1080p HD</div>
+        <div class="plan-sub">1 Device · Shared</div>
+        <div class="price-row">
+          <span class="orig-price">₹1,099</span>
+          <span class="offer-price">₹499</span>
+        </div>
+        <div class="save-badge">🎉 Save ₹600</div>
+      </div>
+    </div>
+
+    <!-- PREMIUM SHARED -->
+    <div class="sec-label" style="margin-top:4px">
+      <span class="ico">👑</span>
+      <h2>Premium Plans</h2>
+      <span class="pill pill-red">SHARED</span>
+      <span class="pill pill-gold">4K Ultra</span>
+    </div>
+
+    <div class="plans-grid">
+      <div class="plan-card prem-card"
+           data-plan="Premium Shared · 1 Month · 1 Device · 4K Ultra"
+           data-price="99" data-orig="299"
+           onclick="selectPlan(this)">
+        <div class="chk">✓</div>
+        <span class="plan-emo">🎯</span>
+        <div class="plan-name">1 Month</div>
+        <div class="qual-tag qual-4k">✨ 4K Ultra</div>
+        <div class="plan-sub">1 Device · Shared</div>
+        <div class="price-row">
+          <span class="orig-price">₹299</span>
+          <span class="offer-price">₹99</span>
+        </div>
+        <div class="save-badge">🎉 Save ₹200</div>
+      </div>
+
+      <div class="plan-card prem-card"
+           data-plan="Premium Shared · 3 Months · 1 Device · 4K Ultra"
+           data-price="249" data-orig="699"
+           onclick="selectPlan(this)">
+        <div class="chk">✓</div>
+        <span class="plan-emo">🏅</span>
+        <div class="plan-name">3 Months</div>
+        <div class="qual-tag qual-4k">✨ 4K Ultra</div>
+        <div class="plan-sub">1 Device · Shared</div>
+        <div class="price-row">
+          <span class="orig-price">₹699</span>
+          <span class="offer-price">₹249</span>
+        </div>
+        <div class="save-badge">🎉 Save ₹450</div>
+      </div>
+
+      <div class="plan-card prem-card"
+           data-plan="Premium Shared · 6 Months · 1 Device · 4K Ultra"
+           data-price="429" data-orig="1399"
+           onclick="selectPlan(this)">
+        <div class="chk">✓</div>
+        <span class="plan-emo">💎</span>
+        <div class="plan-name">6 Months</div>
+        <div class="qual-tag qual-4k">✨ 4K Ultra</div>
+        <div class="plan-sub">1 Device · Shared</div>
+        <div class="price-row">
+          <span class="orig-price">₹1,399</span>
+          <span class="offer-price">₹429</span>
+        </div>
+        <div class="save-badge">🎉 Save ₹970</div>
+      </div>
+
+      <div class="plan-card prem-card"
+           data-plan="Premium Shared · 1 Year · 1 Device · 4K Ultra"
+           data-price="599" data-orig="2199"
+           onclick="selectPlan(this)">
+        <div class="ribbon gold-rib">⭐ BEST VALUE</div>
+        <div class="chk">✓</div>
+        <span class="plan-emo">🏆</span>
+        <div class="plan-name">1 Year</div>
+        <div class="qual-tag qual-4k">✨ 4K Ultra</div>
+        <div class="plan-sub">1 Device · Shared</div>
+        <div class="price-row">
+          <span class="orig-price">₹2,199</span>
+          <span class="offer-price">₹599</span>
+        </div>
+        <div class="save-badge">🎉 Save ₹1,600</div>
+      </div>
+    </div>
+
+  </div><!-- /tab-shared -->
+
+  <!-- ══════════════════════════════
+       PERSONAL PLANS
+  ══════════════════════════════ -->
+  <div class="tab-panel" id="tab-personal">
+
+    <!-- SUPER PERSONAL -->
+    <div class="sec-label" style="margin-top:4px">
+      <span class="ico">🔥</span>
+      <h2>Super Plans</h2>
+      <span class="pill pill-red">HOT DEAL</span>
+    </div>
+
+    <div class="plans-grid">
+      <div class="plan-card"
+           data-plan="Super · 1 Year · 2 Devices"
+           data-price="849" data-orig="1099"
+           onclick="selectPlan(this)"
+           style="grid-column:1/-1">
+        <div class="ribbon">BEST VALUE</div>
+        <div class="chk">✓</div>
+        <span class="plan-emo">📺</span>
+        <div class="plan-name">1 Year Super</div>
+        <div class="plan-sub">2 Devices</div>
+        <div class="price-row">
+          <span class="orig-price">₹1,099</span>
+          <span class="offer-price">₹849</span>
+        </div>
+        <div class="save-badge">🎉 Save ₹250</div>
+      </div>
+    </div>
+
+    <!-- PREMIUM PERSONAL -->
+    <div class="sec-label" style="margin-top:4px">
+      <span class="ico">👑</span>
+      <h2>Premium Plans</h2>
+      <span class="pill pill-gold">4K QUALITY</span>
+    </div>
+
+    <div class="plans-grid">
+      <div class="plan-card prem-card"
+           data-plan="Premium · 1 Year · 4 Devices · 4K"
+           data-price="1999" data-orig="2199"
+           onclick="selectPlan(this)"
+           style="grid-column:1/-1">
+        <div class="chk">✓</div>
+        <span class="plan-emo">🏆</span>
+        <div class="plan-name">1 Year Premium</div>
+        <div class="plan-sub">4 Devices · 4K</div>
+        <div class="price-row">
+          <span class="orig-price">₹2,199</span>
+          <span class="offer-price">₹1,999</span>
+        </div>
+        <div class="save-badge">🎉 Save ₹200</div>
+      </div>
+    </div>
+
+  </div><!-- /tab-personal -->
+
+  <!-- FEATURES -->
+  <div class="glass features">
+    <h3>Why Buy from XiyaShop</h3>
+    <div class="feat-grid">
+      <div class="feat-item">
+        <span class="f-ico">📲</span>
+        <div>
+          <div class="f-text">Activated on Your Number</div>
+          <div class="f-sub">Direct to your account</div>
+        </div>
+      </div>
+      <div class="feat-item">
+        <span class="f-ico">✨</span>
+        <div>
+          <div class="f-text">Premium Streaming</div>
+          <div class="f-sub">HD & 4K content</div>
+        </div>
+      </div>
+      <div class="feat-item">
+        <span class="f-ico">🔒</span>
+        <div>
+          <div class="f-text">Secure Access</div>
+          <div class="f-sub">100% safe & verified</div>
+        </div>
+      </div>
+      <div class="feat-item">
+        <span class="f-ico">⚡</span>
+        <div>
+          <div class="f-text">Delivered in Minutes</div>
+          <div class="f-sub">Instant activation</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BUY BAR -->
+  <div class="buy-bar">
+    <div class="sel-summary" id="summary">
+      <div style="flex:1;min-width:0">
+        <div class="sum-label">Selected Plan</div>
+        <div class="sum-plan" id="sumPlan">—</div>
+      </div>
+      <div class="sum-price" id="sumPrice">—</div>
+    </div>
+    <button class="buy-btn" onclick="buyNow()">
+      <span class="btn-inner">
+        <span>Subscribe Now</span>
+        <span class="arrow">→</span>
+      </span>
+    </button>
+    <div class="trust-strip">
+      <span class="trust-item"><span>🛡️</span> Secure</span>
+      <span class="trust-item"><span>⚡</span> Instant</span>
+      <span class="trust-item"><span>✅</span> Verified</span>
+    </div>
+  </div>
+
+</div><!-- /page -->
+
+<div class="toast" id="toast"></div>
+
+<script>
+  let currentCard = null;
+
+  function switchTab(id, btn) {
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById('tab-' + id).classList.add('active');
+    btn.classList.add('active');
+    if (currentCard) {
+      currentCard.classList.remove('selected');
+      currentCard = null;
+      document.getElementById('summary').classList.remove('show');
+    }
+  }
+
+  function selectPlan(card) {
+    if (currentCard && currentCard !== card) currentCard.classList.remove('selected');
+    if (card.classList.contains('selected')) {
+      card.classList.remove('selected');
+      currentCard = null;
+      document.getElementById('summary').classList.remove('show');
+    } else {
+      card.classList.add('selected');
+      currentCard = card;
+      document.getElementById('sumPlan').textContent  = card.dataset.plan;
+      document.getElementById('sumPrice').textContent = '₹' + Number(card.dataset.price).toLocaleString('en-IN');
+      document.getElementById('summary').classList.add('show');
+    }
+  }
+
+  function showToast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 2800);
+  }
+
+  function buyNow() {
+    const phone = document.getElementById('phone').value.trim();
+    if (phone.length !== 10) {
+      showToast('⚠️ Please enter a valid 10-digit mobile number');
+      document.getElementById('phone').focus(); return;
+    }
+    if (!currentCard) { showToast('👆 Please select a plan first'); return; }
+    const plan  = currentCard.dataset.plan;
+    const price = currentCard.dataset.price;
+    const msg   = encodeURIComponent(
+      `Hello, I want JioHotstar Subscription\n\nPlan: ${plan}\nPrice: ₹${price}\n\nMobile Number: +91${phone}`
+    );
+    window.open(`https://wa.me/919387947130?text=${msg}`, '_blank');
+  }
+</script>
+</body>
+</html>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                     

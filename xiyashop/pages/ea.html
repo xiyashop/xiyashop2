@@ -1,0 +1,1238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>XiyaShop — EA Sports FC™ Recharge</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;700;800;900&family=Outfit:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+  <style>
+    /* =========================
+       CSS VARIABLES & RESET
+    ========================= */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --white: #ffffff;
+      --off-white: #f5f7fa;
+      --silver-light: #e8edf4;
+      --silver-mid: #c8d4e3;
+      --silver-dark: #8a9ab5;
+      --black: #0a0c10;
+      --black-soft: #111318;
+      --black-card: #141820;
+      --neon-green: #00e676;
+      --neon-green-dim: #00c853;
+      --neon-green-glow: rgba(0,230,118,0.18);
+      --blue-soft: #4fc3f7;
+      --blue-glow: rgba(79,195,247,0.15);
+      --gold: #ffd740;
+      --gold-dim: #f9a825;
+      --gold-glow: rgba(255,215,64,0.12);
+      --red-strike: #ef5350;
+      --glass-white: rgba(255,255,255,0.72);
+      --glass-border: rgba(255,255,255,0.55);
+      --glass-shadow: rgba(80,120,200,0.10);
+      --card-bg: rgba(255,255,255,0.62);
+      --card-border: rgba(200,212,227,0.7);
+      --section-bg: linear-gradient(135deg, #eef2f8 0%, #f5f7fa 50%, #e8edf4 100%);
+      --header-bg: linear-gradient(160deg, #0a0c10 0%, #141c2e 60%, #0d1a2e 100%);
+      --radius-sm: 10px;
+      --radius-md: 16px;
+      --radius-lg: 24px;
+      --radius-xl: 32px;
+      --shadow-card: 0 8px 32px rgba(80,120,200,0.12), 0 2px 8px rgba(0,0,0,0.06);
+      --shadow-hover: 0 16px 48px rgba(0,230,118,0.14), 0 4px 16px rgba(0,0,0,0.10);
+      --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Outfit', sans-serif;
+      background: var(--off-white);
+      color: var(--black);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* =========================
+       CANVAS PARTICLES
+    ========================= */
+    #particle-canvas {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.45;
+    }
+
+    /* =========================
+       PAGE WRAPPER
+    ========================= */
+    .page-wrapper {
+      position: relative;
+      z-index: 1;
+      min-height: 100vh;
+    }
+
+    /* =========================
+       HEADER
+    ========================= */
+    .site-header {
+      background: var(--header-bg);
+      position: relative;
+      overflow: hidden;
+      padding: 52px 20px 44px;
+      text-align: center;
+    }
+
+    /* Animated stadium spotlight */
+    .stadium-light {
+      position: absolute;
+      top: -60px; left: 50%;
+      transform: translateX(-50%);
+      width: 500px; height: 300px;
+      background: radial-gradient(ellipse at 50% 0%, rgba(79,195,247,0.22) 0%, rgba(0,230,118,0.08) 40%, transparent 70%);
+      animation: spotlightPulse 4s ease-in-out infinite;
+      pointer-events: none;
+    }
+    .stadium-light-2 {
+      position: absolute;
+      top: 0; left: -100px;
+      width: 300px; height: 200px;
+      background: radial-gradient(ellipse at 0% 0%, rgba(0,230,118,0.10) 0%, transparent 60%);
+      animation: spotlightPulse2 6s ease-in-out infinite;
+    }
+    .stadium-light-3 {
+      position: absolute;
+      top: 0; right: -100px;
+      width: 300px; height: 200px;
+      background: radial-gradient(ellipse at 100% 0%, rgba(255,215,64,0.08) 0%, transparent 60%);
+      animation: spotlightPulse2 5s ease-in-out infinite reverse;
+    }
+    @keyframes spotlightPulse {
+      0%,100% { opacity: 0.7; transform: translateX(-50%) scaleX(1); }
+      50% { opacity: 1; transform: translateX(-50%) scaleX(1.1); }
+    }
+    @keyframes spotlightPulse2 {
+      0%,100% { opacity: 0.5; }
+      50% { opacity: 1; }
+    }
+
+    /* Store badge */
+    .store-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 100px;
+      padding: 6px 16px 6px 10px;
+      margin-bottom: 22px;
+      backdrop-filter: blur(10px);
+    }
+    .store-badge-dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--neon-green);
+      box-shadow: 0 0 8px var(--neon-green);
+      animation: dotPulse 2s ease-in-out infinite;
+    }
+    @keyframes dotPulse {
+      0%,100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+    .store-badge span {
+      font-family: 'Outfit', sans-serif;
+      font-size: 12px;
+      font-weight: 500;
+      color: rgba(255,255,255,0.75);
+      letter-spacing: 0.04em;
+    }
+
+    /* Header title */
+    .header-logo-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      position: relative;
+      z-index: 2;
+    }
+    .header-eyebrow {
+      font-family: 'Outfit', sans-serif;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.25em;
+      color: var(--neon-green);
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+    .header-title {
+      font-family: 'Orbitron', sans-serif;
+      font-size: clamp(26px, 6vw, 42px);
+      font-weight: 900;
+      color: #fff;
+      letter-spacing: 0.04em;
+      line-height: 1.1;
+      text-shadow: 0 0 40px rgba(79,195,247,0.4), 0 2px 0 rgba(0,0,0,0.3);
+    }
+    .header-title .tm {
+      font-size: 0.4em;
+      vertical-align: super;
+      color: var(--blue-soft);
+      font-weight: 600;
+    }
+    .header-subtitle {
+      font-family: 'Poppins', sans-serif;
+      font-size: clamp(12px, 2.5vw, 15px);
+      font-weight: 400;
+      color: rgba(255,255,255,0.55);
+      letter-spacing: 0.06em;
+      margin-top: 6px;
+    }
+
+    /* Divider lines */
+    .header-divider {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin: 20px auto 0;
+      max-width: 340px;
+    }
+    .divider-line {
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(79,195,247,0.5), transparent);
+    }
+    .divider-icon {
+      font-size: 16px;
+      color: var(--blue-soft);
+      filter: drop-shadow(0 0 6px var(--blue-soft));
+    }
+
+    /* =========================
+       MAIN CONTENT
+    ========================= */
+    .main-content {
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 32px 16px 60px;
+    }
+
+    /* =========================
+       TOGGLE SYSTEM
+    ========================= */
+    .toggle-wrap {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 32px;
+    }
+    .toggle-pill {
+      display: flex;
+      background: rgba(255,255,255,0.80);
+      border: 1.5px solid var(--card-border);
+      border-radius: 100px;
+      padding: 5px;
+      gap: 4px;
+      backdrop-filter: blur(16px);
+      box-shadow: 0 4px 20px rgba(80,120,200,0.10);
+      position: relative;
+    }
+    .toggle-btn {
+      position: relative;
+      z-index: 1;
+      border: none;
+      background: transparent;
+      border-radius: 100px;
+      padding: 10px 28px;
+      font-family: 'Outfit', sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      color: var(--silver-dark);
+      transition: var(--transition);
+      letter-spacing: 0.02em;
+      white-space: nowrap;
+    }
+    .toggle-btn.active {
+      background: var(--black-card);
+      color: #fff;
+      box-shadow: 0 2px 16px rgba(0,0,0,0.18), 0 0 0 1.5px var(--neon-green);
+    }
+    .toggle-btn .btn-icon { margin-right: 6px; }
+
+    /* =========================
+       SECTION PANELS
+    ========================= */
+    .section-panel { display: none; }
+    .section-panel.active { display: block; animation: fadeInUp 0.35s cubic-bezier(0.4,0,0.2,1); }
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(18px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* =========================
+       SECTION LABEL
+    ========================= */
+    .section-label {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 18px;
+    }
+    .section-label-line {
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(90deg, var(--neon-green-glow), transparent);
+    }
+    .section-label-text {
+      font-family: 'Poppins', sans-serif;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--silver-dark);
+    }
+
+    /* =========================
+       PACK CARDS GRID
+    ========================= */
+    .packs-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 14px;
+      margin-bottom: 14px;
+    }
+    @media (max-width: 480px) {
+      .packs-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
+    }
+
+    /* =========================
+       PACK CARD
+    ========================= */
+    .pack-card {
+      background: var(--card-bg);
+      border: 1.5px solid var(--card-border);
+      border-radius: var(--radius-md);
+      padding: 18px 14px 16px;
+      cursor: pointer;
+      transition: var(--transition);
+      backdrop-filter: blur(18px);
+      box-shadow: var(--shadow-card);
+      position: relative;
+      overflow: hidden;
+      user-select: none;
+    }
+    .pack-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(255,255,255,0.5) 0%, transparent 60%);
+      pointer-events: none;
+    }
+    .pack-card:hover:not(.out-of-stock) {
+      border-color: var(--neon-green);
+      box-shadow: var(--shadow-hover);
+      transform: translateY(-3px);
+    }
+    .pack-card.selected {
+      border-color: var(--neon-green);
+      background: linear-gradient(135deg, rgba(0,230,118,0.07) 0%, rgba(255,255,255,0.80) 100%);
+      box-shadow: 0 0 0 2px var(--neon-green), var(--shadow-hover);
+    }
+    .pack-card.selected::after {
+      content: '✓';
+      position: absolute;
+      top: 10px; right: 12px;
+      width: 22px; height: 22px;
+      border-radius: 50%;
+      background: var(--neon-green);
+      color: #fff;
+      font-size: 12px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      line-height: 22px;
+      text-align: center;
+    }
+
+    /* Out of stock */
+    .pack-card.out-of-stock {
+      cursor: not-allowed;
+      opacity: 0.52;
+      filter: blur(0.3px) grayscale(0.3);
+      pointer-events: none;
+    }
+    .oos-badge {
+      position: absolute;
+      top: 9px; right: 9px;
+      background: rgba(239,83,80,0.85);
+      color: #fff;
+      font-family: 'Outfit', sans-serif;
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      padding: 3px 7px;
+      border-radius: 100px;
+      text-transform: uppercase;
+    }
+
+    /* Card content */
+    .pack-amount {
+      font-family: 'Orbitron', sans-serif;
+      font-size: clamp(15px, 3.5vw, 19px);
+      font-weight: 800;
+      color: var(--black);
+      line-height: 1.1;
+      margin-bottom: 4px;
+    }
+    .pack-currency {
+      font-size: 0.65em;
+      color: var(--blue-soft);
+      font-weight: 600;
+    }
+    .pack-type-label {
+      font-family: 'Outfit', sans-serif;
+      font-size: 10px;
+      font-weight: 500;
+      color: var(--silver-dark);
+      letter-spacing: 0.05em;
+      margin-bottom: 12px;
+    }
+    .price-row {
+      display: flex;
+      align-items: baseline;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+    .price-original {
+      font-family: 'Poppins', sans-serif;
+      font-size: 11px;
+      font-weight: 400;
+      color: var(--red-strike);
+      text-decoration: line-through;
+      opacity: 0.75;
+    }
+    .price-final {
+      font-family: 'Outfit', sans-serif;
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--black);
+    }
+    .save-label {
+      margin-top: 5px;
+      font-family: 'Outfit', sans-serif;
+      font-size: 10px;
+      font-weight: 600;
+      color: var(--neon-green-dim);
+      background: rgba(0,200,83,0.10);
+      border-radius: 100px;
+      padding: 2px 8px;
+      display: inline-block;
+    }
+
+    /* Shimmer on hover */
+    .pack-card:not(.out-of-stock):hover .pack-amount { color: var(--black-card); }
+
+    /* =========================
+       UID INPUT
+    ========================= */
+    .uid-section {
+      margin-top: 28px;
+      margin-bottom: 20px;
+    }
+    .uid-label {
+      font-family: 'Poppins', sans-serif;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--silver-dark);
+      margin-bottom: 10px;
+      display: block;
+    }
+    .uid-input-wrap {
+      position: relative;
+    }
+    .uid-input-icon {
+      position: absolute;
+      left: 16px; top: 50%;
+      transform: translateY(-50%);
+      font-size: 16px;
+      pointer-events: none;
+      color: var(--silver-dark);
+    }
+    .uid-input {
+      width: 100%;
+      background: rgba(255,255,255,0.78);
+      border: 1.5px solid var(--card-border);
+      border-radius: var(--radius-md);
+      padding: 14px 16px 14px 44px;
+      font-family: 'Outfit', sans-serif;
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--black);
+      outline: none;
+      transition: var(--transition);
+      backdrop-filter: blur(16px);
+      box-shadow: 0 2px 12px rgba(80,120,200,0.06);
+      -webkit-appearance: none;
+    }
+    .uid-input::placeholder { color: var(--silver-mid); font-weight: 400; }
+    .uid-input:focus {
+      border-color: var(--neon-green);
+      box-shadow: 0 0 0 3px var(--neon-green-glow), 0 4px 16px rgba(0,230,118,0.08);
+      background: rgba(255,255,255,0.92);
+    }
+
+    /* =========================
+       CHECKOUT BOX
+    ========================= */
+    .checkout-box {
+      background: rgba(255,255,255,0.82);
+      border: 1.5px solid var(--card-border);
+      border-radius: var(--radius-lg);
+      padding: 22px;
+      backdrop-filter: blur(20px);
+      box-shadow: var(--shadow-card);
+      margin-top: 22px;
+    }
+    .checkout-title {
+      font-family: 'Poppins', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--silver-dark);
+      margin-bottom: 16px;
+    }
+
+    /* Selected preview */
+    .selected-preview {
+      background: linear-gradient(135deg, #f0f4fa 0%, #eaf0f8 100%);
+      border: 1px solid var(--silver-light);
+      border-radius: var(--radius-sm);
+      padding: 12px 14px;
+      margin-bottom: 16px;
+      min-height: 46px;
+      display: flex;
+      align-items: center;
+    }
+    .preview-empty {
+      font-family: 'Outfit', sans-serif;
+      font-size: 13px;
+      color: var(--silver-mid);
+      font-style: italic;
+    }
+    .preview-content {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      width: 100%;
+    }
+    .preview-icon { font-size: 18px; }
+    .preview-info { flex: 1; }
+    .preview-name {
+      font-family: 'Outfit', sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--black);
+    }
+    .preview-price {
+      font-family: 'Poppins', sans-serif;
+      font-size: 12px;
+      color: var(--silver-dark);
+    }
+
+    /* Quantity row */
+    .qty-row {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 16px;
+    }
+    .qty-label {
+      font-family: 'Outfit', sans-serif;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--black);
+      flex: 1;
+    }
+    .qty-controls {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      background: var(--silver-light);
+      border-radius: 100px;
+      overflow: hidden;
+      border: 1px solid var(--card-border);
+    }
+    .qty-btn {
+      width: 36px; height: 36px;
+      border: none;
+      background: transparent;
+      cursor: pointer;
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--black);
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      line-height: 1;
+    }
+    .qty-btn:hover { background: rgba(0,230,118,0.12); color: var(--neon-green-dim); }
+    .qty-value {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 15px;
+      font-weight: 700;
+      min-width: 32px;
+      text-align: center;
+      color: var(--black);
+    }
+
+    /* Total row */
+    .total-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 0 0;
+      border-top: 1px solid var(--silver-light);
+    }
+    .total-label {
+      font-family: 'Poppins', sans-serif;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--silver-dark);
+    }
+    .total-amount {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--black);
+      transition: var(--transition);
+    }
+    .total-amount.animate { color: var(--neon-green-dim); }
+
+    /* =========================
+       BUY NOW BUTTON
+    ========================= */
+    .buy-btn-wrap {
+      margin-top: 18px;
+    }
+    .buy-btn {
+      width: 100%;
+      border: none;
+      border-radius: var(--radius-md);
+      padding: 17px 28px;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      transition: var(--transition);
+      background: linear-gradient(135deg, #0a2a18 0%, #00c853 40%, #00e676 70%, #69f0ae 100%);
+      color: #fff;
+      box-shadow: 0 4px 24px rgba(0,230,118,0.30), 0 2px 8px rgba(0,0,0,0.12);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      text-transform: uppercase;
+    }
+    .buy-btn::before {
+      content: '';
+      position: absolute;
+      top: 0; left: -100%;
+      width: 60%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.22), transparent);
+      transition: 0.6s;
+    }
+    .buy-btn:hover::before { left: 140%; }
+    .buy-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 36px rgba(0,230,118,0.40), 0 4px 16px rgba(0,0,0,0.14);
+    }
+    .buy-btn:active { transform: translateY(0); }
+    .buy-btn-icon { font-size: 18px; }
+
+    /* Validation hint */
+    .validation-hint {
+      margin-top: 10px;
+      text-align: center;
+      font-family: 'Outfit', sans-serif;
+      font-size: 12px;
+      color: var(--red-strike);
+      min-height: 16px;
+      transition: var(--transition);
+    }
+
+    /* =========================
+       TRUST STRIP
+    ========================= */
+    .trust-strip {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+      margin-top: 32px;
+      padding: 18px 20px;
+      background: rgba(255,255,255,0.60);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius-md);
+      backdrop-filter: blur(12px);
+      flex-wrap: wrap;
+    }
+    .trust-item {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      font-family: 'Outfit', sans-serif;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--silver-dark);
+    }
+    .trust-item-icon { font-size: 16px; }
+
+    /* =========================
+       SCROLLBAR
+    ========================= */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--off-white); }
+    ::-webkit-scrollbar-thumb { background: var(--silver-mid); border-radius: 10px; }
+
+    /* =========================
+       RESPONSIVE OVERRIDES
+    ========================= */
+    @media (max-width: 600px) {
+      .site-header { padding: 40px 16px 32px; }
+      .main-content { padding: 24px 12px 48px; }
+      .checkout-box { padding: 18px 16px; }
+      .buy-btn { font-size: 13px; padding: 15px 20px; }
+      .trust-strip { gap: 12px; }
+    }
+    @media (min-width: 768px) {
+      .packs-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+    @media (min-width: 1024px) {
+      .packs-grid { grid-template-columns: repeat(4, 1fr); }
+      .main-content { padding: 36px 24px 80px; }
+    }
+  </style>
+</head>
+
+<body>
+
+<!-- Particle Canvas -->
+<canvas id="particle-canvas"></canvas>
+
+<div class="page-wrapper">
+
+  <!-- =========================
+       HEADER
+  ========================= -->
+  <header class="site-header">
+    <div class="stadium-light"></div>
+    <div class="stadium-light-2"></div>
+    <div class="stadium-light-3"></div>
+
+    <!-- Store badge -->
+    <div style="display:flex;justify-content:center;margin-bottom:20px;">
+      <div class="store-badge">
+        <div class="store-badge-dot"></div>
+        <span>XiyaShop Official Store</span>
+      </div>
+    </div>
+
+    <!-- Title block -->
+    <div class="header-logo-wrap">
+      <div class="header-eyebrow">Official Recharge Portal</div>
+      <div class="header-title">
+        EA SPORTS FC<span class="tm">™</span>
+      </div>
+      <div class="header-subtitle">FC Points &amp; Silver Recharge</div>
+    </div>
+
+    <!-- Divider -->
+    <div class="header-divider">
+      <div class="divider-line"></div>
+      <div class="divider-icon">⚽</div>
+      <div class="divider-line"></div>
+    </div>
+  </header>
+
+  <!-- =========================
+       MAIN CONTENT
+  ========================= -->
+  <main class="main-content">
+
+    <!-- =========================
+         TOGGLE SYSTEM
+    ========================= -->
+    <div class="toggle-wrap">
+      <div class="toggle-pill">
+        <button class="toggle-btn active" id="btn-fcpoints" onclick="switchTab('fcpoints')">
+          <span class="btn-icon">🟡</span> FC Points
+        </button>
+        <button class="toggle-btn" id="btn-silver" onclick="switchTab('silver')">
+          <span class="btn-icon">🥈</span> Silver
+        </button>
+      </div>
+    </div>
+
+    <!-- ===================================
+         FC POINTS SECTION
+    =================================== -->
+    <div class="section-panel active" id="panel-fcpoints">
+
+      <!-- Out of stock label -->
+      <div class="section-label">
+        <div class="section-label-text">Out of Stock</div>
+        <div class="section-label-line"></div>
+      </div>
+
+      <!-- Out of Stock Packs -->
+      <div class="packs-grid">
+        <!-- 40 FC Points OOS -->
+        <div class="pack-card out-of-stock">
+          <div class="oos-badge">Out of Stock</div>
+          <div class="pack-amount"><span class="pack-currency">⚡</span> 40</div>
+          <div class="pack-type-label">FC Points</div>
+          <div class="price-row">
+            <span class="price-original">₹39</span>
+            <span class="price-final">₹32</span>
+          </div>
+          <div class="save-label">Save ₹7</div>
+        </div>
+        <!-- 100 FC Points OOS -->
+        <div class="pack-card out-of-stock">
+          <div class="oos-badge">Out of Stock</div>
+          <div class="pack-amount"><span class="pack-currency">⚡</span> 100</div>
+          <div class="pack-type-label">FC Points</div>
+          <div class="price-row">
+            <span class="price-original">₹89</span>
+            <span class="price-final">₹82</span>
+          </div>
+          <div class="save-label">Save ₹7</div>
+        </div>
+      </div>
+
+      <!-- Available label -->
+      <div class="section-label" style="margin-top:22px;">
+        <div class="section-label-text">Available Packs</div>
+        <div class="section-label-line"></div>
+      </div>
+
+      <!-- Available Packs -->
+      <div class="packs-grid" id="fcpoints-grid">
+        <div class="pack-card" data-pack="520 FC Points" data-price="444" onclick="selectPack(this, 'fcpoints')">
+          <div class="pack-amount"><span class="pack-currency">⚡</span> 520</div>
+          <div class="pack-type-label">FC Points</div>
+          <div class="price-row">
+            <span class="price-original">₹449</span>
+            <span class="price-final">₹444</span>
+          </div>
+          <div class="save-label">Save ₹5</div>
+        </div>
+        <div class="pack-card" data-pack="1070 FC Points" data-price="889" onclick="selectPack(this, 'fcpoints')">
+          <div class="pack-amount"><span class="pack-currency">⚡</span> 1070</div>
+          <div class="pack-type-label">FC Points</div>
+          <div class="price-row">
+            <span class="price-original">₹899</span>
+            <span class="price-final">₹889</span>
+          </div>
+          <div class="save-label">Save ₹10</div>
+        </div>
+        <div class="pack-card" data-pack="2200 FC Points" data-price="1769" onclick="selectPack(this, 'fcpoints')">
+          <div class="pack-amount"><span class="pack-currency">⚡</span> 2200</div>
+          <div class="pack-type-label">FC Points</div>
+          <div class="price-row">
+            <span class="price-original">₹1799</span>
+            <span class="price-final">₹1769</span>
+          </div>
+          <div class="save-label">Save ₹30</div>
+        </div>
+        <div class="pack-card" data-pack="5750 FC Points" data-price="4429" onclick="selectPack(this, 'fcpoints')">
+          <div class="pack-amount"><span class="pack-currency">⚡</span> 5750</div>
+          <div class="pack-type-label">FC Points</div>
+          <div class="price-row">
+            <span class="price-original">₹4499</span>
+            <span class="price-final">₹4429</span>
+          </div>
+          <div class="save-label">Save ₹70</div>
+        </div>
+        <div class="pack-card" data-pack="12000 FC Points" data-price="8599" onclick="selectPack(this, 'fcpoints')">
+          <div class="pack-amount"><span class="pack-currency">⚡</span> 12000</div>
+          <div class="pack-type-label">FC Points</div>
+          <div class="price-row">
+            <span class="price-original">₹8900</span>
+            <span class="price-final">₹8599</span>
+          </div>
+          <div class="save-label">Save ₹301</div>
+        </div>
+      </div>
+
+      <!-- UID Input -->
+      <div class="uid-section">
+        <label class="uid-label" for="uid-fcpoints">Enter EA Sports FC UID</label>
+        <div class="uid-input-wrap">
+          <span class="uid-input-icon">🆔</span>
+          <input class="uid-input" type="number" id="uid-fcpoints" placeholder="e.g. 123456789" inputmode="numeric" pattern="[0-9]*" />
+        </div>
+      </div>
+
+      <!-- Checkout Box -->
+      <div class="checkout-box">
+        <div class="checkout-title">Order Summary</div>
+
+        <div class="selected-preview" id="fp-preview">
+          <span class="preview-empty">Select a pack above to continue</span>
+        </div>
+
+        <div class="qty-row">
+          <span class="qty-label">Quantity</span>
+          <div class="qty-controls">
+            <button class="qty-btn" onclick="changeQty('fcpoints', -1)">−</button>
+            <span class="qty-value" id="fp-qty">1</span>
+            <button class="qty-btn" onclick="changeQty('fcpoints', +1)">+</button>
+          </div>
+        </div>
+
+        <div class="total-row">
+          <span class="total-label">Total</span>
+          <span class="total-amount" id="fp-total">₹0</span>
+        </div>
+      </div>
+
+      <div class="buy-btn-wrap">
+        <button class="buy-btn" onclick="buyNow('fcpoints')">
+          <span class="buy-btn-icon">⚡</span> Buy Now
+        </button>
+        <div class="validation-hint" id="fp-hint"></div>
+      </div>
+
+    </div><!-- end fcpoints panel -->
+
+    <!-- ===================================
+         SILVER SECTION
+    =================================== -->
+    <div class="section-panel" id="panel-silver">
+
+      <!-- Out of stock label -->
+      <div class="section-label">
+        <div class="section-label-text">Out of Stock</div>
+        <div class="section-label-line"></div>
+      </div>
+
+      <div class="packs-grid">
+        <div class="pack-card out-of-stock">
+          <div class="oos-badge">Out of Stock</div>
+          <div class="pack-amount"><span class="pack-currency">🥈</span> 39</div>
+          <div class="pack-type-label">Silver</div>
+          <div class="price-row">
+            <span class="price-original">₹39</span>
+            <span class="price-final">₹32</span>
+          </div>
+          <div class="save-label">Save ₹7</div>
+        </div>
+        <div class="pack-card out-of-stock">
+          <div class="oos-badge">Out of Stock</div>
+          <div class="pack-amount"><span class="pack-currency">🥈</span> 99</div>
+          <div class="pack-type-label">Silver</div>
+          <div class="price-row">
+            <span class="price-original">₹89</span>
+            <span class="price-final">₹82</span>
+          </div>
+          <div class="save-label">Save ₹7</div>
+        </div>
+      </div>
+
+      <!-- Available label -->
+      <div class="section-label" style="margin-top:22px;">
+        <div class="section-label-text">Available Packs</div>
+        <div class="section-label-line"></div>
+      </div>
+
+      <div class="packs-grid" id="silver-grid">
+        <div class="pack-card" data-pack="499 Silver" data-price="444" onclick="selectPack(this, 'silver')">
+          <div class="pack-amount"><span class="pack-currency">🥈</span> 499</div>
+          <div class="pack-type-label">Silver</div>
+          <div class="price-row">
+            <span class="price-original">₹449</span>
+            <span class="price-final">₹444</span>
+          </div>
+          <div class="save-label">Save ₹5</div>
+        </div>
+        <div class="pack-card" data-pack="999 Silver" data-price="889" onclick="selectPack(this, 'silver')">
+          <div class="pack-amount"><span class="pack-currency">🥈</span> 999</div>
+          <div class="pack-type-label">Silver</div>
+          <div class="price-row">
+            <span class="price-original">₹899</span>
+            <span class="price-final">₹889</span>
+          </div>
+          <div class="save-label">Save ₹10</div>
+        </div>
+        <div class="pack-card" data-pack="1999 Silver" data-price="1769" onclick="selectPack(this, 'silver')">
+          <div class="pack-amount"><span class="pack-currency">🥈</span> 1999</div>
+          <div class="pack-type-label">Silver</div>
+          <div class="price-row">
+            <span class="price-original">₹1799</span>
+            <span class="price-final">₹1769</span>
+          </div>
+          <div class="save-label">Save ₹30</div>
+        </div>
+        <div class="pack-card" data-pack="4999 Silver" data-price="4399" onclick="selectPack(this, 'silver')">
+          <div class="pack-amount"><span class="pack-currency">🥈</span> 4999</div>
+          <div class="pack-type-label">Silver</div>
+          <div class="price-row">
+            <span class="price-original">₹4499</span>
+            <span class="price-final">₹4399</span>
+          </div>
+          <div class="save-label">Save ₹100</div>
+        </div>
+        <div class="pack-card" data-pack="9999 Silver" data-price="8499" onclick="selectPack(this, 'silver')">
+          <div class="pack-amount"><span class="pack-currency">🥈</span> 9999</div>
+          <div class="pack-type-label">Silver</div>
+          <div class="price-row">
+            <span class="price-original">₹8900</span>
+            <span class="price-final">₹8499</span>
+          </div>
+          <div class="save-label">Save ₹401</div>
+        </div>
+      </div>
+
+      <!-- UID Input -->
+      <div class="uid-section">
+        <label class="uid-label" for="uid-silver">Enter EA Sports FC UID</label>
+        <div class="uid-input-wrap">
+          <span class="uid-input-icon">🆔</span>
+          <input class="uid-input" type="number" id="uid-silver" placeholder="e.g. 123456789" inputmode="numeric" pattern="[0-9]*" />
+        </div>
+      </div>
+
+      <!-- Checkout Box -->
+      <div class="checkout-box">
+        <div class="checkout-title">Order Summary</div>
+
+        <div class="selected-preview" id="sv-preview">
+          <span class="preview-empty">Select a pack above to continue</span>
+        </div>
+
+        <div class="qty-row">
+          <span class="qty-label">Quantity</span>
+          <div class="qty-controls">
+            <button class="qty-btn" onclick="changeQty('silver', -1)">−</button>
+            <span class="qty-value" id="sv-qty">1</span>
+            <button class="qty-btn" onclick="changeQty('silver', +1)">+</button>
+          </div>
+        </div>
+
+        <div class="total-row">
+          <span class="total-label">Total</span>
+          <span class="total-amount" id="sv-total">₹0</span>
+        </div>
+      </div>
+
+      <div class="buy-btn-wrap">
+        <button class="buy-btn" onclick="buyNow('silver')">
+          <span class="buy-btn-icon">🥈</span> Buy Now
+        </button>
+        <div class="validation-hint" id="sv-hint"></div>
+      </div>
+
+    </div><!-- end silver panel -->
+
+    <!-- =========================
+         TRUST STRIP
+    ========================= -->
+    <div class="trust-strip">
+      <div class="trust-item">
+        <span class="trust-item-icon">⚡</span>
+        <span>Instant Delivery</span>
+      </div>
+      <div class="trust-item">
+        <span class="trust-item-icon">🔒</span>
+        <span>Safe &amp; Secure</span>
+      </div>
+      <div class="trust-item">
+        <span class="trust-item-icon">✅</span>
+        <span>100% Official</span>
+      </div>
+      <div class="trust-item">
+        <span class="trust-item-icon">🏆</span>
+        <span>Best Prices</span>
+      </div>
+    </div>
+
+  </main><!-- end main-content -->
+</div><!-- end page-wrapper -->
+
+<!-- =========================
+     JAVASCRIPT
+========================= -->
+<script>
+  /* ── State ── */
+  const state = {
+    fcpoints: { selectedCard: null, pack: '', price: 0, qty: 1 },
+    silver:   { selectedCard: null, pack: '', price: 0, qty: 1 }
+  };
+
+  /* ── Tab Toggle ── */
+  function switchTab(tab) {
+    ['fcpoints','silver'].forEach(t => {
+      document.getElementById('panel-' + t).classList.toggle('active', t === tab);
+      document.getElementById('btn-' + t).classList.toggle('active', t === tab);
+    });
+  }
+
+  /* ── Pack Selection ── */
+  function selectPack(card, section) {
+    const grid = section === 'fcpoints' ? document.getElementById('fcpoints-grid') : document.getElementById('silver-grid');
+    grid.querySelectorAll('.pack-card').forEach(c => c.classList.remove('selected'));
+    card.classList.add('selected');
+
+    state[section].selectedCard = card;
+    state[section].pack  = card.dataset.pack;
+    state[section].price = parseInt(card.dataset.price);
+    state[section].qty   = 1;
+
+    updateUI(section);
+    clearHint(section);
+  }
+
+  /* ── Quantity ── */
+  function changeQty(section, delta) {
+    if (!state[section].selectedCard) return;
+    state[section].qty = Math.max(1, Math.min(99, state[section].qty + delta));
+    updateUI(section);
+  }
+
+  /* ── Update UI ── */
+  function updateUI(section) {
+    const s = state[section];
+    const prefix = section === 'fcpoints' ? 'fp' : 'sv';
+    const icon   = section === 'fcpoints' ? '⚡' : '🥈';
+
+    // Qty display
+    document.getElementById(prefix + '-qty').textContent = s.qty;
+
+    // Preview
+    const preview = document.getElementById(prefix + '-preview');
+    if (s.selectedCard) {
+      const total = s.price * s.qty;
+      preview.innerHTML = `
+        <div class="preview-content">
+          <span class="preview-icon">${icon}</span>
+          <div class="preview-info">
+            <div class="preview-name">${s.pack}</div>
+            <div class="preview-price">₹${s.price.toLocaleString('en-IN')} × ${s.qty}</div>
+          </div>
+        </div>`;
+    } else {
+      preview.innerHTML = '<span class="preview-empty">Select a pack above to continue</span>';
+    }
+
+    // Total with animation
+    const totalEl = document.getElementById(prefix + '-total');
+    const total = s.selectedCard ? s.price * s.qty : 0;
+    totalEl.textContent = '₹' + total.toLocaleString('en-IN');
+    totalEl.classList.add('animate');
+    setTimeout(() => totalEl.classList.remove('animate'), 350);
+  }
+
+  /* ── Hint Helpers ── */
+  function showHint(section, msg) {
+    const prefix = section === 'fcpoints' ? 'fp' : 'sv';
+    const el = document.getElementById(prefix + '-hint');
+    el.textContent = msg;
+  }
+  function clearHint(section) {
+    const prefix = section === 'fcpoints' ? 'fp' : 'sv';
+    document.getElementById(prefix + '-hint').textContent = '';
+  }
+
+  /* ── Buy Now ── */
+  function buyNow(section) {
+    const s = state[section];
+    const uidInput = document.getElementById('uid-' + section);
+    const uid = uidInput.value.trim();
+
+    if (!s.selectedCard) { showHint(section, 'Please select a pack first.'); return; }
+    if (!uid) { showHint(section, 'Please enter your EA Sports FC UID.'); uidInput.focus(); return; }
+    clearHint(section);
+
+    const category = section === 'fcpoints' ? 'FC Points' : 'Silver';
+    const total    = s.price * s.qty;
+
+    const msg = `Hello, I want to purchase:%0A%0ACategory: ${encodeURIComponent(category)}%0APack: ${encodeURIComponent(s.pack)}%0AQuantity: ${s.qty}%0AUID: ${encodeURIComponent(uid)}%0ATotal: ₹${total.toLocaleString('en-IN')}`;
+
+    window.open(`https://wa.me/919387947130?text=${msg}`, '_blank');
+  }
+
+  /* ── Floating Football Particles ── */
+  (function initParticles() {
+    const canvas = document.getElementById('particle-canvas');
+    const ctx    = canvas.getContext('2d');
+    let W, H, particles = [];
+
+    function resize() {
+      W = canvas.width  = window.innerWidth;
+      H = canvas.height = window.innerHeight;
+    }
+    resize();
+    window.addEventListener('resize', resize);
+
+    const symbols = ['⚽', '★', '◆', '⬡'];
+    const colors  = ['rgba(0,230,118,', 'rgba(79,195,247,', 'rgba(255,215,64,', 'rgba(200,212,227,'];
+
+    for (let i = 0; i < 22; i++) {
+      particles.push({
+        x: Math.random() * window.innerWidth,
+        y: Math.random() * window.innerHeight,
+        size: 6 + Math.random() * 10,
+        speedX: (Math.random() - 0.5) * 0.4,
+        speedY: -0.2 - Math.random() * 0.35,
+        alpha: 0.04 + Math.random() * 0.09,
+        sym: symbols[Math.floor(Math.random() * symbols.length)],
+        col: colors[Math.floor(Math.random() * colors.length)],
+        rot: Math.random() * Math.PI * 2,
+        rotSpeed: (Math.random() - 0.5) * 0.01
+      });
+    }
+
+    function draw() {
+      ctx.clearRect(0, 0, W, H);
+      particles.forEach(p => {
+        ctx.save();
+        ctx.translate(p.x, p.y);
+        ctx.rotate(p.rot);
+        ctx.globalAlpha = p.alpha;
+        ctx.font = `${p.size}px serif`;
+        ctx.fillText(p.sym, 0, 0);
+        ctx.restore();
+
+        p.x += p.speedX;
+        p.y += p.speedY;
+        p.rot += p.rotSpeed;
+
+        if (p.y < -20) { p.y = H + 20; p.x = Math.random() * W; }
+        if (p.x < -20) p.x = W + 20;
+        if (p.x > W + 20) p.x = -20;
+      });
+      requestAnimationFrame(draw);
+    }
+    draw();
+  })();
+</script>
+
+</body>
+</html>

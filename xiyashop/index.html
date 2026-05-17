@@ -1,0 +1,1616 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>XiyaShop — Play More, Pay Less 💎</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Outfit:wght@300;400;500;600;700;800&family=Nunito:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+<style>
+/* =========================
+   CSS VARIABLES & ROOT
+========================= */
+:root {
+  --pink-primary: #FF4D8D;
+  --pink-light: #FFB3CC;
+  --pink-pale: #FFF0F5;
+  --pink-soft: #FFD6E7;
+  --lavender: #E8D5F5;
+  --lavender-deep: #C9A8E8;
+  --lavender-soft: #F3EAFB;
+  --white: #FFFFFF;
+  --off-white: #FAFAFA;
+  --magenta: #E91E8C;
+  --magenta-glow: rgba(233,30,140,0.15);
+  --text-dark: #2D1B35;
+  --text-mid: #6B4F7A;
+  --text-light: #A07AB0;
+  --card-shadow: 0 8px 32px rgba(233,30,140,0.10);
+  --card-shadow-hover: 0 16px 48px rgba(233,30,140,0.20);
+  --glass-bg: rgba(255,255,255,0.75);
+  --glass-border: rgba(255,180,210,0.30);
+  --border-radius: 20px;
+  --border-radius-sm: 12px;
+  --header-h: 64px;
+  --navbar-h: 68px;
+  --transition: all 0.3s cubic-bezier(0.4,0,0.2,1);
+}
+
+/* =========================
+   RESET & BASE
+========================= */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; font-size: 16px; }
+body {
+  font-family: 'Poppins', 'Outfit', sans-serif;
+  background: linear-gradient(160deg, #FFF5F9 0%, #F8F0FF 50%, #FFF0F8 100%);
+  color: var(--text-dark);
+  min-height: 100vh;
+  overflow-x: hidden;
+  padding-bottom: var(--navbar-h);
+}
+a { text-decoration: none; color: inherit; }
+img { display: block; max-width: 100%; }
+button { cursor: pointer; border: none; background: none; font-family: inherit; }
+ul { list-style: none; }
+
+/* Floating sparkle background */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 600px 400px at 10% 20%, rgba(255,182,214,0.18) 0%, transparent 70%),
+    radial-gradient(ellipse 500px 300px at 90% 80%, rgba(200,160,235,0.15) 0%, transparent 70%),
+    radial-gradient(ellipse 400px 250px at 50% 50%, rgba(255,210,230,0.10) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* =========================
+   SCROLLBAR
+========================= */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(--pink-pale); }
+::-webkit-scrollbar-thumb { background: var(--pink-light); border-radius: 10px; }
+
+/* =========================
+   STICKY GLASSMORPHISM HEADER
+========================= */
+#header {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: var(--header-h);
+  z-index: 1000;
+  background: rgba(255,255,255,0.82);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--glass-border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 14px;
+  gap: 0;
+  box-shadow: 0 4px 24px rgba(233,30,140,0.08);
+}
+
+.header-left {
+  display: flex; align-items: center;
+  flex-shrink: 0;
+  width: 44px;
+}
+.hamburger-btn {
+  width: 40px; height: 40px;
+  border-radius: 12px;
+  background: var(--pink-pale);
+  display: flex; align-items: center; justify-content: center;
+  border: 1px solid var(--glass-border);
+  transition: var(--transition);
+}
+.hamburger-btn:hover { background: var(--pink-soft); transform: scale(1.05); }
+.hamburger-btn svg { width: 20px; height: 20px; color: var(--pink-primary); }
+
+/* =========================
+   HEADER LOGO
+========================= */
+.header-logo {
+  flex: 1;
+  min-width: 0;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 10px;
+  overflow: hidden;
+}
+.header-logo a {
+  display: flex; align-items: center; justify-content: center;
+  height: 40px;
+  max-width: 100%;
+}
+.header-logo img {
+  height: 40px;
+  width: auto;
+  max-width: 100%;
+  object-fit: contain;
+  display: block;
+}
+.logo-placeholder-box {
+  height: 36px;
+  max-width: 140px;
+  width: 100%;
+  border-radius: 8px;
+  border: 1.5px dashed rgba(255,77,141,0.22);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.logo-placeholder-box span {
+  font-size: 0.50rem; color: rgba(255,77,141,0.38);
+  font-weight: 600; text-align: center; line-height: 1.4;
+}
+
+.header-right {
+  display: flex; align-items: center; gap: 6px;
+}
+.icon-btn {
+  position: relative;
+  width: 38px; height: 38px;
+  border-radius: 11px;
+  background: var(--pink-pale);
+  display: flex; align-items: center; justify-content: center;
+  border: 1px solid var(--glass-border);
+  transition: var(--transition);
+  color: var(--text-mid);
+}
+.icon-btn:hover { background: var(--pink-soft); transform: scale(1.05); }
+.icon-btn svg { width: 18px; height: 18px; }
+.notif-badge {
+  position: absolute;
+  top: -3px; right: -3px;
+  width: 16px; height: 16px;
+  background: #FF2D55;
+  border-radius: 50%;
+  border: 2px solid white;
+  font-size: 9px;
+  font-weight: 700;
+  color: white;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Outfit', sans-serif;
+}
+
+/* =========================
+   NOTIFICATION MODAL
+========================= */
+.modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(45,27,53,0.35);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 9000;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  animation: fadeIn 0.3s ease;
+}
+.modal-overlay.active { display: flex; }
+
+.modal-box {
+  background: rgba(255,255,255,0.92);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255,180,210,0.4);
+  border-radius: 24px;
+  padding: 32px 28px 28px;
+  max-width: 360px;
+  width: 100%;
+  position: relative;
+  box-shadow: 0 24px 80px rgba(233,30,140,0.18);
+  animation: slideUp 0.35s cubic-bezier(0.34,1.56,0.64,1);
+}
+.modal-icon {
+  width: 60px; height: 60px;
+  background: linear-gradient(135deg, #FFD6E7, #E8D5F5);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 16px;
+  font-size: 1.6rem;
+}
+.modal-title {
+  font-family: 'Nunito', sans-serif;
+  font-weight: 800;
+  font-size: 1.1rem;
+  color: var(--text-dark);
+  text-align: center;
+  margin-bottom: 12px;
+}
+.modal-text {
+  font-size: 0.875rem;
+  color: var(--text-mid);
+  line-height: 1.7;
+  text-align: center;
+}
+.modal-close {
+  margin-top: 24px;
+  width: 100%;
+  padding: 12px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, var(--pink-primary), var(--magenta));
+  color: white;
+  font-family: 'Nunito', sans-serif;
+  font-weight: 700;
+  font-size: 0.95rem;
+  letter-spacing: 0.3px;
+  transition: var(--transition);
+  box-shadow: 0 6px 20px rgba(233,30,140,0.30);
+}
+.modal-close:hover { transform: translateY(-2px); box-shadow: 0 10px 28px rgba(233,30,140,0.40); }
+
+/* =========================
+   MAIN CONTENT WRAPPER
+========================= */
+main {
+  position: relative;
+  z-index: 1;
+  padding-top: var(--header-h);
+}
+
+/* =========================
+   HERO BANNER SECTION
+========================= */
+#hero {
+  padding: 12px 14px 0;
+}
+.hero-banner-container {
+  position: relative;
+  width: 100%;
+  border-radius: 22px;
+  overflow: hidden;
+  background: linear-gradient(135deg, #FFD6E7 0%, #E8D5F5 50%, #FFB3CC 100%);
+  aspect-ratio: 16/9;
+  box-shadow: 0 12px 40px rgba(233,30,140,0.15);
+  border: 1px solid rgba(255,180,210,0.3);
+}
+.hero-banner-container img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  border-radius: 22px;
+}
+.hero-placeholder-text {
+  position: absolute;
+  inset: 0;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  gap: 6px;
+  pointer-events: none;
+}
+.hero-placeholder-text span {
+  font-size: 0.75rem;
+  color: rgba(107,79,122,0.5);
+  font-weight: 500;
+}
+
+/* =========================
+   GAMES / SUBSCRIPTIONS TOGGLE
+========================= */
+#toggle-section {
+  padding: 18px 14px 6px;
+  display: flex;
+  justify-content: center;
+}
+.toggle-container {
+  display: flex;
+  background: rgba(255,255,255,0.80);
+  border: 1px solid rgba(255,180,210,0.35);
+  border-radius: 50px;
+  padding: 5px;
+  gap: 4px;
+  box-shadow: 0 4px 20px rgba(233,30,140,0.08);
+  backdrop-filter: blur(10px);
+}
+.toggle-btn {
+  display: flex; align-items: center; gap: 7px;
+  padding: 10px 24px;
+  border-radius: 50px;
+  font-family: 'Nunito', sans-serif;
+  font-weight: 700;
+  font-size: 0.9rem;
+  color: var(--text-mid);
+  transition: var(--transition);
+  white-space: nowrap;
+}
+.toggle-btn svg { width: 16px; height: 16px; }
+.toggle-btn.active {
+  background: linear-gradient(135deg, var(--pink-primary), var(--magenta));
+  color: white;
+  box-shadow: 0 6px 20px rgba(233,30,140,0.28);
+}
+.toggle-btn:not(.active):hover { background: var(--pink-pale); color: var(--pink-primary); }
+
+/* =========================
+   SECTION HEADERS
+========================= */
+.section-header {
+  display: flex; align-items: center; gap: 8px;
+  padding: 0 16px;
+  margin-bottom: 14px;
+}
+.section-title {
+  font-family: 'Nunito', sans-serif;
+  font-weight: 800;
+  font-size: 1.05rem;
+  color: var(--text-dark);
+}
+.section-emoji { font-size: 1.1rem; }
+
+/* =========================
+   POPULAR GAMES SECTION
+========================= */
+#games-section {
+  padding: 20px 0 6px;
+}
+.games-scroll-wrapper {
+  padding: 6px 14px 10px;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+.games-scroll-wrapper::-webkit-scrollbar { display: none; }
+
+.games-row {
+  display: flex;
+  gap: 12px;
+  width: max-content;
+}
+
+.game-card {
+  position: relative;
+  width: 44vw;
+  max-width: 200px;
+  min-width: 150px;
+  background: var(--white);
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: var(--card-shadow);
+  border: 1px solid rgba(255,180,210,0.20);
+  transition: var(--transition);
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+}
+.game-card:hover { transform: translateY(-4px); box-shadow: var(--card-shadow-hover); }
+
+.game-badge {
+  position: absolute;
+  top: 7px; left: 7px;
+  z-index: 2;
+  padding: 3px 8px;
+  border-radius: 6px;
+  font-family: 'Outfit', sans-serif;
+  font-weight: 700;
+  font-size: 0.6rem;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: white;
+  background: linear-gradient(135deg, #FF4D8D, #C0006E);
+  box-shadow: 0 2px 8px rgba(233,30,140,0.35);
+}
+.badge-trending { background: linear-gradient(135deg, #7B4FE0, #5B2FBE); }
+.badge-popular { background: linear-gradient(135deg, #FF8C00, #E05500); }
+.badge-hot { background: linear-gradient(135deg, #FF3B30, #CC1A10); }
+
+.game-img-wrap {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  background: linear-gradient(135deg, #2D1B35, #4A2060);
+  display: flex; align-items: center; justify-content: center;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+/* FIXED: Changed to cover mode so your visual game graphics cleanly fill the crop card box */
+.game-img-wrap img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  position: relative;
+  z-index: 2;
+}
+
+/* FIXED: Pinned helper placeholder to stay nicely behind the image stack layers */
+.game-img-placeholder {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+  font-size: 0.55rem;
+  color: rgba(255,255,255,0.3);
+  text-align: center;
+  padding: 8px;
+  line-height: 1.4;
+}
+
+/* Hides placeholder box if the image loads up cleanly */
+.game-img-wrap img:not([src=""]):not([src^="#"]) + .game-img-placeholder {
+  display: none;
+}
+
+.game-info {
+  padding: 9px 10px 10px;
+}
+.game-name {
+  font-family: 'Nunito', sans-serif;
+  font-weight: 800;
+  font-size: 0.78rem;
+  color: var(--text-dark);
+  margin-bottom: 4px;
+  line-height: 1.2;
+}
+.game-currency {
+  display: flex; align-items: center; gap: 4px;
+  font-size: 0.68rem;
+  color: var(--text-light);
+  font-weight: 500;
+  margin-bottom: 8px;
+}
+.game-currency span { font-size: 0.8rem; }
+
+.buy-btn {
+  display: block;
+  width: 100%;
+  padding: 7px 0;
+  border-radius: 10px;
+  background: linear-gradient(135deg, var(--pink-primary), var(--magenta));
+  color: white;
+  font-family: 'Nunito', sans-serif;
+  font-weight: 700;
+  font-size: 0.72rem;
+  text-align: center;
+  letter-spacing: 0.2px;
+  transition: var(--transition);
+  box-shadow: 0 4px 12px rgba(233,30,140,0.25);
+  margin-top: auto;
+}
+.buy-btn:hover { transform: translateY(-1px); box-shadow: 0 6px 18px rgba(233,30,140,0.38); }
+.buy-btn:active { transform: scale(0.97); }
+
+/* =========================
+   SUBSCRIPTIONS & OTT SECTION
+========================= */
+#subscriptions-section {
+  padding: 22px 0 8px;
+}
+.subs-grid-wrapper {
+  padding: 6px 14px 10px;
+}
+.subs-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+}
+.subs-grid-row3 {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+  margin-top: 8px;
+}
+.subs-grid-row-last {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.sub-card {
+  background: var(--white);
+  border-radius: 14px;
+  border: 1px solid rgba(255,180,210,0.18);
+  box-shadow: 0 4px 18px rgba(233,30,140,0.08);
+  padding: 7px 6px 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+  transition: var(--transition);
+  position: relative;
+  overflow: visible;
+}
+.sub-card:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(233,30,140,0.15); }
+
+.sub-badge-row {
+  height: 18px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  margin-bottom: 5px;
+  flex-shrink: 0;
+}
+
+.sub-badge-label {
+  font-family: 'Outfit', sans-serif;
+  font-weight: 700;
+  font-size: 0.49rem;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  color: var(--pink-primary);
+  background: rgba(255,77,141,0.09);
+  padding: 2px 5px;
+  border-radius: 4px;
+  white-space: nowrap;
+  line-height: 1.2;
+}
+.sub-badge-label.trending {
+  color: #7B4FE0;
+  background: rgba(123,79,224,0.09);
+}
+.sub-badge-label.subscription {
+  color: #D80027;
+  background: rgba(216,0,39,0.07);
+  font-weight: 800;
+}
+
+.sub-img-wrap {
+  width: 52px; height: 52px;
+  border-radius: 11px;
+  background: linear-gradient(135deg, #f0e8ff, #ffe8f4);
+  display: flex; align-items: center; justify-content: center;
+  overflow: hidden;
+  flex-shrink: 0;
+  margin-bottom: 6px;
+}
+.sub-img-wrap img {
+  width: 100%; height: 100%;
+  object-fit: contain;
+}
+
+.sub-img-placeholder {
+  display: none;
+  font-size: 0.5rem;
+  color: rgba(160,122,176,0.5);
+  text-align: center;
+  padding: 4px;
+  line-height: 1.3;
+}
+
+.sub-name {
+  font-family: 'Nunito', sans-serif;
+  font-weight: 800;
+  font-size: 0.65rem;
+  color: var(--text-dark);
+  text-align: center;
+  line-height: 1.25;
+  min-height: 28px;
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 6px;
+  padding: 0 2px;
+}
+
+.sub-buy-btn {
+  display: block;
+  width: 100%;
+  padding: 5px 0;
+  border-radius: 7px;
+  background: linear-gradient(135deg, var(--pink-primary), var(--magenta));
+  color: white;
+  font-family: 'Nunito', sans-serif;
+  font-weight: 700;
+  font-size: 0.6rem;
+  text-align: center;
+  transition: var(--transition);
+  box-shadow: 0 3px 10px rgba(233,30,140,0.22);
+  flex-shrink: 0;
+  margin-top: auto;
+}
+.sub-buy-btn:hover { transform: translateY(-1px); box-shadow: 0 5px 14px rgba(233,30,140,0.35); }
+
+/* =========================
+   WHY CHOOSE XIYASHOP
+========================= */
+#why-section {
+  padding: 22px 14px 16px;
+}
+.why-header {
+  text-align: center;
+  margin-bottom: 16px;
+}
+.why-title {
+  font-family: 'Nunito', sans-serif;
+  font-weight: 900;
+  font-size: 1.05rem;
+  color: var(--text-dark);
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+}
+.why-title::before, .why-title::after {
+  content: '✦';
+  font-size: 0.7rem;
+  color: var(--pink-primary);
+  opacity: 0.6;
+}
+.why-subtitle-arrow {
+  display: flex; align-items: center; justify-content: center; gap: 6px;
+  margin-top: 2px;
+  font-size: 0.65rem;
+  color: var(--text-light);
+}
+.why-subtitle-arrow::before, .why-subtitle-arrow::after {
+  content: '— ✦ —';
+  color: var(--pink-light);
+  font-size: 0.6rem;
+}
+
+.why-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 9px;
+}
+
+.why-card {
+  background: white;
+  border-radius: 16px;
+  border: 1px solid rgba(255,180,210,0.18);
+  box-shadow: 0 4px 18px rgba(233,30,140,0.08);
+  padding: 14px 8px 12px;
+  display: flex; flex-direction: column;
+  align-items: center; gap: 7px;
+  transition: var(--transition);
+}
+.why-card:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(233,30,140,0.14); }
+
+.why-icon-wrap {
+  width: 42px; height: 42px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #FFD6E7, #F3EAFB);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.1rem;
+  box-shadow: 0 4px 14px rgba(233,30,140,0.12);
+  flex-shrink: 0;
+  filter: saturate(0.7) brightness(1.05);
+}
+
+.why-card-title {
+  font-family: 'Nunito', sans-serif;
+  font-weight: 800;
+  font-size: 0.68rem;
+  color: var(--text-dark);
+  text-align: center;
+  line-height: 1.2;
+}
+.why-card-desc {
+  font-size: 0.58rem;
+  color: var(--text-light);
+  text-align: center;
+  line-height: 1.4;
+  font-weight: 500;
+}
+
+/* =========================
+   FOOTER
+========================= */
+#footer {
+  padding: 24px 20px 20px;
+  background: linear-gradient(135deg, rgba(255,240,248,0.95), rgba(240,230,255,0.95));
+  border-top: 1px solid rgba(255,180,210,0.25);
+  margin-top: 8px;
+}
+.footer-logo-name {
+  font-family: 'Nunito', sans-serif;
+  font-weight: 900;
+  font-size: 1.3rem;
+  background: linear-gradient(135deg, var(--pink-primary), var(--magenta));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 4px;
+}
+.footer-tagline {
+  font-size: 0.75rem;
+  color: var(--text-light);
+  margin-bottom: 16px;
+}
+.footer-divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255,180,210,0.5), transparent);
+  margin: 14px 0;
+}
+.footer-label {
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--pink-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  margin-bottom: 6px;
+}
+.footer-links {
+  display: flex; flex-direction: column; gap: 3px;
+  margin-bottom: 12px;
+}
+.footer-link {
+  font-size: 0.78rem;
+  color: var(--text-mid);
+  font-weight: 500;
+  transition: var(--transition);
+}
+.footer-link:hover { color: var(--pink-primary); }
+.footer-trust {
+  text-align: center;
+  font-size: 0.72rem;
+  color: var(--text-light);
+  font-weight: 600;
+  margin-top: 6px;
+}
+.footer-trust span { color: var(--pink-primary); }
+
+/* =========================
+   FLOATING SUPPORT CHARACTER
+========================= */
+#support-character {
+  position: fixed;
+  bottom: calc(var(--navbar-h) + 62px);
+  right: 14px;
+  z-index: 800;
+  cursor: pointer;
+  transition: var(--transition);
+}
+#support-character:hover { transform: scale(1.08); }
+.support-char-wrap {
+  width: 78px; height: 78px;
+  border-radius: 0;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  overflow: visible;
+  display: flex; align-items: center; justify-content: center;
+  animation: floatChar 3s ease-in-out infinite;
+}
+.support-char-wrap img {
+  width: 100%; height: 100%;
+  object-fit: contain;
+  filter: drop-shadow(0 4px 12px rgba(233,30,140,0.25));
+}
+.support-char-placeholder {
+  font-size: 2.4rem;
+  line-height: 1;
+}
+@keyframes floatChar {
+  0%,100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+/* =========================
+   WHATSAPP POPUP BANNER
+========================= */
+#whatsapp-popup {
+  position: fixed;
+  bottom: calc(var(--navbar-h) + 8px);
+  left: 10px;
+  right: 76px;
+  z-index: 799;
+  display: flex; align-items: center;
+  background: linear-gradient(135deg, #FF4D8D, #C0006E, #FF2D55);
+  border-radius: 16px;
+  padding: 10px 12px;
+  box-shadow: 0 8px 28px rgba(233,30,140,0.30);
+  gap: 8px;
+  animation: slideUpPopup 0.5s 0.8s cubic-bezier(0.34,1.56,0.64,1) both;
+}
+@keyframes slideUpPopup {
+  from { transform: translateY(20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+.wa-popup-close {
+  width: 22px; height: 22px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.2);
+  display: flex; align-items: center; justify-content: center;
+  color: white;
+  font-size: 0.7rem;
+  font-weight: 700;
+  flex-shrink: 0;
+  transition: var(--transition);
+}
+.wa-popup-close:hover { background: rgba(255,255,255,0.35); }
+
+.wa-popup-center {
+  flex: 1;
+  display: flex; align-items: center; gap: 7px;
+}
+.wa-gift-img {
+  width: 30px; height: 30px;
+  flex-shrink: 0;
+}
+.wa-gift-img img {
+  width: 100%; height: 100%;
+  object-fit: contain;
+}
+.wa-gift-emoji { font-size: 1.5rem; line-height: 1; }
+.wa-popup-text {
+  font-family: 'Nunito', sans-serif;
+  font-weight: 800;
+  font-size: 0.75rem;
+  color: white;
+  line-height: 1.3;
+}
+
+.wa-join-btn {
+  flex-shrink: 0;
+  padding: 7px 12px;
+  border-radius: 10px;
+  background: white;
+  color: var(--magenta);
+  font-family: 'Nunito', sans-serif;
+  font-weight: 800;
+  font-size: 0.7rem;
+  white-space: nowrap;
+  transition: var(--transition);
+  box-shadow: 0 3px 12px rgba(0,0,0,0.12);
+}
+.wa-join-btn:hover { transform: scale(1.04); }
+
+/* =========================
+   BOTTOM NAVIGATION BAR
+========================= */
+#bottom-nav {
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  height: var(--navbar-h);
+  background: rgba(255,255,255,0.92);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-top: 1px solid rgba(255,180,210,0.25);
+  box-shadow: 0 -4px 24px rgba(233,30,140,0.08);
+  z-index: 1000;
+  display: flex; align-items: center;
+}
+.nav-items {
+  display: flex;
+  width: 100%;
+  justify-content: space-around;
+  padding: 0 8px 6px;
+}
+.nav-item {
+  display: flex; flex-direction: column;
+  align-items: center; gap: 3px;
+  padding: 6px 12px;
+  border-radius: 14px;
+  transition: var(--transition);
+  cursor: pointer;
+  flex: 1;
+  max-width: 72px;
+}
+.nav-item:hover { background: var(--pink-pale); }
+.nav-item.active .nav-icon { color: var(--pink-primary); }
+.nav-item.active .nav-label { color: var(--pink-primary); font-weight: 700; }
+.nav-icon {
+  color: #8A7090;
+  display: flex; align-items: center; justify-content: center;
+}
+.nav-icon svg { width: 22px; height: 22px; }
+.nav-label {
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.6rem;
+  font-weight: 600;
+  color: #8A7090;
+  white-space: nowrap;
+}
+
+/* =========================
+   TOAST POPUP
+========================= */
+#toast {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.85);
+  background: rgba(45,27,53,0.88);
+  backdrop-filter: blur(12px);
+  color: white;
+  padding: 14px 28px;
+  border-radius: 16px;
+  font-family: 'Nunito', sans-serif;
+  font-weight: 700;
+  font-size: 0.95rem;
+  z-index: 9999;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease, transform 0.3s cubic-bezier(0.34,1.56,0.64,1);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.25);
+  white-space: nowrap;
+}
+#toast.show {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+}
+
+/* =========================
+   FLOATING SPARKLES
+========================= */
+.sparkle {
+  position: fixed;
+  pointer-events: none;
+  z-index: 0;
+  animation: sparkleFly linear infinite;
+  opacity: 0;
+}
+.sparkle::before {
+  content: '✦';
+  color: rgba(255,150,190,0.35);
+  font-size: 0.7rem;
+}
+@keyframes sparkleFly {
+  0% { opacity: 0; transform: translateY(0) rotate(0deg); }
+  20% { opacity: 0.6; }
+  80% { opacity: 0.3; }
+  100% { opacity: 0; transform: translateY(-100px) rotate(360deg); }
+}
+
+/* =========================
+   ANIMATIONS
+========================= */
+@keyframes fadeIn {
+  from { opacity: 0; } to { opacity: 1; }
+}
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(30px) scale(0.95); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* =========================
+   RESPONSIVE — TABLET (600px+)
+========================= */
+@media (min-width: 600px) {
+  :root { --header-h: 68px; }
+
+  .game-card { width: 155px; min-width: 155px; }
+
+  .subs-grid { grid-template-columns: repeat(4, 1fr); gap: 11px; }
+  .subs-grid-row3 { grid-template-columns: repeat(4, 1fr); gap: 11px; }
+  .subs-grid-row-last { grid-template-columns: repeat(4, 1fr); gap: 11px; }
+
+  .why-grid { gap: 12px; }
+  .why-card { padding: 16px 10px 14px; }
+  .why-icon-wrap { width: 46px; height: 46px; }
+  .why-card-title { font-size: 0.75rem; }
+  .why-card-desc { font-size: 0.64rem; }
+
+  #whatsapp-popup { right: 82px; padding: 12px 16px; }
+  .wa-popup-text { font-size: 0.82rem; }
+}
+
+/* =========================
+   RESPONSIVE — LAPTOP (900px+)
+========================= */
+@media (min-width: 900px) {
+  :root {
+    --header-h: 72px;
+    --navbar-h: 0px;
+  }
+  body { padding-bottom: 0; }
+  #bottom-nav { display: none; }
+
+  main { padding-top: var(--header-h); }
+
+  #hero { padding: 20px 32px 0; }
+  .hero-banner-container { aspect-ratio: 16/7; border-radius: 26px; }
+
+  #toggle-section { padding: 24px 32px 8px; }
+  .toggle-btn { padding: 12px 32px; font-size: 1rem; }
+
+  #games-section { padding: 24px 0 8px; }
+  .section-header { padding: 0 32px; }
+  .games-scroll-wrapper { padding: 8px 32px 12px; overflow-x: visible; }
+  .games-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; width: 100%; }
+  .game-card { width: 100%; min-width: unset; max-width: none; }
+  .game-name { font-size: 0.9rem; }
+  .game-currency { font-size: 0.78rem; }
+  .buy-btn { font-size: 0.82rem; padding: 9px 0; }
+
+  #subscriptions-section { padding: 28px 0 12px; }
+  .subs-grid-wrapper { padding: 8px 32px 12px; }
+  .subs-grid { grid-template-columns: repeat(4, 1fr); gap: 14px; }
+  .subs-grid-row3 { grid-template-columns: repeat(4, 1fr); gap: 14px; }
+  .subs-grid-row-last { grid-template-columns: repeat(4, 1fr); gap: 14px; }
+  .sub-card { padding: 8px 8px 10px; }
+  .sub-img-wrap { width: 60px; height: 60px; border-radius: 14px; }
+  .sub-name { font-size: 0.75rem; }
+
+  #why-section { padding: 28px 32px 20px; }
+  .why-grid { gap: 16px; }
+  .why-card { padding: 22px 14px 18px; }
+  .why-icon-wrap { width: 54px; height: 54px; font-size: 1.3rem; }
+  .why-card-title { font-size: 0.9rem; }
+  .why-card-desc { font-size: 0.75rem; }
+
+  #footer { padding: 32px 40px 28px; }
+
+  #support-character { bottom: 80px; right: 24px; }
+  .support-char-wrap { width: 90px; height: 90px; }
+
+  #whatsapp-popup {
+    bottom: 24px; left: auto; right: 96px;
+    width: 320px; border-radius: 20px;
+  }
+
+  .section-title { font-size: 1.15rem; }
+}
+
+/* =========================
+   RESPONSIVE — DESKTOP (1200px+)
+========================= */
+@media (min-width: 1200px) {
+  #hero, #toggle-section, .games-scroll-wrapper,
+  .subs-grid-wrapper, #why-section, #footer, .section-header {
+    max-width: 960px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+  #hero { padding-left: 0 !important; padding-right: 0 !important; }
+  .games-row { width: 100%; }
+}
+
+/* =========================
+   ULTRA-WIDE (1600px+)
+========================= */
+@media (min-width: 1600px) {
+  #hero, #toggle-section, .games-scroll-wrapper,
+  .subs-grid-wrapper, #why-section, #footer, .section-header {
+    max-width: 1100px;
+  }
+}
+</style>
+</head>
+<body>
+
+<div id="sparkles-container" aria-hidden="true"></div>
+<div id="toast" role="status" aria-live="polite">✨ Coming Soon</div>
+
+<div class="modal-overlay" id="notif-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+  <div class="modal-box">
+    <div class="modal-icon">🌸</div>
+    <div class="modal-title" id="modal-title">XiyaShop Update</div>
+    <p class="modal-text">
+      We're still developing our website for the best experience. Features like automation are currently under development, but orders and purchases are fully available.<br><br>
+      Please stay tuned for upcoming updates.
+    </p>
+    <button class="modal-close" id="modal-close-btn">Got It! 💕</button>
+  </div>
+</div>
+
+<header id="header">
+  <div class="header-left">
+    <button class="hamburger-btn" aria-label="Menu">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+        <line x1="3" y1="6" x2="21" y2="6"/>
+        <line x1="3" y1="12" x2="21" y2="12"/>
+        <line x1="3" y1="18" x2="21" y2="18"/>
+      </svg>
+    </button>
+  </div>
+
+  <div class="header-logo">
+    <a href="#">
+      <img src="../assets/images/logo1.png.png" alt="XiyaShop" id="header-logo-img">
+    </a>
+    <div class="logo-placeholder-box" id="logo-placeholder-box">
+      <span>LOGO PNG<br>Upload Here</span>
+    </div>
+  </div>
+
+  <div class="header-right">
+    <button class="icon-btn" aria-label="Search">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+        <circle cx="11" cy="11" r="7"/>
+        <line x1="16.5" y1="16.5" x2="22" y2="22"/>
+      </svg>
+    </button>
+    <button class="icon-btn" aria-label="Cart">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+        <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/>
+        <line x1="3" y1="6" x2="21" y2="6"/>
+        <path d="M16 10a4 4 0 01-8 0"/>
+      </svg>
+    </button>
+    <button class="icon-btn" id="notif-btn" aria-label="Notifications" aria-haspopup="dialog">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+        <path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/>
+        <path d="M13.73 21a2 2 0 01-3.46 0"/>
+      </svg>
+      <span class="notif-badge">1</span>
+    </button>
+  </div>
+</header>
+
+<main>
+  <section id="hero" aria-label="Hero Banner">
+    <div class="hero-banner-container">
+      <img src="../assets/images/banner.webp" alt="Main Hero Banner" loading="eager" onerror="this.style.display='none'">
+      <div class="hero-placeholder-text" id="hero-placeholder">
+        <span>🖼 HERO BANNER IMAGE</span>
+        <span>Replace src="" above with your banner image path</span>
+        <span>Recommended: 1920×1080px | 16:9 ratio</span>
+      </div>
+    </div>
+  </section>
+
+  <section id="toggle-section" aria-label="Section Toggle">
+    <div class="toggle-container" role="tablist">
+      <button class="toggle-btn active" id="tab-games" role="tab" aria-selected="true" aria-controls="games-section">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+          <rect x="2" y="6" width="20" height="12" rx="3"/>
+          <circle cx="12" cy="12" r="2"/>
+          <path d="M6 10v4M4 12h4"/>
+          <line x1="18" y1="11" x2="18" y2="11.01" stroke-width="3" stroke-linecap="round"/>
+          <line x1="20" y1="13" x2="20" y2="13.01" stroke-width="3" stroke-linecap="round"/>
+        </svg>
+        Games
+      </button>
+      <button class="toggle-btn" id="tab-subs" role="tab" aria-selected="false" aria-controls="subscriptions-section">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+          <rect x="2" y="4" width="20" height="16" rx="2"/>
+          <path d="M8 4v16M16 4v16"/>
+          <path d="M2 12h20"/>
+        </svg>
+        Subscriptions
+      </button>
+    </div>
+  </section>
+
+  <section id="games-section" aria-label="Popular Games">
+    <div class="section-header">
+      <span class="section-emoji">🔥</span>
+      <h2 class="section-title">Popular Games</h2>
+    </div>
+    <div class="games-scroll-wrapper">
+      <div class="games-row">
+
+        <div class="game-card">
+          <span class="game-badge">Best Seller</span>
+          <div class="game-img-wrap">
+            <img src="../assets/images/mlbb1.png.png" alt="Mobile Legends" loading="lazy" onerror="this.style.display='none'">
+            <div class="game-img-placeholder">📱 MLBB IMAGE<br>Replace src=""</div>
+          </div>
+          <div class="game-info">
+            <div class="game-name">Mobile Legends</div>
+            <div class="game-currency"><span>💎</span> Diamonds</div>
+            <a href="pages/mlbb.html" class="buy-btn">Buy Now</a>
+          </div>
+        </div>
+
+        <div class="game-card">
+          <span class="game-badge badge-trending">Trending</span>
+          <div class="game-img-wrap">
+            <img src="../assets/images/hok1.png" alt="Honor of Kings" loading="lazy" onerror="this.style.display='none'">
+            <div class="game-img-placeholder">👑 HOK IMAGE<br>Replace src=""</div>
+          </div>
+          <div class="game-info">
+            <div class="game-name">Honor of Kings</div>
+            <div class="game-currency"><span>🪙</span> Tokens</div>
+            <a href="pages/hok.html" class="buy-btn">Buy Now</a>
+          </div>
+        </div>
+
+        <div class="game-card">
+          <span class="game-badge badge-popular">Popular</span>
+          <div class="game-img-wrap">
+            <img src="../assets/images/eafc1.png" alt="EA Sports FC" loading="lazy" onerror="this.style.display='none'">
+            <div class="game-img-placeholder">⚽ EA FC IMAGE<br>Replace src=""</div>
+          </div>
+          <div class="game-info">
+            <div class="game-name">EA Sports FC™</div>
+            <div class="game-currency"><span>🏅</span> FC Points</div>
+            <a href="pages/ea.html" class="buy-btn">Buy Now</a>
+          </div>
+        </div>
+
+        <div class="game-card">
+          <span class="game-badge badge-hot">Hot</span>
+          <div class="game-img-wrap">
+            <img src="../assets/images/bgmi.jpg" alt="bgmi" loading="lazy" onerror="this.style.display='none'">
+            <div class="game-img-placeholder">🔫 BGMI IMAGE<br>Replace src=""</div>
+          </div>
+          <div class="game-info">
+            <div class="game-name">BGMI</div>
+            <div class="game-currency"><span>🎯</span> UC</div>
+            <a href="pages/bgmi.html" class="buy-btn">Buy Now</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <section id="subscriptions-section" aria-label="Subscriptions and OTT">
+    <div class="section-header">
+      <span class="section-emoji">📺</span>
+      <h2 class="section-title">Subscriptions &amp; OTT</h2>
+    </div>
+    <div class="subs-grid-wrapper">
+
+      <div class="subs-grid">
+        <div class="sub-card">
+          <div class="sub-badge-row"><span class="sub-badge-label">Best Seller</span></div>
+          <div class="sub-img-wrap">
+            <img src="../assets/images/youtube.png" alt="YouTube Premium" loading="lazy" onerror="this.style.display='none'">
+            <div class="sub-img-placeholder">▶️<br>YT</div>
+          </div>
+          <div class="sub-name">YouTube<br>Premium</div>
+          <a href="pages/youtub.html" class="sub-buy-btn">Buy Now</a>
+        </div>
+
+        <div class="sub-card">
+          <div class="sub-badge-row"><span class="sub-badge-label trending">Trending</span></div>
+          <div class="sub-img-wrap">
+            <img src="../assets/images/spotify.png" alt="Spotify Premium" loading="lazy" onerror="this.style.display='none'">
+            <div class="sub-img-placeholder">🎵<br>Sptfy</div>
+          </div>
+          <div class="sub-name">Spotify<br>Premium</div>
+          <a href="pages/spotify final.html" class="sub-buy-btn">Buy Now</a>
+        </div>
+
+        <div class="sub-card">
+          <div class="sub-badge-row"><span class="sub-badge-label trending">Trending</span></div>
+          <div class="sub-img-wrap">
+            <img src="../assets/images/netflix2.png" alt="Netflix Premium" loading="lazy" onerror="this.style.display='none'">
+            <div class="sub-img-placeholder">🎬<br>Nflx</div>
+          </div>
+          <div class="sub-name">Netflix<br>Premium</div>
+          <a href="pages/netflix.html" class="sub-buy-btn">Buy Now</a>
+        </div>
+
+        <div class="sub-card">
+          <div class="sub-badge-row"><span class="sub-badge-label subscription">Subscription</span></div>
+          <div class="sub-img-wrap">
+            <img src="../assets/images/jiohotstar (1).jpg" alt="JioHotstar" loading="lazy" onerror="this.style.display='none'">
+            <div class="sub-img-placeholder">⭐<br>Jio</div>
+          </div>
+          <div class="sub-name">JioHotstar</div>
+          <a href="pages/jiohotstar.html" class="sub-buy-btn">Buy Now</a>
+        </div>
+      </div>
+
+      <div class="subs-grid-row3">
+        <div class="sub-card">
+          <div class="sub-badge-row"><span class="sub-badge-label subscription">Subscription</span></div>
+          <div class="sub-img-wrap">
+            <img src="../assets/images/crunchy.png" alt="Crunchyroll" loading="lazy" onerror="this.style.display='none'">
+            <div class="sub-img-placeholder">🍥<br>CR</div>
+          </div>
+          <div class="sub-name">Crunchyroll</div>
+          <a href="pages/crunchyroll.html" class="sub-buy-btn">Buy Now</a>
+        </div>
+
+        <div class="sub-card">
+          <div class="sub-badge-row"><span class="sub-badge-label subscription">Subscription</span></div>
+          <div class="sub-img-wrap">
+            <img src="../assets/images/prime.png" alt="Prime Video" loading="lazy" onerror="this.style.display='none'">
+            <div class="sub-img-placeholder">📦<br>Prime</div>
+          </div>
+          <div class="sub-name">Prime<br>Video</div>
+          <a href="pages/prime .html" class="sub-buy-btn">Buy Now</a>
+        </div>
+
+        <div class="sub-card">
+          <div class="sub-badge-row"><span class="sub-badge-label subscription">Subscription</span></div>
+          <div class="sub-img-wrap">
+            <img src="../assets/images/fancode.png" alt="Fancode" loading="lazy" onerror="this.style.display='none'">
+            <div class="sub-img-placeholder">🏏<br>Fan</div>
+          </div>
+          <div class="sub-name">Fancode</div>
+          <a href="pages/fan.html" class="sub-buy-btn">Buy Now</a>
+        </div>
+
+        <div class="sub-card">
+          <div class="sub-badge-row"><span class="sub-badge-label subscription">Subscription</span></div>
+          <div class="sub-img-wrap">
+            <img src="../assets/images/sim recharge.png" alt="SIM Recharge" loading="lazy" onerror="this.style.display='none'">
+            <div class="sub-img-placeholder">📶<br>SIM</div>
+          </div>
+          <div class="sub-name">SIM<br>Recharge</div>
+          <a href="pages/sim recharge.html" class="sub-buy-btn">Buy Now</a>
+        </div>
+      </div>
+
+      <div class="subs-grid-row-last">
+        <div class="sub-card">
+          <div class="sub-badge-row"><span class="sub-badge-label subscription">Subscription</span></div>
+          <div class="sub-img-wrap">
+            <img src="../assets/images/canvapro.jpeg" alt="Canva Pro" loading="lazy" onerror="this.style.display='none'">
+            <div class="sub-img-placeholder">🎨<br>Canva</div>
+          </div>
+          <div class="sub-name">Canva Pro</div>
+          <a href="pages/canva .html" class="sub-buy-btn">Buy Now</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="why-section" aria-label="Why Choose XiyaShop">
+    <div class="why-header">
+      <h2 class="why-title">Why Choose XiyaShop?</h2>
+    </div>
+    <div class="why-grid">
+      <div class="why-card">
+        <div class="why-icon-wrap">⚡</div>
+        <div class="why-card-title">Instant Delivery</div>
+        <div class="why-card-desc">Delivery in minutes</div>
+      </div>
+      <div class="why-card">
+        <div class="why-icon-wrap">💎</div>
+        <div class="why-card-title">Best Deals</div>
+        <div class="why-card-desc">Cheapest deals always</div>
+      </div>
+      <div class="why-card">
+        <div class="why-icon-wrap">🛡</div>
+        <div class="why-card-title">Safe &amp; Secure</div>
+        <div class="why-card-desc">100% secure transactions</div>
+      </div>
+      <div class="why-card">
+        <div class="why-icon-wrap">🌟</div>
+        <div class="why-card-title">3+ Years Trust</div>
+        <div class="why-card-desc">Trusted since 2022</div>
+      </div>
+    </div>
+  </section>
+
+  <footer id="footer" aria-label="Footer">
+    <div class="footer-logo-name">XiyaShop</div>
+    <div class="footer-tagline">Play More, Pay Less 💕</div>
+    <div class="footer-divider"></div>
+
+    <div class="footer-label">Instagram</div>
+    <div class="footer-links">
+      <a href="https://instagram.com/xiya.shop" class="footer-link" target="_blank" rel="noopener">@xiya.shop</a>
+      <a href="https://instagram.com/xiyashop.assam" class="footer-link" target="_blank" rel="noopener">@xiyashop.assam</a>
+      <a href="https://instagram.com/xiyashop.hok" class="footer-link" target="_blank" rel="noopener">@xiyashop.hok</a>
+    </div>
+
+    <div class="footer-divider"></div>
+
+    <div class="footer-label">WhatsApp</div>
+    <div class="footer-links">
+      <a href="https://wa.me/919387947130" class="footer-link" target="_blank" rel="noopener">+91 9387947130</a>
+      <a href="https://whatsapp.com/channel/0029Vb7Ihl5AojYq2Ld7C73m" class="footer-link" target="_blank" rel="noopener">Join WhatsApp Channel</a>
+    </div>
+
+    <div class="footer-divider"></div>
+    <div class="footer-trust">Trusted since <span>2022</span> · Made with 💕 for gamers</div>
+  </footer>
+</main>
+
+<a href="https://wa.me/919387947130" id="support-character" aria-label="Customer Support on WhatsApp" target="_blank" rel="noopener">
+  <div class="support-char-wrap">
+    <img src="../assets/images/character.webp" alt="Customer Support Character" onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
+    <span class="support-char-placeholder" style="display:none">🐱</span>
+  </div>
+</a>
+
+<div id="whatsapp-popup" role="complementary" aria-label="WhatsApp offers">
+  <button class="wa-popup-close" id="wa-close" aria-label="Close">✕</button>
+  <div class="wa-popup-center">
+    <div class="wa-gift-img">
+      <img src="" alt="Gift Icon" onerror="this.parentElement.innerHTML='<span class=wa-gift-emoji>🎁</span>'">
+    </div>
+    <span class="wa-popup-text">Exciting Offers &amp; Giveaways</span>
+  </div>
+  <a href="https://whatsapp.com/channel/0029Vb7Ihl5AojYq2Ld7C73m" class="wa-join-btn" target="_blank" rel="noopener">Join Now</a>
+</div>
+
+<nav id="bottom-nav" aria-label="Bottom Navigation">
+  <ul class="nav-items">
+    <li class="nav-item active" id="nav-home">
+      <div class="nav-icon">
+        <svg viewBox="0 0 24 24" fill="currentColor">
+          <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+        </svg>
+      </div>
+      <span class="nav-label">Home</span>
+    </li>
+    <li class="nav-item" id="nav-topup" role="button" tabindex="0" aria-label="Top Up — Coming Soon">
+      <div class="nav-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+          <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+        </svg>
+      </div>
+      <span class="nav-label">Top Up</span>
+    </li>
+    <li class="nav-item" id="nav-games" role="button" tabindex="0" aria-label="Games — Coming Soon">
+      <div class="nav-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+          <rect x="2" y="6" width="20" height="12" rx="3"/>
+          <circle cx="12" cy="12" r="2"/>
+          <path d="M6 10v4M4 12h4"/>
+          <line x1="18" y1="11" x2="18" y2="11.01" stroke-width="3"/>
+          <line x1="20" y1="13" x2="20" y2="13.01" stroke-width="3"/>
+        </svg>
+      </div>
+      <span class="nav-label">Games</span>
+    </li>
+    <li class="nav-item" id="nav-offers" role="button" tabindex="0" aria-label="Offers — Coming Soon">
+      <div class="nav-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+          <polyline points="20 12 20 22 4 22 4 12"/>
+          <rect x="2" y="7" width="20" height="5"/>
+          <line x1="12" y1="22" x2="12" y2="7"/>
+          <path d="M12 7H7.5a2.5 2.5 0 010-5C11 2 12 7 12 7z"/>
+          <path d="M12 7h4.5a2.5 2.5 0 000-5C13 2 12 7 12 7z"/>
+        </svg>
+      </div>
+      <span class="nav-label">Offers</span>
+    </li>
+    <li class="nav-item" id="nav-account" role="button" tabindex="0" aria-label="Account — Coming Soon">
+      <div class="nav-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+          <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/>
+          <circle cx="12" cy="7" r="4"/>
+        </svg>
+      </div>
+      <span class="nav-label">Account</span>
+    </li>
+  </ul>
+</nav>
+
+<script>
+/* =========================
+   SPARKLES GENERATOR
+========================= */
+(function() {
+  const container = document.getElementById('sparkles-container');
+  const positions = [
+    { left: '8%', top: '30%' }, { left: '20%', top: '60%' },
+    { left: '35%', top: '20%' }, { left: '55%', top: '70%' },
+    { left: '72%', top: '40%' }, { left: '88%', top: '25%' },
+    { left: '15%', top: '80%' }, { left: '65%', top: '10%' },
+    { left: '45%', top: '50%' }, { left: '90%', top: '65%' },
+  ];
+  positions.forEach(function(pos, i) {
+    const el = document.createElement('div');
+    el.className = 'sparkle';
+    el.style.left = pos.left;
+    el.style.top = pos.top;
+    el.style.animationDuration = (4 + Math.random() * 4) + 's';
+    el.style.animationDelay = (Math.random() * 5) + 's';
+    container.appendChild(el);
+  });
+})();
+
+/* =========================
+   NOTIFICATION MODAL
+========================= */
+const notifBtn = document.getElementById('notif-btn');
+const notifModal = document.getElementById('notif-modal');
+const modalCloseBtn = document.getElementById('modal-close-btn');
+
+notifBtn.addEventListener('click', function() {
+  notifModal.classList.add('active');
+  document.body.style.overflow = 'hidden';
+});
+function closeModal() {
+  notifModal.classList.remove('active');
+  document.body.style.overflow = '';
+}
+modalCloseBtn.addEventListener('click', closeModal);
+notifModal.addEventListener('click', function(e) {
+  if (e.target === notifModal) closeModal();
+});
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape' && notifModal.classList.contains('active')) closeModal();
+});
+
+/* =========================
+   GAMES / SUBSCRIPTIONS TOGGLE
+========================= */
+const tabGames = document.getElementById('tab-games');
+const tabSubs = document.getElementById('tab-subs');
+const subsSection = document.getElementById('subscriptions-section');
+
+tabGames.addEventListener('click', function() {
+  tabGames.classList.add('active');
+  tabGames.setAttribute('aria-selected', 'true');
+  tabSubs.classList.remove('active');
+  tabSubs.setAttribute('aria-selected', 'false');
+  document.getElementById('games-section').scrollIntoView({ behavior: 'smooth', block: 'start' });
+});
+tabSubs.addEventListener('click', function() {
+  tabSubs.classList.add('active');
+  tabSubs.setAttribute('aria-selected', 'true');
+  tabGames.classList.remove('active');
+  tabGames.setAttribute('aria-selected', 'false');
+  subsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+});
+
+/* =========================
+   BOTTOM NAV TOAST — Coming Soon
+========================= */
+const toast = document.getElementById('toast');
+let toastTimer = null;
+
+function showToast(msg) {
+  if (toastTimer) clearTimeout(toastTimer);
+  toast.textContent = msg || '✨ Coming Soon';
+  toast.classList.add('show');
+  toastTimer = setTimeout(function() {
+    toast.classList.remove('show');
+  }, 1200);
+}
+
+['nav-topup', 'nav-games', 'nav-offers', 'nav-account'].forEach(function(id) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  el.addEventListener('click', function() { showToast('✨ Coming Soon'); });
+  el.addEventListener('keydown', function(e) {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      showToast('✨ Coming Soon');
+    }
+  });
+});
+
+/* =========================
+   WHATSAPP POPUP CLOSE
+========================= */
+document.getElementById('wa-close').addEventListener('click', function() {
+  const popup = document.getElementById('whatsapp-popup');
+  popup.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+  popup.style.opacity = '0';
+  popup.style.transform = 'translateY(12px)';
+  setTimeout(function() { popup.style.display = 'none'; }, 320);
+});
+
+/* =========================
+   HERO PLACEHOLDER — hide when image loads
+========================= */
+const heroImg = document.querySelector('#hero img');
+const heroPlaceholder = document.getElementById('hero-placeholder');
+if (heroImg) {
+  heroImg.addEventListener('load', function() {
+    if (heroPlaceholder) heroPlaceholder.style.display = 'none';
+  });
+}
+
+/* =========================
+   LOGO — show placeholder box while no PNG, hide once image loads
+========================= */
+(function() {
+  const logoImg = document.getElementById('header-logo-img');
+  const logoBox = document.getElementById('logo-placeholder-box');
+  if (!logoImg || !logoBox) return;
+  if (!logoImg.getAttribute('src')) {
+    logoImg.style.display = 'none';
+    logoBox.style.display = 'flex';
+  } else {
+    logoBox.style.display = 'none';
+    logoImg.style.display = 'block';
+    logoImg.addEventListener('error', function() {
+      logoImg.style.display = 'none';
+      logoBox.style.display = 'flex';
+    });
+    logoImg.addEventListener('load', function() {
+      logoBox.style.display = 'none';
+      logoImg.style.display = 'block';
+    });
+  }
+})();
+
+/* =========================
+   SMOOTH SCROLL POLYFILL (iOS)
+========================= */
+document.querySelectorAll('a[href^="#"]').forEach(function(a) {
+  a.addEventListener('click', function(e) {
+    const target = document.querySelector(this.getAttribute('href'));
+    if (target) {
+      e.preventDefault();
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  });
+});
+
+document.addEventListener('touchstart', function() {}, { passive: true });
+</script>
+
+</body>
+</html>

