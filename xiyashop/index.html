@@ -1400,12 +1400,470 @@ main {
     max-height: calc(100vh - 220px);
   }
 }
+   /* =========================
+   SIDEBAR DRAWER
+========================= */
+#menu-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(45, 27, 53, 0.40);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  z-index: 1100;
+  transition: opacity 0.3s ease;
+}
+#menu-overlay.active { display: block; }
+
+#sidebar {
+  position: fixed;
+  top: 0; left: 0; bottom: 0;
+  width: 70vw;
+  max-width: 430px;
+  background: rgba(255, 252, 255, 0.97);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border-right: 1px solid rgba(255, 180, 210, 0.25);
+  box-shadow: 4px 0 40px rgba(233, 30, 140, 0.14);
+  z-index: 1200;
+  display: flex;
+  flex-direction: column;
+  transform: translateX(-100%);
+  transition: transform 0.3s ease;
+  overflow: hidden;
+}
+#sidebar.open { transform: translateX(0); }
+
+/* Header */
+.sb-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: 20px 18px 16px;
+  border-bottom: 1px solid rgba(255, 180, 210, 0.20);
+  background: linear-gradient(135deg, rgba(255, 240, 248, 0.9), rgba(243, 234, 251, 0.9));
+  flex-shrink: 0;
+}
+.sb-brand { display: flex; align-items: flex-start; gap: 12px; }
+
+.sb-favicon-wrap {
+  width: 60px; height: 60px;
+  border-radius: 16px;
+  background: linear-gradient(135deg, #FFD6E7, #F3EAFB);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  box-shadow: 0 6px 20px rgba(233, 30, 140, 0.16);
+  overflow: hidden;
+}
+.sb-favicon-wrap img { width: 40px; height: 40px; object-fit: contain; }
+
+.sb-brand-text {
+  display: flex; flex-direction: column; gap: 2px;
+  padding-top: 4px;
+}
+.sb-brand-name {
+  font-family: 'Nunito', sans-serif;
+  font-weight: 900;
+  font-size: 1.15rem;
+  background: linear-gradient(135deg, #FF4D8D, #E91E8C);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text;
+  line-height: 1.1;
+}
+.sb-brand-sub {
+  font-size: 0.72rem;
+  color: var(--text-mid);
+  font-weight: 500;
+  line-height: 1.3;
+}
+.sb-trust-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  margin-top: 5px;
+  padding: 4px 10px;
+  background: rgba(255, 255, 255, 0.75);
+  border: 1px solid rgba(255, 180, 210, 0.40);
+  border-radius: 50px;
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: var(--text-mid);
+  backdrop-filter: blur(8px);
+  width: fit-content;
+}
+
+.sb-close-btn {
+  width: 34px; height: 34px;
+  border-radius: 10px;
+  background: rgba(255, 77, 141, 0.08);
+  border: 1px solid rgba(255, 180, 210, 0.30);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--text-mid);
+  flex-shrink: 0;
+  transition: var(--transition);
+}
+.sb-close-btn:hover { background: rgba(255, 77, 141, 0.16); color: var(--pink-primary); }
+.sb-close-btn svg { width: 16px; height: 16px; }
+
+/* Scrollable body */
+.sb-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 14px 12px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  -webkit-overflow-scrolling: touch;
+}
+.sb-body::-webkit-scrollbar { width: 3px; }
+.sb-body::-webkit-scrollbar-thumb { background: var(--pink-light); border-radius: 10px; }
+
+/* Cards */
+.sb-card {
+  background: #ffffff;
+  border-radius: 18px;
+  border: 1px solid rgba(255, 180, 210, 0.18);
+  box-shadow: 0 4px 20px rgba(233, 30, 140, 0.07);
+  overflow: hidden;
+  transition: box-shadow 0.3s ease;
+}
+.sb-card.open { box-shadow: 0 8px 28px rgba(233, 30, 140, 0.13); }
+
+/* Accordion trigger */
+.sb-acc-trigger {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px;
+  background: transparent;
+  text-align: left;
+  transition: background 0.2s ease;
+}
+.sb-acc-trigger:hover { background: rgba(255, 240, 248, 0.7); }
+
+.sb-acc-icon {
+  width: 36px; height: 36px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #FFD6E7, #F3EAFB);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.sb-acc-icon svg { width: 17px; height: 17px; color: #FF4FA2; }
+
+.sb-card.open .sb-acc-icon {
+  background: linear-gradient(135deg, #FF4FA2, #E91E8C);
+}
+.sb-card.open .sb-acc-icon svg { color: #ffffff; }
+
+.sb-acc-label {
+  flex: 1;
+  font-family: 'Nunito', sans-serif;
+  font-weight: 800;
+  font-size: 0.92rem;
+  color: var(--text-dark);
+}
+
+.sb-acc-chevron { flex-shrink: 0; transition: transform 0.3s ease; color: var(--text-light); }
+.sb-acc-chevron svg { width: 16px; height: 16px; }
+.sb-card.open .sb-acc-chevron { transform: rotate(180deg); }
+
+/* Accordion body */
+.sb-acc-body {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+  border-top: 0px solid rgba(255, 180, 210, 0.15);
+}
+.sb-card.open .sb-acc-body {
+  max-height: 600px;
+  border-top-width: 1px;
+}
+
+/* Items inside accordion */
+.sb-acc-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  width: 100%;
+  padding: 11px 16px;
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: var(--text-mid);
+  text-align: left;
+  background: transparent;
+  transition: background 0.2s ease, color 0.2s ease;
+  cursor: pointer;
+  border: none;
+  text-decoration: none;
+}
+.sb-acc-item:hover { background: rgba(255, 240, 248, 0.8); color: var(--pink-primary); }
+.sb-acc-item:active { transform: scale(0.98); }
+.sb-acc-item + .sb-acc-item { border-top: 1px solid rgba(255, 180, 210, 0.12); }
+
+.sb-item-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--pink-light);
+  flex-shrink: 0;
+  margin-top: 6px;
+}
+.sb-item-title {
+  font-family: 'Nunito', sans-serif;
+  font-weight: 700;
+  font-size: 0.82rem;
+  color: var(--text-dark);
+  margin-bottom: 2px;
+}
+.sb-item-desc {
+  font-size: 0.72rem;
+  color: var(--text-light);
+  line-height: 1.45;
+  font-weight: 400;
+}
+.sb-acc-item.no-btn { cursor: default; }
+.sb-acc-item.no-btn:hover { background: transparent; color: var(--text-mid); }
+
+/* Apply / WhatsApp button */
+.sb-apply-wrap { padding: 10px 16px 14px; }
+.sb-apply-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  padding: 12px 16px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #25D366, #128C7E);
+  color: white;
+  font-family: 'Nunito', sans-serif;
+  font-weight: 800;
+  font-size: 0.85rem;
+  text-decoration: none;
+  transition: var(--transition);
+  box-shadow: 0 4px 16px rgba(37, 211, 102, 0.30);
+  box-sizing: border-box;
+}
+.sb-apply-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(37, 211, 102, 0.40); }
+.sb-apply-btn:active { transform: scale(0.98); }
+
+/* Support buttons */
+.sb-support-btn {
+  background: linear-gradient(135deg, rgba(37, 211, 102, 0.08), rgba(18, 140, 126, 0.06));
+  color: #128C7E !important;
+  font-weight: 700 !important;
+  border-bottom: 1px solid rgba(255, 180, 210, 0.12);
+}
+.sb-support-btn:hover { background: rgba(37, 211, 102, 0.15) !important; color: #128C7E !important; }
+.sb-support-btn svg { flex-shrink: 0; fill: #25D366; }
+
+.sb-report-btn { color: var(--text-mid) !important; }
+.sb-report-btn:hover { color: #FF3B30 !important; background: rgba(255, 59, 48, 0.06) !important; }
+
+/* Coming soon button */
+.sb-coming-btn {
+  justify-content: center;
+  background: linear-gradient(135deg, rgba(255, 77, 141, 0.06), rgba(139, 107, 175, 0.06));
+  color: var(--text-mid) !important;
+  font-weight: 600 !important;
+  padding: 14px 16px !important;
+}
+.sb-coming-btn svg { color: var(--pink-primary); flex-shrink: 0; }
+.sb-coming-btn:hover { background: rgba(255, 77, 141, 0.10) !important; color: var(--pink-primary) !important; }
+
+/* Responsive */
+@media (min-width: 600px) {
+  #sidebar { width: min(420px, 65vw); }
+}
+@media (min-width: 900px) {
+  #sidebar { width: min(430px, 28vw); }
+}
+
+/* Toast — override to bottom-center pink */
+#toast {
+  top: auto !important;
+  bottom: calc(var(--navbar-h) + 20px) !important;
+  left: 50% !important;
+  transform: translateX(-50%) translateY(10px) !important;
+  background: linear-gradient(135deg, #FF4FA2, #E91E8C) !important;
+  border-radius: 50px !important;
+  padding: 10px 24px !important;
+  font-size: 0.88rem !important;
+  box-shadow: 0 6px 24px rgba(233, 30, 140, 0.35) !important;
+}
+#toast.show {
+  transform: translateX(-50%) translateY(0) !important;
+  opacity: 1 !important;
+}
 </style>
 </head>
 <body>
 
 <div id="sparkles-container" aria-hidden="true"></div>
 <div id="toast" role="status" aria-live="polite">✨ Coming Soon</div>
+   <!-- ========================= SIDEBAR DRAWER ========================= -->
+<div id="menu-overlay" aria-hidden="true"></div>
+
+<aside id="sidebar" role="dialog" aria-modal="true" aria-label="Navigation Menu">
+  <!-- Header -->
+  <div class="sb-header">
+    <div class="sb-brand">
+      <div class="sb-favicon-wrap">
+        <img src="/assets/images/favicon.png" alt="XiyaShop" onerror="this.style.display='none'">
+      </div>
+      <div class="sb-brand-text">
+        <span class="sb-brand-name">XiyaShop</span>
+        <span class="sb-brand-sub">Premium Top-Ups &amp; Subscriptions</span>
+        <span class="sb-trust-badge">💎 Trusted Since 2022</span>
+      </div>
+    </div>
+    <button class="sb-close-btn" id="sidebar-close" aria-label="Close menu">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+        <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+      </svg>
+    </button>
+  </div>
+
+  <!-- Scrollable body -->
+  <div class="sb-body">
+
+    <!-- ACCOUNT -->
+    <div class="sb-card sb-accordion open" id="acc-account">
+      <button class="sb-acc-trigger" aria-expanded="true" aria-controls="acc-account-body">
+        <span class="sb-acc-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        </span>
+        <span class="sb-acc-label">Account</span>
+        <span class="sb-acc-chevron">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </span>
+      </button>
+      <div class="sb-acc-body" id="acc-account-body">
+        <button class="sb-acc-item" onclick="showMenuToast('Coming Soon')">
+          <span class="sb-item-dot"></span>Login / Register
+        </button>
+        <button class="sb-acc-item" onclick="showMenuToast('Coming Soon')">
+          <span class="sb-item-dot"></span>My Orders
+        </button>
+        <button class="sb-acc-item" onclick="showMenuToast('Coming Soon')">
+          <span class="sb-item-dot"></span>Track Order
+        </button>
+      </div>
+    </div>
+
+    <!-- RESELLERS -->
+    <div class="sb-card sb-accordion" id="acc-resellers">
+      <button class="sb-acc-trigger" aria-expanded="false" aria-controls="acc-resellers-body">
+        <span class="sb-acc-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
+        </span>
+        <span class="sb-acc-label">Resellers</span>
+        <span class="sb-acc-chevron">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </span>
+      </button>
+      <div class="sb-acc-body" id="acc-resellers-body">
+        <div class="sb-acc-item no-btn">
+          <span class="sb-item-dot"></span>
+          <div>
+            <div class="sb-item-title">Become a Reseller</div>
+            <div class="sb-item-desc">Join our growing reseller network and earn profits on every sale.</div>
+          </div>
+        </div>
+        <div class="sb-acc-item no-btn">
+          <span class="sb-item-dot"></span>
+          <div>
+            <div class="sb-item-title">Reseller Benefits</div>
+            <div class="sb-item-desc">Exclusive pricing, priority support, and dedicated dashboard access.</div>
+          </div>
+        </div>
+        <div class="sb-acc-item no-btn">
+          <span class="sb-item-dot"></span>
+          <div>
+            <div class="sb-item-title">Reseller Pricing</div>
+            <div class="sb-item-desc">Special wholesale rates on all top-ups and subscriptions.</div>
+          </div>
+        </div>
+        <div class="sb-apply-wrap">
+          <a href="https://wa.me/919387947130?text=Hello%20XiyaShop,%20I%20would%20like%20to%20join%20the%20Reseller%20Program." class="sb-apply-btn" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M11.893 0C5.354 0 .063 5.291.063 11.83c0 2.087.541 4.055 1.488 5.768L0 24l6.574-1.524A11.83 11.83 0 0011.893 23.66C18.432 23.66 24 18.369 24 11.83 24 5.291 18.432 0 11.893 0zm0 21.622a9.792 9.792 0 01-5.003-1.373l-.359-.213-3.728.863.963-3.636-.234-.373a9.787 9.787 0 01-1.501-5.23C2.031 6.404 6.461 1.978 11.893 1.978c2.627 0 5.097 1.024 6.954 2.881a9.787 9.787 0 012.881 6.954c0 5.431-4.43 9.809-9.835 9.809z"/></svg>
+            Join Reseller Program
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- SUPPORT -->
+    <div class="sb-card sb-accordion" id="acc-support">
+      <button class="sb-acc-trigger" aria-expanded="false" aria-controls="acc-support-body">
+        <span class="sb-acc-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+        </span>
+        <span class="sb-acc-label">Support</span>
+        <span class="sb-acc-chevron">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </span>
+      </button>
+      <div class="sb-acc-body" id="acc-support-body">
+        <a href="https://wa.me/919387947130" class="sb-acc-item sb-support-btn" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="currentColor" width="15" height="15"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M11.893 0C5.354 0 .063 5.291.063 11.83c0 2.087.541 4.055 1.488 5.768L0 24l6.574-1.524A11.83 11.83 0 0011.893 23.66C18.432 23.66 24 18.369 24 11.83 24 5.291 18.432 0 11.893 0zm0 21.622a9.792 9.792 0 01-5.003-1.373l-.359-.213-3.728.863.963-3.636-.234-.373a9.787 9.787 0 01-1.501-5.23C2.031 6.404 6.461 1.978 11.893 1.978c2.627 0 5.097 1.024 6.954 2.881a9.787 9.787 0 012.881 6.954c0 5.431-4.43 9.809-9.835 9.809z"/></svg>
+          WhatsApp Support
+        </a>
+        <button class="sb-acc-item" onclick="showMenuToast('FAQ Coming Soon')">
+          <span class="sb-item-dot"></span>FAQ
+        </button>
+        <a href="https://wa.me/919387947130?text=Hello%20XiyaShop,%20I%20want%20to%20report%20an%20issue." class="sb-acc-item sb-report-btn" target="_blank" rel="noopener">
+          <span class="sb-item-dot"></span>Report an Issue
+        </a>
+      </div>
+    </div>
+
+    <!-- REVIEWS -->
+    <div class="sb-card sb-accordion" id="acc-reviews">
+      <button class="sb-acc-trigger" aria-expanded="false" aria-controls="acc-reviews-body">
+        <span class="sb-acc-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        </span>
+        <span class="sb-acc-label">Reviews</span>
+        <span class="sb-acc-chevron">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </span>
+      </button>
+      <div class="sb-acc-body" id="acc-reviews-body">
+        <button class="sb-acc-item sb-coming-btn" onclick="showMenuToast('Reviews Coming Soon')">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="15" height="15"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          Reviews — Coming Soon
+        </button>
+      </div>
+    </div>
+
+    <!-- ABOUT -->
+    <div class="sb-card sb-accordion" id="acc-about">
+      <button class="sb-acc-trigger" aria-expanded="false" aria-controls="acc-about-body">
+        <span class="sb-acc-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        </span>
+        <span class="sb-acc-label">About</span>
+        <span class="sb-acc-chevron">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </span>
+      </button>
+      <div class="sb-acc-body" id="acc-about-body">
+        <button class="sb-acc-item" onclick="showMenuToast('Coming Soon')">
+          <span class="sb-item-dot"></span>About XiyaShop
+        </button>
+        <a href="more.html#terms" class="sb-acc-item">
+          <span class="sb-item-dot"></span>Terms &amp; Conditions
+        </a>
+        <a href="more.html#privacy" class="sb-acc-item">
+          <span class="sb-item-dot"></span>Privacy Policy
+        </a>
+      </div>
+    </div>
+
+  </div><!-- /sb-body -->
+</aside>
 
 <div class="modal-overlay" id="notif-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
   <div class="modal-box">
@@ -1844,6 +2302,62 @@ main {
 </nav>
 
 <script>
+   /* =========================
+   SIDEBAR MENU
+========================= */
+(function() {
+  var sidebar   = document.getElementById('sidebar');
+  var overlay   = document.getElementById('menu-overlay');
+  var closeBtn  = document.getElementById('sidebar-close');
+  var hamburger = document.querySelector('.hamburger-btn');
+
+  function openSidebar() {
+    sidebar.classList.add('open');
+    overlay.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeSidebar() {
+    sidebar.classList.remove('open');
+    overlay.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+
+  if (hamburger) hamburger.addEventListener('click', openSidebar);
+  if (closeBtn)  closeBtn.addEventListener('click', closeSidebar);
+  if (overlay)   overlay.addEventListener('click', closeSidebar);
+
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && sidebar.classList.contains('open')) closeSidebar();
+  });
+
+  // Accordion
+  document.querySelectorAll('.sb-acc-trigger').forEach(function(trigger) {
+    trigger.addEventListener('click', function() {
+      var card = trigger.closest('.sb-accordion');
+      var isOpen = card.classList.contains('open');
+      // Close all
+      document.querySelectorAll('.sb-accordion').forEach(function(c) {
+        c.classList.remove('open');
+        c.querySelector('.sb-acc-trigger').setAttribute('aria-expanded', 'false');
+      });
+      // Toggle clicked
+      if (!isOpen) {
+        card.classList.add('open');
+        trigger.setAttribute('aria-expanded', 'true');
+      }
+    });
+  });
+})();
+
+function showMenuToast(msg) {
+  var toast = document.getElementById('toast');
+  if (!toast) return;
+  var t = null;
+  toast.textContent = msg || 'Coming Soon';
+  toast.classList.add('show');
+  if (t) clearTimeout(t);
+  t = setTimeout(function() { toast.classList.remove('show'); }, 1000);
+}
 /* =========================
    SPARKLES GENERATOR
 ========================= */
