@@ -1575,7 +1575,7 @@ main {
   border-top: 0px solid rgba(255, 180, 210, 0.15);
 }
 .sb-card.open .sb-acc-body {
-  max-height: 1200px;
+  max-height: 2000px;
   border-top-width: 1px;
 }
 
@@ -2475,6 +2475,7 @@ function showToast(msg) {
   const el = document.getElementById('nav-more');
   if (!el) return;
   el.style.cursor = 'pointer';
+   el.addEventListener('click', function() { window.location.href = 'pages/more.html'; });
 el.addEventListener('keydown', function(e) { 
     if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); window.location.href = 'pages/more.html'; }
   });
