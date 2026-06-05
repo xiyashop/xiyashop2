@@ -2475,11 +2475,11 @@ function showToast(msg) {
   const el = document.getElementById('nav-more');
   if (!el) return;
   el.style.cursor = 'pointer';
-el.addEventListener('click', function() { window.location.href = 'pages/more.html'; });
-  el.addEventListener('keydown', function(e) {
+el.addEventListener('keydown', function(e) {
     if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); window.location.href = 'pages/more.html'; }
+  });
 })();
-
+   
 /* =========================
    WHATSAPP POPUP CLOSE
 ========================= */
