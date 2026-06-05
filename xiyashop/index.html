@@ -2475,7 +2475,7 @@ function showToast(msg) {
   const el = document.getElementById('nav-more');
   if (!el) return;
   el.style.cursor = 'pointer';
-el.addEventListener('keydown', function(e) { window.location.href = 'pages/more.html'; });
+el.addEventListener('keydown', function(e) {
     if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); window.location.href = 'pages/more.html'; }
   });
 })();
