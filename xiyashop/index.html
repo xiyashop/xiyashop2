@@ -1455,8 +1455,7 @@ main {
   box-shadow: 0 6px 20px rgba(233, 30, 140, 0.16);
   overflow: hidden;
 }
-.sb-favicon-wrap img { width: 40px; height: 40px; object-fit: contain; }
-
+.sb-favicon-wrap img { width: 100%; height: 100%; object-fit: cover; }
 .sb-brand-text {
   display: flex; flex-direction: column; gap: 2px;
   padding-top: 4px;
@@ -1576,7 +1575,7 @@ main {
   border-top: 0px solid rgba(255, 180, 210, 0.15);
 }
 .sb-card.open .sb-acc-body {
-  max-height: 600px;
+  max-height: 900px;
   border-top-width: 1px;
 }
 
@@ -1729,8 +1728,8 @@ main {
   <div class="sb-body">
 
     <!-- ACCOUNT -->
-    <div class="sb-card sb-accordion open" id="acc-account">
-      <button class="sb-acc-trigger" aria-expanded="true" aria-controls="acc-account-body">
+     <div class="sb-card sb-accordion" id="acc-account">
+      <button class="sb-acc-trigger" aria-expanded="false" aria-controls="acc-account-body">
         <span class="sb-acc-icon">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
         </span>
@@ -1810,9 +1809,9 @@ main {
           <svg viewBox="0 0 24 24" fill="currentColor" width="15" height="15"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M11.893 0C5.354 0 .063 5.291.063 11.83c0 2.087.541 4.055 1.488 5.768L0 24l6.574-1.524A11.83 11.83 0 0011.893 23.66C18.432 23.66 24 18.369 24 11.83 24 5.291 18.432 0 11.893 0zm0 21.622a9.792 9.792 0 01-5.003-1.373l-.359-.213-3.728.863.963-3.636-.234-.373a9.787 9.787 0 01-1.501-5.23C2.031 6.404 6.461 1.978 11.893 1.978c2.627 0 5.097 1.024 6.954 2.881a9.787 9.787 0 012.881 6.954c0 5.431-4.43 9.809-9.835 9.809z"/></svg>
           WhatsApp Support
         </a>
-        <button class="sb-acc-item" onclick="showMenuToast('FAQ Coming Soon')">
+         <a href="pages/more.html" class="sb-acc-item">
           <span class="sb-item-dot"></span>FAQ
-        </button>
+         </a>
         <a href="https://wa.me/919387947130?text=Hello%20XiyaShop,%20I%20want%20to%20report%20an%20issue." class="sb-acc-item sb-report-btn" target="_blank" rel="noopener">
           <span class="sb-item-dot"></span>Report an Issue
         </a>
@@ -1850,9 +1849,12 @@ main {
         </span>
       </button>
       <div class="sb-acc-body" id="acc-about-body">
-        <button class="sb-acc-item" onclick="showMenuToast('Coming Soon')">
-          <span class="sb-item-dot"></span>About XiyaShop
-        </button>
+         <div class="sb-acc-item no-btn">
+          <span class="sb-item-dot"></span>
+          <div>
+            <div class="sb-item-title">About XiyaShop</div>
+            <div class="sb-item-desc">PASTE YOUR PARAGRAPH HERE.</div>
+          </div>
         <a href="more.html#terms" class="sb-acc-item">
           <span class="sb-item-dot"></span>Terms &amp; Conditions
         </a>
@@ -2438,26 +2440,35 @@ function showToast(msg) {
   }, 1200);
 }
 
-// Leaderboards link
+// Leaderboards — Coming Soon
 (function() {
   const el = document.getElementById('nav-topup');
-  if (!el) return;
-  el.style.cursor = 'pointer';
-  el.addEventListener('click', function() { window.location.href = 'leaderboards.html'; });
-  el.addEventListener('keydown', function(e) {
-    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); window.location.href = 'leaderboards.html'; }
-  });
-})();
-
-// Offers — keep existing toast behaviour
-['nav-offers', 'nav-account'].forEach(function(id) {
-  const el = document.getElementById(id);
   if (!el) return;
   el.addEventListener('click', function() { showToast('✨ Coming Soon'); });
   el.addEventListener('keydown', function(e) {
     if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); showToast('✨ Coming Soon'); }
   });
-});
+})();
+
+// Offers — link to offers.html
+(function() {
+  const el = document.getElementById('nav-offers');
+  if (!el) return;
+  el.addEventListener('click', function() { window.location.href = 'pages/offers.html'; });
+  el.addEventListener('keydown', function(e) {
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); window.location.href = 'pages/offers.html'; }
+  });
+})();
+
+// Account — Coming Soon
+(function() {
+  const el = document.getElementById('nav-account');
+  if (!el) return;
+  el.addEventListener('click', function() { showToast('✨ Coming Soon'); });
+  el.addEventListener('keydown', function(e) {
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); showToast('✨ Coming Soon'); }
+  });
+})();
 
 // More link
 (function() {
