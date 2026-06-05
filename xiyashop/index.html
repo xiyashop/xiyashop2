@@ -1119,7 +1119,9 @@ main {
 }
 /* Input wrapper */
 .search-input-wrap {
-  flex: 1;
+  flex: 1 1 0;
+  min-width: 0;
+  max-width: calc(100% - 80px);
   position: relative;
   display: flex;
   align-items: center;
