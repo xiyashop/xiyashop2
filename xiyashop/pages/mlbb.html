@@ -463,7 +463,7 @@ body {
 .wa-btns { display:flex; gap:7px; }
 .wa-join-btn {
   flex:1; padding:8px; border-radius:999px; border:none;
-  background:linear-gradient(135deg,#22c55e,#16a34a); color:white;
+ background:linear-gradient(135deg,#f472b6,#a855f7); color:white;
   font-size:12px; font-weight:700; cursor:pointer; text-decoration:none;
   display:flex; align-items:center; justify-content:center; transition:all 0.2s;
 }
@@ -678,7 +678,7 @@ body {
 <!-- ── WA POPUP ── -->
 <div class="wa-popup" id="waPopup">
   <div class="wa-popup-header">
-    <div class="wa-icon">💬</div>
+    <div class="wa-icon"><img src="favicon.png" style="width:22px;height:22px;object-fit:contain;border-radius:50%;"></div>
     <strong>Join our WhatsApp Channel 💖</strong>
   </div>
   <p>Get daily updates, giveaways &amp; exclusive deals!</p>
@@ -1035,6 +1035,19 @@ function getIdInfo(cId) {
 function handleCheckout() {
   const keys = Object.keys(cart);
   if (!keys.length) { showToast('⚠️ Please select at least one pack'); return; }
+  const cats = [...new Set(Object.values(cart).map(c => c.category))];
+if (cats.includes('ID Server')) {
+  const missing = idEntries['idEntriesContainer'].some(e => !e.id.trim() || !e.server.trim());
+  if (missing) { showToast('⚠️ Please enter your Player ID & Server ID'); return; }
+}
+if (cats.includes('First Top-Up')) {
+  const missing = idEntries['ftIdEntriesContainer'].some(e => !e.id.trim() || !e.server.trim());
+  if (missing) { showToast('⚠️ Please enter your Player ID & Server ID'); return; }
+}
+if (cats.includes('Starlight')) {
+  const missing = idEntries['slIdEntriesContainer'].some(e => !e.id.trim() || !e.server.trim());
+  if (missing) { showToast('⚠️ Please enter your Player ID & Server ID'); return; }
+}
   let lines = '', total = 0;
   keys.forEach(k => {
     const item = cart[k];
@@ -1042,7 +1055,6 @@ function handleCheckout() {
     lines += `• ${item.pack.name}${/^\d/.test(item.pack.name)?'💎':''}${subStr} x${item.qty} = ₹${(item.pack.offer*item.qty).toLocaleString('en-IN')}\n`;
     total += item.pack.offer * item.qty;
   });
-  const cats = [...new Set(Object.values(cart).map(c => c.category))];
   let idInfo = '';
   if (cats.includes('ID Server'))    idInfo += '\n' + getIdInfo('idEntriesContainer');
   if (cats.includes('First Top-Up')) idInfo += '\n' + getIdInfo('ftIdEntriesContainer');
